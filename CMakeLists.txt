@@ -72,7 +72,7 @@ endif()
 
 # executable / library
 # add_executable(${PROJECT_NAME})
-add_library(${PROJECT_NAME} src/public/VectorT.h src/public/Vector3.h)
+add_library(${PROJECT_NAME} src/Vec.h src/Vector3.h src/MathF.h )
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${${PROJECT_NAME}_version})
 set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION ${${PROJECT_NAME}_soversion})

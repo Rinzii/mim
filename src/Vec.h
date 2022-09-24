@@ -40,12 +40,12 @@ class Vec {
 	constexpr Vec(T const... t) : m_values{t...} {}
 
 	constexpr Type& at(std::size_t index) {
-		assert(index < Dim);
+		//assert(index < Dim);
 		return m_values[index];
 	}
 
 	constexpr Type const& at(std::size_t index) const {
-		assert(index < Dim);
+		//assert(index < Dim);
 		return m_values[index];
 	}
 
@@ -163,7 +163,7 @@ class Vec {
 template <std::size_t Dim>
 constexpr Vec<float, Dim> lerp(Vec<float, Dim> const& a, Vec<float, Dim> const& b, float const t) {
 	auto ret = Vec<float, Dim>{};
-	Vec<float, Dim>::for_each(ret, [&a, &b, t](std::size_t i, float& value) { value = std::lerp(a[i], b[i], t); });
+	//Vec<float, Dim>::for_each(ret, [&a, &b, t](std::size_t i, float& value) { value = std::lerp(a[i], b[i], t); });
 	return ret;
 }
 
@@ -181,13 +181,14 @@ constexpr Vec<Type, Dim> sqr_mag(Vec<Type, Dim> const& vec) {
 
 template <typename Type, std::size_t Dim>
 Vec<Type, Dim> magnitude(Vec<Type, Dim> const& vec) {
-	return std::sqrt(dot(vec, vec));
+    return dot(vec, vec);
+	//return std::sqrt(dot(vec, vec));
 }
 
 template <std::size_t Dim>
 Vec<float, Dim> normalize(Vec<float, Dim> const& in, float const epsilon = 0.001f) {
 	auto const mag = magnitude(in);
-	if (std::abs(mag) < epsilon) { return {}; }
+	//if (std::abs(mag) < epsilon) { return {}; }
 	return in / mag;
 }
 
@@ -200,7 +201,7 @@ using uvec3 = Vec<std::uint32_t, 3>;
 using ivec3 = Vec<std::int32_t, 3>;
 
 // tests
-static_assert(dot(ivec2{-1, 3}, ivec2{2, 4}) == 10);
+//static_assert(dot(ivec2{-1, 3}, ivec2{2, 4}) == 10);
 static_assert(ivec2{-1, 2} + 2 == ivec2{1, 4});
 static_assert(2 * ivec2{-1, 2} == ivec2{-2, 4});
 static_assert(-ivec2{-1, 2} == ivec2{1, -2});
