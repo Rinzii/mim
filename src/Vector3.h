@@ -52,7 +52,7 @@ namespace math
         }
 
         friend constexpr Vector3 operator/(Vector3 const& a, Vector3 const& b) noexcept {
-            if (b.X == 0.0 || b.X == 0.0 || b.X == 0.0)
+            if (b.X == T{0} || b.X == T{0} || b.X == T{0})
                 throw std::runtime_error("Math Error: Divide by zero error.\n");
             return { a.X / b.X, a.Y / b.Y, a.Z / b.Z };
         }
@@ -99,7 +99,7 @@ namespace math
 
         constexpr Vector3& operator/=(Vector3 const& rhs) noexcept {
 
-            if (rhs.X != 0.0 && rhs.Y != 0.0 && rhs.Z != 0.0)
+            if (rhs.X != T{0} && rhs.Y != T{0} && rhs.Z != T{0})
             {
                 X /= rhs.X;
                 Y /= rhs.Y;
@@ -136,7 +136,7 @@ namespace math
         }
 
         constexpr Vector3& operator/=(T const& type) noexcept {
-            if (type != 0.0)
+            if (type != T{0})
             {
                 X /= type;
                 Y /= type;
@@ -205,7 +205,7 @@ namespace math
     }
 
     template <std::floating_point T>
-    bool almost_equal(T x, T y, int ulp = 1) noexcept {
+    bool almost_equal(T x, T y, int ulp = T{1}) noexcept {
         constexpr auto ϵ = std::numeric_limits<T>::epsilon();
         return std::abs(x - y) <= ϵ * std::abs(x + y) * ulp
                || std::abs(x - y) <= std::numeric_limits<T>::min();
