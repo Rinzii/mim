@@ -73,6 +73,13 @@ namespace math
         *	Assignment Operators
         ****************************************/
 
+        constexpr Vector3& operator=(Vector3 const& rhs) noexcept {
+            X = rhs.X;
+            Y = rhs.Y;
+            Z = rhs.Z;
+            return *this;
+        }
+
         constexpr Vector3& operator+=(Vector3 const& rhs) noexcept {
             X += rhs.X;
             Y += rhs.Y;
