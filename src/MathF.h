@@ -23,8 +23,8 @@ namespace mathF
     template<typename T> inline constexpr T NegativeInfinity = T{-1} * std::numeric_limits<T>::infinity();
     template<typename T> inline constexpr T qNaN = std::numeric_limits<T>::quiet_NaN();
     template<typename T> inline constexpr T sNaN = std::numeric_limits<T>::signaling_NaN();
-    template<class T> inline constexpr T Epsilon = std::numeric_limits<T>::epsilon();
-    template<class T> [[maybe_unused]] inline constexpr T ϵ = std::numeric_limits<T>::epsilon();
+    template<typename T> inline constexpr T Epsilon = std::numeric_limits<T>::epsilon();
+    template<typename T> [[maybe_unused]] inline constexpr T ϵ = std::numeric_limits<T>::epsilon();
 
     /**
      * Free Functions for general generic math
@@ -58,8 +58,8 @@ namespace mathF
     }
 
     template <VecTypes T>
-    constexpr inline T LerpUnclamped(T a, T b, T t) {
-        return a + (b - a) * t;
+    constexpr inline T LerpClamped(T a, T b, T t) {
+        return a + (b - a) * Clamp01<T>(t);
     }
 
     // Repeats the value t, so t is never larger than length and never smaller than 0.
