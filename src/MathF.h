@@ -61,6 +61,15 @@ namespace mathF
     constexpr inline T LerpClamped(T a, T b, T t) {
         return a + (b - a) * Clamp01<T>(t);
     }
+	
+	template <VecTypes T>
+	constexpr inline T LerpAngle(T a, T b, T t) {
+		auto num = Repeat(b - a, T{360});
+		if (num > T{-180})
+			num -= T{360};
+		return a + num * Clamp01(t);
+	}
+		
 
     // Repeats the value t, so t is never larger than length and never smaller than 0.
     template <VecTypes T>
