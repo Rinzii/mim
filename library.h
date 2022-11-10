@@ -1,0 +1,6 @@
+#ifndef MATHEMATICAL_LIBRARY_H
+#define MATHEMATICAL_LIBRARY_H
+
+void hello();
+
+#endif //MATHEMATICAL_LIBRARY_H
