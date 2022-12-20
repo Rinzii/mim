@@ -1,6 +1,6 @@
 #pragma once
 
-namespace numerics
+namespace mim
 {
     template <typename T>
     struct vector1

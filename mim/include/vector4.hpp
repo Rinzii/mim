@@ -1,11 +1,13 @@
 #pragma once
 
-namespace numerics
+namespace mim
 {
     template <typename T>
-    struct vector2
+    struct vector4
     {
         T x;
         T y;
+        T z;
+        T w;
     };
 }

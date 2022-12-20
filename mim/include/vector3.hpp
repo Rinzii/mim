@@ -9,7 +9,7 @@
 // All data structures in numerics should only do the bare minimum and not
 // handle any operations more complex than basic mathematics. All complex operations
 // should be handled by math.hpp.
-namespace numerics
+namespace mim
 {
     template <typename T>
     struct vector3

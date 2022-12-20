@@ -8,7 +8,7 @@
 // TODO: We should instead create everything such that Math handles all forms
 //       of math and data types should only implement there basic functionality.
 
-namespace numerics
+namespace mim
 {
 
 }

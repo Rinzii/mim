@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace numerics
+namespace mim
 {
     struct float16
     {
