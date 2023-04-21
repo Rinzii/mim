@@ -2,7 +2,7 @@
 
 namespace mim
 {
-    struct matrix3
+    struct matrix3f
     {
         float m11; float m12; float m13;
         float m21; float m22; float m23;

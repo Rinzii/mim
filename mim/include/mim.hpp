@@ -1,16 +1,9 @@
+// Global include of the mim library.
+// Basically gives you everything mim has to offer.
 #pragma once
 
-#include <cmath>
-#include <climits>
-#include <cfloat>
-#include <limits>
-#include <cassert>
+#include "float16.hpp"
 
-#include "vector1.hpp"
-#include "vector2.hpp"
-#include "vector3.hpp"
-#include "vector4.hpp"
+#include "vec.hpp"
 
-#include "matrix2.hpp"
-#include "matrix3.hpp"
-#include "matrix4.hpp"
+#include "matrix.hpp"
