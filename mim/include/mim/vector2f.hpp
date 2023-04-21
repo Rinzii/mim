@@ -5,7 +5,7 @@ namespace mim
     // forward declaration
     struct vector3f;
     struct vector4f;
-    struct vectorT;
+    struct VectorT;
 }
 
 namespace mim

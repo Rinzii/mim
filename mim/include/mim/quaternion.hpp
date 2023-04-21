@@ -7,4 +7,6 @@ namespace mim
     {
         float x, y, z, w;
     };
+
+    using quat = quaternion;
 }

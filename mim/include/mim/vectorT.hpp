@@ -4,21 +4,9 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <algorithm>
+#include <numeric>
 
-/**
- * \class VectorT
- * \brief A Vector of dimension Dim and type T.
- * 
- * \tparam Dim The dimension of the Vector.
- * \tparam T The type of the Vector.
- * 
- * This is a simple Vector class that provides generic Vector operations.
- * It is not as efficent as our specialized Vectors for floating point types.
- * It does provide a generic way to work with VectorTtors of any dimension and type.
- * 
- * \note If you are working with floating point types, you should use the specialized Vector#f (replace # with the dim) classes instead.
- * 
-*/
 template <std::size_t Dim, typename T>
 struct VectorT
 {
@@ -32,8 +20,6 @@ struct VectorT
     static constexpr std::size_t size() noexcept { return size_v; }
 
     VectorT() noexcept = default;
-
-    // TODO: Add constructors for vector2f, vector3f, and vector4f.
 
     explicit VectorT(T value) noexcept
         : m_data{} // zero-initialize the array
