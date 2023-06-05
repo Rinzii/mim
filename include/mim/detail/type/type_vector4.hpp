@@ -373,7 +373,7 @@ namespace mim
 
     template<qualifier Q>
     MIM_CONSTEXPR VectorT<4, bool, Q> operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
-} // namespace riot
+} // namespace mim
 
-#include "math/detail/type_vector4.inl"
-#include "math/detail/func_vector.inl"
+#include "mim/detail/type/type_vector4.inl"
+#include "mim/detail/func/func_vector4.inl"

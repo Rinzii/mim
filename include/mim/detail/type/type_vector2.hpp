@@ -337,7 +337,7 @@ namespace mim {
 
     template <qualifier Q>
     MIM_CONSTEXPR VectorT<2, bool, Q> operator || (VectorT<2, bool, Q> const& v1, VectorT<2, bool, Q> const& v2);
-} // namespace riot
+} // namespace mim
 
-#include "math/detail/type_vector2.inl"
-#include "math/detail/func_vector.inl"
+#include "mim/detail/type/type_vector2.inl"
+#include "mim/detail/func/func_vector2.inl"

@@ -815,4 +815,4 @@ namespace mim
     {
         return VectorT<3, bool, Q>(v1.x || v2.x, v1.y || v2.y, v1.z || v2.z);
     }
-} // riot
+} // namespace mim

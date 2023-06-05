@@ -333,7 +333,7 @@ namespace mim {
     MIM_CONSTEXPR bool operator || (VectorT<3, T, Q> const & v1, VectorT<3, T, Q> const & v2);
 
 #pragma endregion Boolean Operators
-} // namespace riot
+} // namespace mim
 
-#include "math/detail/type_vector3.inl"
-#include "math/detail/func_vector.inl"
+#include "mim/detail/type/type_vector3.inl"
+#include "mim/detail/func/func_vector3.inl"

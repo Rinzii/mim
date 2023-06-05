@@ -725,4 +725,4 @@ namespace mim
         return VectorT<2, bool, Q>(v1.x || v2.x, v1.y || v2.y);
     }
 
-} // riot
+} // namespace mim

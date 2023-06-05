@@ -1,11 +1,16 @@
+# User Specific Generated Files
 **/.vs/*
 **/.vscode/*
 **/.idea/*
+.idea/*
+.vs/*
+.vscode/*
 build/*
 out/*
 .cache
 .DS_Store
 
+# User Specific Configuration Files
 CMakeSettings.json
 compile_commands.json
 /CMakePresets.json
@@ -47,11 +52,11 @@ compile_commands.json
 
 ### JetBrains Specific
 
-.idea/*
-
 # File-based project format
 *.iws
 
 # CMake
+# This is the default naming convention use for generating cmake builds.
+# If the user did not configure there project properly then this is here to prevent an accidental push of these files
 cmake-build-*/
 
