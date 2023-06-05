@@ -1,5 +1,5 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
+

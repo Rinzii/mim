@@ -8,7 +8,7 @@
 #include <cstdint>
 
 
-#if defined(RIOT_ARCH_SSE2)
+#if defined(MIM_ARCH_SSE2)
 #include <emmintrin.h>
 #endif
 

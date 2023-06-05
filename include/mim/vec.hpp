@@ -1,14 +1,14 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
-#include "math/detail/qualifier.hpp"
+#include "mim/internal/setup.hpp"
+#include "mim/detail/qualifier.hpp"
 
-#include "math/vec1.hpp"
-#include "math/vec2.hpp"
-#include "math/vec3.hpp"
-#include "math/vec4.hpp"
+#include "mim/vec1.hpp"
+#include "mim/vec2.hpp"
+#include "mim/vec3.hpp"
+#include "mim/vec4.hpp"
 
 namespace mim
 {

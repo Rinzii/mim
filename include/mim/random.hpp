@@ -1,8 +1,8 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
+#include "mim/internal/setup.hpp"
 
 namespace mim {
 
@@ -10,9 +10,6 @@ namespace mim {
 
     // https://www.pcg-random.org/index.html
     // https://en.wikipedia.org/wiki/Permuted_congruential_generator
-    class RIOT_API random
-    {
 
-    };
 
 } // riot

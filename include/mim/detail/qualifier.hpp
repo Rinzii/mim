@@ -1,10 +1,9 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
-#include "math/internal/setup.hpp"
-#include "math/simd/simdSetup.hpp"
+#include "mim/internal/setup.hpp"
+#include "mim/simd/simdSetup.hpp"
 
 namespace mim
 {
@@ -15,7 +14,7 @@ namespace mim
         packed_mediump,
         packed_lowp,
 
-#if defined(RIOT_SIMD)
+#if defined(MIM_SIMD)
         aligned_highp,
         aligned_mediump,
         aligned_lowp,
@@ -27,7 +26,7 @@ namespace mim
         lowp = packed_lowp,
         packed = packed_highp,
 
-#if defined(RIOT_SIMD)
+#if MIM_SIMD
         defaultp = aligned_highp,
 #else
         defaultp = packed_highp,
@@ -42,27 +41,27 @@ namespace mim
 
     namespace detail
     {
-        template <riot::qualifier P>
+        template <qualifier P>
         struct IsAligned
         {
             static const bool value = false;
         };
 
-#if RIOT_SIMD
+#if MIM_SIMD
         template <>
-        struct IsAligned<riot::aligned_highp>
+        struct IsAligned<aligned_highp>
         {
             static const bool value = true;
         };
 
         template <>
-        struct IsAligned<riot::aligned_mediump>
+        struct IsAligned<aligned_mediump>
         {
             static const bool value = true;
         };
 
         template <>
-        struct IsAligned<riot::aligned_lowp>
+        struct IsAligned<aligned_lowp>
         {
             static const bool value = true;
         };
@@ -77,7 +76,7 @@ namespace mim
             };
         };
 
-#if !defined(RIOT_COMPILER_NO_ALIGNOF)
+#if !defined(MIM_COMPILER_NO_ALIGNOF)
         template<size_t S, typename T>
         struct Storage<S, T, true>
         {
@@ -97,82 +96,82 @@ namespace mim
         };
 #endif
 
-#if RIOT_SIMD_SSE2
+#if MIM_SIMD_SSE2
 
         template<>
         struct Storage<4, float, true>
         {
-            using type = riot_f32vec4;
+            using type = MIM_f32vec4;
         };
 
         template<>
         struct Storage<4, int32_t, true>
         {
-            using type = riot_i32vec4;
+            using type = MIM_i32vec4;
         };
 
         template<>
         struct Storage<4, uint32_t, true>
         {
-            using type = riot_u32vec4;
+            using type = MIM_u32vec4;
         };
 
         template<>
         struct Storage<2, double, true>
         {
-            using type = riot_f32vec2;
+            using type = MIM_f32vec2;
         };
 
         template<>
         struct Storage<2, int64_t, true>
         {
-            using type = riot_i64vec2;
+            using type = MIM_i64vec2;
         };
 
         template<>
         struct Storage<2, uint64_t, true>
         {
-            using type = riot_u64vec2;
+            using type = MIM_u64vec2;
         };
 #endif
-#if RIOT_SIMD_AVX
+#if MIM_SIMD_AVX
         template<>
         struct Storage<4, double, true>
         {
-            using type = riot_f64vec4;
+            using type = MIM_f64vec4;
         };
 #endif
-#if RIOT_SIMD_AVX2
+#if MIM_SIMD_AVX2
         template<>
         struct Storage<4, int64_t, true>
         {
-            using type = riot_i64vec4;
+            using type = MIM_i64vec4;
         };
 
         template<>
         struct Storage<4, uint64_t, true>
         {
-            using type = riot_u64vec4;
+            using type = MIM_u64vec4;
         };
 #endif
-#if RIOT_SIMD_NEON
+#if MIM_SIMD_NEON
 
         template<>
         struct Storage<4, float, true>
         {
-            using type = riot_f32vec4;
+            using type = MIM_f32vec4;
         };
 
         template<>
         struct Storage<4, int32_t, true>
         {
-            using type = riot_i32vec4;
+            using type = MIM_i32vec4;
         };
 
         template<>
         struct Storage<4, uint32_t, true>
         {
-            using type = riot_u32vec4;
+            using type = MIM_u32vec4;
         };
 #endif
 

@@ -1,11 +1,11 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
 #include <cstdint>
 #include <cstring>
 
-#include "math/internal/float16compressor.hpp"
+#include "mim/internal/float16compressor.hpp"
 
 // TODO: The half class needs to be further built on, but I need to use it internally more before I will improve it.
 

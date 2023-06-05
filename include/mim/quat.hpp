@@ -1,7 +1,12 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
+#include "mim/internal/setup.hpp"
+#include "mim/detail/qualifier.hpp"
+#include "mim/half.hpp"
+
+#include "mim/detail/type/type_quaternion.hpp"
 
 namespace mim
 {

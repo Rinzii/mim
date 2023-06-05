@@ -1,12 +1,12 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
-#include "math/detail/qualifier.hpp"
-#include "math/half.hpp"
+#include "mim/internal/setup.hpp"
+#include "mim/detail/qualifier.hpp"
+#include "mim/half.hpp"
 
-#include "math/detail/type_vector3.hpp"
+#include "mim/detail/type/type_vector3.hpp"
 
 namespace mim
 {

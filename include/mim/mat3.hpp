@@ -1,6 +1,16 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
-#ifndef MIM_MAT3_H
-#define MIM_MAT3_H
+#pragma once
 
-#endif // MIM_MAT3_H
+#include "mim/internal/setup.hpp"
+#include "mim/detail/qualifier.hpp"
+#include "mim/half.hpp"
+
+#include "mim/detail/type/type_matrix3x2.hpp"
+#include "mim/detail/type/type_matrix3x3.hpp"
+#include "mim/detail/type/type_matrix3x4.hpp"
+
+namespace mim
+{
+
+}

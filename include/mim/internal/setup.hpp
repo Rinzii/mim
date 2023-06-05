@@ -1,30 +1,23 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE.txt)
 
-#ifndef RIOT_MATH_SETUP_HPP
+#pragma once
 
 #include <cassert>
 #include <cstddef>
-
-#define RIOT_MATH_VERSION_MAJOR 0
-#define RIOT_MATH_VERSION_MINOR 1
-#define RIOT_MATH_VERSION_PATCH 0
-
-#define RIOT_MATH_VERSION (RIOT_MATH_VERSION_MAJOR * 100) + (RIOT_MATH_VERSION_MINOR * 10) + (RIOT_MATH_VERSION_PATCH)
-
-#define RIOT_MATH_SETUP_HPP RIOT_MATH_VERSION
-
-
-#define RIOT_MATH_DISABLE   0
-#define RIOT_MATH_ENABLE    1
-
-
-#include "system/config/Compiler.hpp"
-#include "system/config/CompilerTraits.hpp"
-#include "system/config/Platform.hpp"
-#include "system/config/Architecture.hpp"
-
 #include <cstdint>
 #include <type_traits>
+
+// System Detection
+#include "mim/internal/config/architecture.hpp"
+#include "mim/internal/config/compiler.hpp"
+#include "mim/internal/config/compiler_features.hpp"
+#include "mim/internal/config/compiler_traits.hpp"
+#include "mim/internal/config/platform.hpp"
+
+
+// Active states
+#define MIM_DISABLE   0
+#define MIM_ENABLE    1
 
 
 
@@ -66,19 +59,13 @@ namespace riot
 
 
 
-#if defined(RIOT_SIMD)
-#define RIOT_MATH_SIMD RIOT_MATH_ENABLE
+#if defined(MIM_SIMD)
+    #define MIM_SIMD MIM_ENABLE
 #else
-#define RIOT_MATH_SIMD RIOT_MATH_DISABLE
+    #define MIM_SIMD MIM_DISABLE
 #endif
 
 
 
-#define RIOT_MATH_HIGHP		1
-#define RIOT_MATH_MEDIUMP	2
-#define RIOT_MATH_LOWP		3
 
 
-
-
-#endif // RIOT_MATH_SETUP_HPP

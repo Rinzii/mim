@@ -84,7 +84,17 @@ set(mim_detail_headers
         include/mim/detail/qualifier.hpp
         )
 
+set(mim_internal_config_headers
+        include/mim/internal/config/architecture.hpp
+        include/mim/internal/config/compiler.hpp
+        include/mim/internal/config/compiler_features.hpp
+        include/mim/internal/config/compiler_traits.hpp
+        include/mim/internal/config/platform.hpp
+        )
+
 set(mim_internal_headers
+        ${mim_internal_config_headers}
+
         include/mim/internal/float16compressor.hpp
         include/mim/internal/functionpacker.hpp
         include/mim/internal/functionpacker.inl
