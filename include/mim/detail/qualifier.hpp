@@ -37,7 +37,7 @@ namespace mim
 
     template<size_t S, typename T, qualifier Q = defaultp> struct VectorT;
     template<size_t C, size_t R, typename T, qualifier Q = defaultp> struct MatrixT;
-    template<typename T, qualifier Q = defaultp> struct QuaternionT;
+    template<typename T, qualifier Q = defaultp> struct Quaternion;
 
     namespace detail
     {

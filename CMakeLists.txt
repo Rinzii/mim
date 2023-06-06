@@ -13,20 +13,24 @@ set(build_version 0.0.3)
 
 project(mim VERSION ${build_version})
 
-
 set(is_root_project OFF)
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+# Check if we are the root project
+if(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
   set(is_root_project ON)
 endif()
 
+# TO THE IMPLEMENTOR: If MIM_BUILD_TEST is set to OFF then googletest can be deleted from the ext folder.
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
+option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
 
 include(GNUInstallDirs)
 
 configure_file(src/version.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.hpp" @ONLY)
 
+# include the global configuration file
+include(cmake/GlobalConfig.cmake)
 
 
 add_library(${PROJECT_NAME})
@@ -44,7 +48,7 @@ include(header_list.cmake)
 target_sources(${PROJECT_NAME} PRIVATE ${mim_headers})
 
 target_sources(${PROJECT_NAME} PRIVATE
-        src/_dummy.cpp
+        src/random.cpp
         )
 
 
@@ -62,6 +66,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL GNU)
 endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+
+if (MIM_BUILD_TEST)
+  enable_testing()
+  add_subdirectory(ext)
+  add_subdirectory(test)
+endif()
 
 if(MIM_INSTALL)
   include(GNUInstallDirs)

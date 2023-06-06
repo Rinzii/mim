@@ -5,7 +5,13 @@
 #include "mim/internal/setup.hpp"
 
 #include "mim/mimMathDefs.hpp"
+
+#include "mim/detail/compute/compute_functors.hpp"
+
 #include "mim/half.hpp"
+#include "mim/vec.hpp"
+#include "mim/mat.hpp"
+#include "mim/quat.hpp"
 
 
 #include <cmath>
@@ -29,44 +35,44 @@ namespace mim
         return (rad * T{ 180 }) / MIM_PI<T>;
     }
 
-    i32 floatBitsToInt32(float const& f)
+    detail::i32 floatBitsToInt32(float const& f)
     {
         union
         {
             float in;
-            i32 out;
+            detail::i32 out;
         } u;
         u.in = f;
         return u.out;
     }
 
-    float int32BitsToFloat(i32 const& i)
+    float int32BitsToFloat(detail::i32 const& i)
     {
         union
         {
-            i32 in;
+            detail::i32 in;
             float out;
         } u;
         u.in = i;
         return u.out;
     }
 
-    u32 floatBitsUInt32(float const& f)
+    detail::u32 floatBitsUInt32(float const& f)
     {
         union
         {
             float in;
-            u32 out;
+            detail::u32 out;
         } u;
         u.in = f;
         return u.out;
     }
 
-    float uint32BitsToFloat(u32 const& i)
+    float uint32BitsToFloat(detail::u32 const& i)
     {
         union
         {
-            u32 in;
+            detail::u32 in;
             float out;
         } u;
         u.in = i;
@@ -245,7 +251,7 @@ namespace mim
 
     // This custom implementation is significantly faster than std::pow for integers.
     template <>
-    MIM_CONSTEXPR i32 pow<i32, i32>(i32& base, i32& power)
+    MIM_CONSTEXPR detail::i32 pow<detail::i32, detail::i32>(detail::i32& base, detail::i32& power)
     {
         // TODO: Validate this implementation for correctness.
         // Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
@@ -277,7 +283,7 @@ namespace mim
 
     // This custom implementation is significantly faster than std::pow for integers.
     template <>
-    MIM_CONSTEXPR u32 pow<u32, u32>(u32& base, u32& power)
+    MIM_CONSTEXPR detail::u32 pow<detail::u32, detail::u32>(detail::u32& base, detail::u32& power)
     {
         // TODO: Validate this implementation for correctness.
         // Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
@@ -293,7 +299,7 @@ namespace mim
             return 1;
         }
 
-        int result = base;
+        detail::u32 result = base;
         while (power > 1)
         {
             if (power & 1)
@@ -327,6 +333,12 @@ namespace mim
         return ::std::sinf(val);
     }
 
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> sin(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(sin, val);
+	}
+
     template <typename T>
     MIM_CONSTEXPR T cos(const T& val)
     {
@@ -334,10 +346,18 @@ namespace mim
     }
 
     template <>
-    MIM_CONSTEXPR float cos<float>(const float& val)
+    MIM_CONSTEXPR float cos(const float& val)
     {
         return ::std::cosf(val);
     }
+	
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> cos(const VectorT<S, T, Q>& val)
+    {
+        return detail::functor1<VectorT, S, T, T, Q>::compute(cos, val);
+    }
+
 
     template <typename T>
     MIM_CONSTEXPR T tan(const T& val)
@@ -357,11 +377,23 @@ namespace mim
         return ::std::asin(val);
     }
 
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> tan(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(tan, val);
+	}
+
     template <>
     MIM_CONSTEXPR float asin<float>(const float& val)
     {
         return ::std::asinf(val);
     }
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> asin(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(asin, val);
+	}
 
     template <typename T>
     MIM_CONSTEXPR T acos(const T& val)
@@ -374,6 +406,12 @@ namespace mim
     {
         return ::std::acosf(val);
     }
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> acos(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(acos, val);
+	}
 
     // Safe version of acos won't return NaN if the input is out of range.
     template <typename T>
@@ -426,6 +464,12 @@ namespace mim
         return ::std::atanf(val);
     }
 
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> atan(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(atan, val);
+	}
+
     template <typename T>
     MIM_CONSTEXPR T atan2(const T& y, const T& x)
     {
@@ -437,6 +481,84 @@ namespace mim
     {
         return ::std::atan2f(y, x);
     }
+
+	template <typename T>
+	MIM_CONSTEXPR T cosh(const T& val)
+    {
+		return ::std::cosh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> cosh(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(cosh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T sinh(const T& val)
+	{
+		return ::std::cosh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> sinh(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(sinh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T tanh(const T& val)
+	{
+		return ::std::tanh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> tanh(const VectorT<S, T, Q>& val)
+	{
+		return detail::functor1<VectorT, S, T, T, Q>::compute(tanh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T acosh(const T& val)
+    {
+		return ::std::acosh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> acosh(const VectorT<S, T, Q>& val)
+    {
+		return detail::functor1<VectorT, S, T, T, Q>::compute(acosh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T asinh(const T& val)
+    {
+		return ::std::asinh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> asinh(const VectorT<S, T, Q>& val)
+    {
+		return detail::functor1<VectorT, S, T, T, Q>::compute(asinh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T atanh(const T& val)
+    {
+		return ::std::atanh(val);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	MIM_CONSTEXPR VectorT<S, T, Q> atanh(const VectorT<S, T, Q>& val)
+    {
+		return detail::functor1<VectorT, S, T, T, Q>::compute(atanh, val);
+	}
+
+	template <typename T>
+	MIM_CONSTEXPR T exp(const T& val)
+    {
+		return ::std::exp(val);
+	}
 
     template <typename T>
     MIM_CONSTEXPR bool nearlyEquals (const T& a, const T& b, const T& epsilon = MIM_EPSILON<T>)
@@ -462,6 +584,12 @@ namespace mim
         // Specifically not using copysign as it tends to be slow when handling integer types.
         return (T{ 0 } < val) - (val < T{ 0 });
     }
+
+	template <typename T>
+	MIM_CONSTEXPR T inverse(const T& val)
+    {
+		return T{ 1 } / val;
+	}
 
     template<std::floating_point T>
     MIM_CONSTEXPR float distance(const T& a, const T& b)

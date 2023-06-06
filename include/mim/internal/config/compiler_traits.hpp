@@ -33,8 +33,6 @@
     #endif
 #endif
 
-
-
 #ifndef MIM_STATIC_ASSERT
     #if !defined(MIM_HAS_NO_STATIC_ASSERT)
         #define MIM_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
@@ -42,6 +40,14 @@
         #define MIM_STATIC_ASSERT(x, message) typedef char __CASSERT__##__LINE__[(x) ? 1 : -1]
     #else
         #define MIM_STATIC_ASSERT(expr, msg) assert(expr)
+    #endif
+#endif
+
+#ifndef MIM_ASSERT
+    #if !defined(MIM_HAS_NO_ASSERT)
+        #define MIM_ASSERT(expr) assert(expr)
+    #else
+        #define MIM_ASSERT(expr)
     #endif
 #endif
 
@@ -98,11 +104,7 @@
 
 #ifndef MIM_EXPLICIT
     #ifndef MIM_COMPILER_NO_EXPLICIT
-        #ifdef MIM_FORCE_EXPLICIT_CTOR
-            #define MIM_EXPLICIT explicit
-        #else
-            #define MIM_EXPLICIT
-        #endif
+        #define MIM_EXPLICIT explicit
     #else
         #define MIM_EXPLICIT
     #endif

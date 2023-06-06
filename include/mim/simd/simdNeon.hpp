@@ -1,14 +1,11 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #pragma once
 
-#include "system/core.hpp"
+#include "mim/internal/setup.hpp"
 
 #if RIOT_SIMD_NEON
 #include <arm_neon.h>
-
-
-
 
 
 #endif

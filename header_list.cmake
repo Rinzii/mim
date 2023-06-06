@@ -5,6 +5,7 @@
 
 
 set(mim_detail_compute_headers
+        include/mim/detail/compute/compute_functors.hpp
         include/mim/detail/compute/compute_matrix.hpp
         include/mim/detail/compute/compute_quaternion.hpp
         include/mim/detail/compute/compute_vector.hpp
@@ -57,6 +58,7 @@ set(mim_detail_type_headers
         include/mim/detail/type/type_matrix4x3.hpp
         include/mim/detail/type/type_matrix4x3.inl
         include/mim/detail/type/type_matrix4x4.hpp
+        include/mim/detail/type/type_matrix4x4.inl
 
         # Quaternion
         include/mim/detail/type/type_quaternion.hpp
@@ -91,9 +93,15 @@ set(mim_internal_config_headers
         include/mim/internal/config/compiler_traits.hpp
         include/mim/internal/config/platform.hpp
         )
+set(mim_internal_misc_headers
+        include/mim/internal/misc/pcg_random.hpp
+        include/mim/internal/misc/pcg_extras.hpp
+        include/mim/internal/misc/pcg_uint128.hpp
+        )
 
 set(mim_internal_headers
         ${mim_internal_config_headers}
+        ${mim_internal_misc_headers}
 
         include/mim/internal/float16compressor.hpp
         include/mim/internal/functionpacker.hpp

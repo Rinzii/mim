@@ -1,4 +1,4 @@
-// Copyright WizWorks, Inc. All Rights Reserved.
+// Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 // This code is heavily inspired by the code found here:
 // https://gist.github.com/rygorous/2156668
@@ -6,6 +6,8 @@
 #pragma once
 
 #include <cstdint>
+
+#include "mim/internal/setup.hpp"
 
 
 #if defined(MIM_ARCH_SSE2)
