@@ -71,7 +71,7 @@ endif()
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 if (MIM_DISABLE_FORCED_INLINING)
-  target_compile_definitions(${PROJECT_NAME} PUBLIC MIM_DISABLE_FORCED_INLINING
+  target_compile_definitions(${PROJECT_NAME} PUBLIC MIM_DISABLE_FORCED_INLINING)
 endif ()
 
 if (MIM_BUILD_TEST)
