@@ -139,8 +139,14 @@ struct VectorT<2, T, Q> {
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator>>=(VectorT<2, U, Q> const& v);
 
-	friend std::ostream& operator<<(std::ostream& os, VectorT<2, T, Q> const& v) { return os << "(" << v.x << ", " << v.y << ")"; }
+	friend std::ostream& operator<<(std::ostream& os, VectorT<2, T, Q> const& v);
 };
+
+template <typename T, qualifier Q>
+std::ostream& operator<<(std::ostream& os, VectorT<2, T, Q> const& v)
+{
+	return os << "(" << v.x << ", " << v.y << ")";
+}
 
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator+(VectorT<2, T, Q> const& v);

@@ -82,8 +82,8 @@ Quaternion<T, Q>::Quaternion(const VectorT<3, T, Q>& a1, const VectorT<3, T, Q>&
 
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q>::Quaternion(const VectorT<3, T, Q>& euler) {
-	VectorT<3, T, Q> c = mim::cos(euler * static_cast<T>(0.5));
-	VectorT<3, T, Q> s = mim::sin(euler * static_cast<T>(0.5));
+	VectorT<3, T, Q> c = cos(euler * static_cast<T>(0.5));
+	VectorT<3, T, Q> s = sin(euler * static_cast<T>(0.5));
 
 	w = c.x * c.y * c.z + s.x * s.y * s.z;
 	x = s.x * c.y * c.z - c.x * s.y * s.z;
@@ -133,8 +133,9 @@ template <typename U>
 constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator*=(const U& scalar) {}
 
 template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator+(const Quaternion<T, Q>& q) const {
-	return Quaternion<T, Q>(w + q.w, x + q.x, y + q.y, z + q.z);
+constexpr Quaternion<T, Q> operator+(const Quaternion<T, Q>& q)
+{
+	return q;
 }
 
 template <typename T, qualifier Q>
@@ -168,7 +169,7 @@ constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<3, T, Q>
 
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(VectorT<3, T, Q> const& v, Quaternion<T, Q> const& q) {
-	mim::inverse(q) * v;
+	inverse(q) * v;
 }
 
 template <typename T, qualifier Q>
