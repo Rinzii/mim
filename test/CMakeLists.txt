@@ -6,7 +6,7 @@ option(TEST_MIM_DISABLE_COMMON_TESTS "Disable mimMath tests" OFF)
 option(TEST_MIM_DISABLE_HALF_TESTS "Disable half tests" OFF)
 option(TEST_MIM_DISABLE_MATRIX_TESTS "Disable matrix tests" OFF)
 option(TEST_MIM_DISABLE_QUATERNION_TESTS "Disable quaternion tests" OFF)
-option(TEST_MIM_DISABLE_VECTOR_TESTS "Disable vector tests" YES)
+option(TEST_MIM_DISABLE_VECTOR_TESTS "Disable vector tests" OFF)
 
 message(STATUS "COMMON TESTS:     ${TEST_MIM_DISABLE_COMMON_TESTS}")
 message(STATUS "HALF TESTS:       ${TEST_MIM_DISABLE_HALF_TESTS}")
@@ -60,9 +60,6 @@ if (NOT TEST_MIM_DISABLE_VECTOR_TESTS )
             vec/vector4_tests.cpp
             )
 endif ()
-
-find_package(Threads REQUIRED)
-message(STATUS "Threads: ${CMAKE_THREAD_LIBS_INIT}")
 
 if(MIM_OS_WINDOWS)
   # For Windows: Prevent overriding the parent project's compiler/linker settings

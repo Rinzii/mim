@@ -4,15 +4,12 @@
 
 // TODO: Implement the matrix class.
 
-#include "mim/internal/setup.hpp"
 #include "mim/detail/qualifier.hpp"
 #include "mim/half.hpp"
+#include "mim/internal/setup.hpp"
 
 #include "mim/mat2.hpp"
 #include "mim/mat3.hpp"
 #include "mim/mat4.hpp"
 
-namespace mim
-{
-
-}
+namespace mim {}

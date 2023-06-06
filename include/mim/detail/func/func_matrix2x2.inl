@@ -2,7 +2,4 @@
 
 #include "mim/detail/qualifier.hpp"
 
-namespace mim
-{
-
-}
+namespace mim {}

@@ -7,5 +7,4 @@
 #if RIOT_SIMD_NEON
 #include <arm_neon.h>
 
-
 #endif

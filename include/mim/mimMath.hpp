@@ -350,7 +350,7 @@ namespace mim
     {
         return ::std::cosf(val);
     }
-	
+
 
 	template <std::size_t S, typename T, qualifier Q>
 	MIM_CONSTEXPR VectorT<S, T, Q> cos(const VectorT<S, T, Q>& val)

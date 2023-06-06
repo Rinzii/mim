@@ -11,7 +11,6 @@
 #include "mim/vec.hpp"
 
 // General functions
-#include "mim/mimMathDefs.hpp"
 #include "mim/mimMath.hpp"
+#include "mim/mimMathDefs.hpp"
 #include "mim/random.hpp"
-

@@ -24,6 +24,9 @@ endif()
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
 option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
+option(MIM_DISABLE_FORCED_INLINING "Disable forced inlining of functions in mim" OFF)
+
+
 
 include(GNUInstallDirs)
 
@@ -66,6 +69,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL GNU)
 endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+
+if (MIM_DISABLE_FORCED_INLINING)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC MIM_DISABLE_FORCED_INLINING
+endif ()
 
 if (MIM_BUILD_TEST)
   enable_testing()
