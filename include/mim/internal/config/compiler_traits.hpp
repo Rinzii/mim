@@ -151,83 +151,9 @@
 #define MIM_PRAGMA(x)
 #endif
 
-// ------------------------------------------------------------------------
-// MIM_DISABLE_VC_WARNING / MIM_RESTORE_VC_WARNING
-//
-// Disable and re-enable warning(s) within code.
-// This is simply a wrapper for VC++ #pragma warning(disable: nnnn) for the
-// purpose of making code easier to read due to avoiding nested compiler ifdefs
-// directly in code.
-//
-// Example usage:
-//     MIM_DISABLE_VC_WARNING(4127 3244)
-//     <code>
-//     MIM_RESTORE_VC_WARNING()
-//
-#ifndef MIM_DISABLE_VC_WARNING
-#if defined(_MSC_VER)
-#define MIM_DISABLE_VC_WARNING(w)                                                                                                                              \
-	MIM_PRAGMA(warning(push))                                                                                                                                  \
-	MIM_PRAGMA(warning(disable : w))
-#else
-#define MIM_DISABLE_VC_WARNING(w)
-#endif
-#endif
 
-#ifndef MIM_RESTORE_VC_WARNING
-#if defined(_MSC_VER)
-#define MIM_RESTORE_VC_WARNING() MIM_PRAGMA(warning(pop))
-#else
-#define MIM_RESTORE_VC_WARNING()
-#endif
-#endif
 
-#ifndef MIM_DISABLE_ALL_VC_WARNINGS
-#if defined(_MSC_VER)
-#define MIM_DISABLE_ALL_VC_WARNINGS() MIM_PRAGMA(warning(push, 0))
-#else
-#define MIM_DISABLE_ALL_VC_WARNINGS()
-#endif
-#endif
 
-#ifndef MIM_RESTORE_ALL_VC_WARNINGS
-#if defined(_MSC_VER)
-#define MIM_RESTORE_ALL_VC_WARNINGS() MIM_PRAGMA(warning(pop))
-#else
-#define MIM_RESTORE_ALL_VC_WARNINGS()
-#endif
-#endif
-
-// ------------------------------------------------------------------------
-// MIM_ENABLE_VC_WARNING_AS_ERROR / MIM_DISABLE_VC_WARNING_AS_ERROR
-//
-// Disable and re-enable treating a warning as error within code.
-// This is simply a wrapper for VC++ #pragma warning(error: nnnn) for the
-// purpose of making code easier to read due to avoiding nested compiler ifdefs
-// directly in code.
-//
-// Example usage:
-//     MIM_ENABLE_VC_WARNING_AS_ERROR(4996)
-//     <code>
-//     MIM_DISABLE_VC_WARNING_AS_ERROR()
-//
-#ifndef MIM_ENABLE_VC_WARNING_AS_ERROR
-#if defined(_MSC_VER)
-#define MIM_ENABLE_VC_WARNING_AS_ERROR(w)                                                                                                                      \
-	MIM_PRAGMA(warning(push))                                                                                                                                  \
-	MIM_PRAGMA(warning(error : w))
-#else
-#define MIM_ENABLE_VC_WARNING_AS_ERROR(w)
-#endif
-#endif
-
-#ifndef MIM_DISABLE_VC_WARNING_AS_ERROR
-#if defined(_MSC_VER)
-#define MIM_DISABLE_VC_WARNING_AS_ERROR() MIM_PRAGMA(warning(pop))
-#else
-#define MIM_DISABLE_VC_WARNING_AS_ERROR()
-#endif
-#endif
 
 // ------------------------------------------------------------------------
 // MIM_DISABLE_GCC_WARNING / MIM_RESTORE_GCC_WARNING
@@ -241,39 +167,33 @@
 //     MIM_RESTORE_GCC_WARNING()
 //
 #ifndef MIM_DISABLE_GCC_WARNING
-#if defined(MIM_COMPILER_GCC)
+#if defined(MIM_COMPILER_GNUC)
 #define MIMGCCWHELP0(x) #x
 #define MIMGCCWHELP1(x) MIMGCCWHELP0(GCC diagnostic ignored x)
 #define MIMGCCWHELP2(x) MIMGCCWHELP1(#x)
 #endif
 
-#if defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
-#define MIM_DISABLE_GCC_WARNING(w)                                                                                                                             \
-	MIM_PRAGMA("GCC diagnostic push")                                                                                                                          \
-	MIM_PRAGMA(MIMGCCWHELP2(w))
-#elif defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4004)
-#define MIM_DISABLE_GCC_WARNING(w) MIM_PRAGMA(MIMGCCWHELP2(w))
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
+#define MIM_DISABLE_GCC_WARNING(w)   \
+				_Pragma("GCC diagnostic push")  \
+				_Pragma(MIMGCCWHELP2(w))
+#elif defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4004)
+#define MIM_DISABLE_GCC_WARNING(w)   \
+				_Pragma(MIMGCCWHELP2(w))
 #else
 #define MIM_DISABLE_GCC_WARNING(w)
 #endif
 #endif
 
 #ifndef MIM_RESTORE_GCC_WARNING
-#if defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4006)
-#define MIM_RESTORE_GCC_WARNING() MIM_PRAGMA("GCC diagnostic pop")
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006)
+#define MIM_RESTORE_GCC_WARNING()    \
+				_Pragma("GCC diagnostic pop")
 #else
 #define MIM_RESTORE_GCC_WARNING()
 #endif
 #endif
 
-// ------------------------------------------------------------------------
-// MIM_DISABLE_ALL_GCC_WARNINGS / MIM_RESTORE_ALL_GCC_WARNINGS
-//
-// This isn't possible except via using _Pragma("GCC system_header"), though
-// that has some limitations in how it works. Another means is to manually
-// disable individual warnings within a GCC diagnostic push statement.
-// GCC doesn't have as many warnings as VC++ and EDG and so this may be feasible.
-// ------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------
 // MIM_ENABLE_GCC_WARNING_AS_ERROR / MIM_DISABLE_GCC_WARNING_AS_ERROR
@@ -287,30 +207,67 @@
 //     MIM_DISABLE_GCC_WARNING_AS_ERROR()
 //
 #ifndef MIM_ENABLE_GCC_WARNING_AS_ERROR
-#if defined(MIM_COMPILER_GCC)
+#if defined(MIM_COMPILER_GNUC)
 #define MIMGCCWERRORHELP0(x) #x
 #define MIMGCCWERRORHELP1(x) MIMGCCWERRORHELP0(GCC diagnostic error x)
 #define MIMGCCWERRORHELP2(x) MIMGCCWERRORHELP1(#x)
 #endif
 
-#if defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
-#define MIM_ENABLE_GCC_WARNING_AS_ERROR(w)                                                                                                                     \
-	MIM_PRAGMA("GCC diagnostic push")                                                                                                                          \
-	MIM_PRAGMA(MIMGCCWERRORHELP2(w))
-#elif defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4004)
-#define MIM_DISABLE_GCC_WARNING(w) MIM_PRAGMA(MIMGCCWERRORHELP2(w))
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
+#define MIM_ENABLE_GCC_WARNING_AS_ERROR(w)   \
+				_Pragma("GCC diagnostic push")  \
+				_Pragma(MIMGCCWERRORHELP2(w))
+#else
+#define MIM_ENABLE_GCC_WARNING_AS_ERROR(w)
+#endif
+
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4004)
+#define MIM_DISABLE_GCC_WARNING(w)   \
+				_Pragma(MIMGCCWERRORHELP2(w))
 #else
 #define MIM_DISABLE_GCC_WARNING(w)
 #endif
 #endif
 
 #ifndef MIM_DISABLE_GCC_WARNING_AS_ERROR
-#if defined(MIM_COMPILER_GCC) && (MIM_COMPILER_VERSION >= 4006)
-#define MIM_DISABLE_GCC_WARNING_AS_ERROR() MIM_PRAGMA("GCC diagnostic pop")
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006)
+#define MIM_DISABLE_GCC_WARNING_AS_ERROR()    \
+				_Pragma("GCC diagnostic pop")
 #else
 #define MIM_DISABLE_GCC_WARNING_AS_ERROR()
 #endif
 #endif
+
+
+
+#ifndef MIM_ENABLE_IGNORE_GCC_WARNING
+    #if defined(MIM_COMPILER_GNUC)
+        #define MIMGCCIGNOREHELP0(x) #x
+        #define MIMGCCIGNOREHELP1(x) MIMGCCIGNOREHELP0(GCC diagnostic ignored x)
+        #define MIMGCCIGNOREHELP2(x) MIMGCCIGNOREHELP1(#x)
+    #endif
+#endif
+
+#ifndef MIM_ENABLE_IGNORE_GCC_WARNING
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
+#define MIM_ENABLE_IGNORE_GCC_WARNING(w)   \
+                _Pragma("GCC diagnostic push")  \
+                _Pragma(MIMGCCIGNOREHELP2(w))
+#else
+#define MIM_ENABLE_IGNORE_GCC_WARNING(w)
+#endif
+#endif
+
+#ifndef MIM_DISABLE_IGNORE_GCC_WARNING
+#if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4004)
+#define MIM_DISABLE_IGNORE_GCC_WARNING   \
+                _Pragma("GCC diagnostic pop")
+#else
+#define MIM_DISABLE_IGNORE_GCC_WARNING
+#endif
+#endif
+
+
 
 // ------------------------------------------------------------------------
 // MIM_DISABLE_CLANG_WARNING / MIM_RESTORE_CLANG_WARNING
@@ -329,10 +286,10 @@
 #define MIMCLANGWHELP1(x) MIMCLANGWHELP0(clang diagnostic ignored x)
 #define MIMCLANGWHELP2(x) MIMCLANGWHELP1(#x)
 
-#define MIM_DISABLE_CLANG_WARNING(w)                                                                                                                           \
-	MIM_PRAGMA("clang diagnostic push")                                                                                                                        \
-	MIM_PRAGMA(MIMCLANGWHELP2(-Wunknown - warning - option))                                                                                                   \
-	MIM_PRAGMA(MIMCLANGWHELP2(w))
+#define MIM_DISABLE_CLANG_WARNING(w)   \
+				_Pragma("clang diagnostic push")  \
+				_Pragma(MIMCLANGWHELP2(-Wunknown-warning-option))\
+				_Pragma(MIMCLANGWHELP2(w))
 #else
 #define MIM_DISABLE_CLANG_WARNING(w)
 #endif
@@ -340,17 +297,20 @@
 
 #ifndef MIM_RESTORE_CLANG_WARNING
 #if defined(MIM_COMPILER_CLANG) || defined(MIM_COMPILER_CLANG_CL)
-#define MIM_RESTORE_CLANG_WARNING() MIM_PRAGMA("clang diagnostic pop")
+#define MIM_RESTORE_CLANG_WARNING()    \
+				_Pragma("clang diagnostic pop")
 #else
 #define MIM_RESTORE_CLANG_WARNING()
 #endif
 #endif
+
 
 // ------------------------------------------------------------------------
 // MIM_DISABLE_ALL_CLANG_WARNINGS / MIM_RESTORE_ALL_CLANG_WARNINGS
 //
 // The situation for clang is the same as for GCC. See above.
 // ------------------------------------------------------------------------
+
 
 // ------------------------------------------------------------------------
 // MIM_ENABLE_CLANG_WARNING_AS_ERROR / MIM_DISABLE_CLANG_WARNING_AS_ERROR
@@ -369,18 +329,19 @@
 #define MIMCLANGWERRORHELP1(x) MIMCLANGWERRORHELP0(clang diagnostic error x)
 #define MIMCLANGWERRORHELP2(x) MIMCLANGWERRORHELP1(#x)
 
-#define MIM_ENABLE_CLANG_WARNING_AS_ERROR(w)                                                                                                                   \
-	MIM_PRAGMA("clang diagnostic push")                                                                                                                        \
-	MIM_PRAGMA(MIMCLANGWERRORHELP2(w))
+#define MIM_ENABLE_CLANG_WARNING_AS_ERROR(w)   \
+				_Pragma("clang diagnostic push")  \
+				_Pragma(MIMCLANGWERRORHELP2(w))
 #else
 #define MIM_DISABLE_CLANG_WARNING(w)
 #endif
 #endif
 
 #ifndef MIM_DISABLE_CLANG_WARNING_AS_ERROR
-#if defined(MIM_COMPILER_CLANG) || defined(MIM_COMPILER_CLANG_CL)
-#define MIM_DISABLE_CLANG_WARNING_AS_ERROR() MIM_PRAGMA("clang diagnostic pop")
-#else
-#define MIM_DISABLE_CLANG_WARNING_AS_ERROR()
-#endif
+    #if defined(MIM_COMPILER_CLANG) || defined(MIM_COMPILER_CLANG_CL)
+        #define MIM_DISABLE_CLANG_WARNING_AS_ERROR()    \
+                    _Pragma("clang diagnostic pop")
+    #else
+        #define MIM_DISABLE_CLANG_WARNING_AS_ERROR()
+    #endif
 #endif

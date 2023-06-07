@@ -35,6 +35,8 @@
 #ifndef PCG_EXTRAS_HPP_INCLUDED
 #define PCG_EXTRAS_HPP_INCLUDED 1
 
+#include "mim/internal/config/compiler_traits.hpp"
+
 #include <cassert>
 #include <cinttypes>
 #include <cstddef>
@@ -200,6 +202,8 @@ std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>&
 	return out << uint32_t(value);
 }
 
+MIM_ENABLE_IGNORE_GCC_WARNING(-Wunused-but-set-parameter)
+
 template <typename CharT, typename Traits>
 std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& in, uint8_t target) {
 	uint32_t value = 0xdecea5edU;
@@ -212,6 +216,8 @@ std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>&
 	target = uint8_t(value);
 	return in;
 }
+
+MIM_DISABLE_IGNORE_GCC_WARNING
 
 /* Unfortunately, the above functions don't get found in preference to the
  * built in ones, so we create some more specific overloads that will.
