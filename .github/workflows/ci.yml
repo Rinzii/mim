@@ -15,9 +15,9 @@ jobs:
       - name: init
         run: sudo apt install -yqq ninja-build g++-11
       - name: configure gcc
-        run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
+        run: pwd && cmake -S .. --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
       - name: configure clang
-        run: cmake -S . --preset=ninja-clang -B clang
+        run: cmake -S .. --preset=ninja-clang -B clang
       - name: build gcc
         run: cmake --build build --config=Release
       - name: build clang
