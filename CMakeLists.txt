@@ -56,7 +56,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 # Only supported compilers currently are MSVC, GNU and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          /W4 /WX /permissive- /Zc:__cplusplus
+          /W4 /WX /permissive-
           )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(${PROJECT_NAME} PRIVATE

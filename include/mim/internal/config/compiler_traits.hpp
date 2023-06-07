@@ -3,7 +3,7 @@
 #pragma once
 
 #include "mim/internal/config/compiler.hpp"
-#include "compiler_features.hpp"
+#include "mim/internal/config/compiler_features.hpp"
 
 // https://learn.microsoft.com/en-us/cpp/intrinsics/compiler-intrinsics?view=msvc-170
 // https://clang.llvm.org/docs/LanguageExtensions.html
@@ -209,6 +209,7 @@
 #define MIMGCCWERRORHELP1(x) MIMGCCWERRORHELP0(GCC diagnostic error x)
 #define MIMGCCWERRORHELP2(x) MIMGCCWERRORHELP1(#x)
 #endif
+#endif
 
 #if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4006) // Can't test directly for __GNUC__ because some compilers lie.
 #define MIM_ENABLE_GCC_WARNING_AS_ERROR(w)   \
@@ -247,12 +248,21 @@
 #endif
 #endif
 
+#ifndef MIM_ENABLE_IGNORE_GCC_WARNING
+#if defined(MIM_COMPILER_GNUC)
+#define MIMGCCIGNOREENABLEHELP0(x) #x
+#define MIMGCCIGNOREENABLEHELP1(x) MIMGCCIGNOREENABLEHELP0(GCC diagnostic warning x)
+#define MIMGCCIGNOREENABLEHELP2(x) MIMGCCIGNOREENABLEHELP1(#x)
+#endif
+#endif
+
 #ifndef MIM_DISABLE_IGNORE_GCC_WARNING
 #if defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4004)
-#define MIM_DISABLE_IGNORE_GCC_WARNING   \
+#define MIM_DISABLE_IGNORE_GCC_WARNING(w)    \
+                _Pragma(MIMGCCIGNOREENABLEHELP2(w))\
                 _Pragma("GCC diagnostic pop")
 #else
-#define MIM_DISABLE_IGNORE_GCC_WARNING
+#define MIM_DISABLE_IGNORE_GCC_WARNING(w)
 #endif
 #endif
 

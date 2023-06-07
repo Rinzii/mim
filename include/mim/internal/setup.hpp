@@ -8,8 +8,6 @@
 
 // System Detection
 #include "mim/internal/config/architecture.hpp"
-#include "mim/internal/config/compiler.hpp"
-#include "mim/internal/config/compiler_features.hpp"
 #include "mim/internal/config/compiler_traits.hpp"
 #include "mim/internal/config/platform.hpp"
 

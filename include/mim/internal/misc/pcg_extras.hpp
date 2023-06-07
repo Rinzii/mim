@@ -217,7 +217,7 @@ std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>&
 	return in;
 }
 
-MIM_DISABLE_IGNORE_GCC_WARNING
+MIM_DISABLE_IGNORE_GCC_WARNING(-Wunused-but-set-parameter)
 
 /* Unfortunately, the above functions don't get found in preference to the
  * built in ones, so we create some more specific overloads that will.

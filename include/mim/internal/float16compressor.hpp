@@ -155,7 +155,7 @@ class Float16Compressor {
 	}
 
 #endif
-	MIM_DISABLE_IGNORE_GCC_WARNING
+	MIM_DISABLE_IGNORE_GCC_WARNING(-Wconversion)
 
 };
 } // namespace mim
