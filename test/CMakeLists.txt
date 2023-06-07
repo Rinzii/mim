@@ -43,12 +43,23 @@ if (NOT TEST_MIM_DISABLE_MATRIX_TESTS )
             mat/mat4x2_tests.cpp
             mat/mat4x3_tests.cpp
             mat/mat4x4_tests.cpp
+
+            mat/mat2x2_func_tests.cpp
+            mat/mat2x3_func_tests.cpp
+            mat/mat2x4_func_tests.cpp
+            mat/mat3x2_func_tests.cpp
+            mat/mat3x3_func_tests.cpp
+            mat/mat3x4_func_tests.cpp
+            mat/mat4x2_func_tests.cpp
+            mat/mat4x3_func_tests.cpp
+            mat/mat4x4_func_tests.cpp
             )
 endif ()
 
 if (NOT TEST_MIM_DISABLE_QUATERNION_TESTS )
     target_sources(${PROJECT_NAME} PRIVATE
             quat/quat_tests.cpp
+            quat/quat_func_tests.cpp
             )
 endif ()
 
@@ -58,6 +69,11 @@ if (NOT TEST_MIM_DISABLE_VECTOR_TESTS )
             vec/vector2_tests.cpp
             vec/vector3_tests.cpp
             vec/vector4_tests.cpp
+
+            vec/vector1_func_tests.cpp
+            vec/vector2_func_tests.cpp
+            vec/vector3_func_tests.cpp
+            vec/vector4_func_tests.cpp
             )
 endif ()
 
@@ -74,9 +90,17 @@ target_link_libraries(mim-test PRIVATE
     ${PThreadLib}
     )
 
-add_test(NAME mim-test COMMAND mim-test)
+# Only test vectors
+add_test(NAME mim-test-vectors COMMAND mim-test --gtest_filter=Vec* --gtest_color=yes)
 
-add_test(NAME mim-test-verbose COMMAND mim-test --verbose)
+# Only test matrices
+add_test(NAME mim-test-matrices COMMAND mim-test --gtest_filter=Mat* --gtest_color=yes)
+
+# Only test quaternions
+add_test(NAME mim-test-quaternions COMMAND mim-test --gtest_filter=Quat* --gtest_color=yes)
+
+# Only test common
+add_test(NAME mim-test-common COMMAND mim-test --gtest_filter=Common* --gtest_color=yes)
 
 
 

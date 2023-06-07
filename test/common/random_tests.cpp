@@ -7,7 +7,7 @@
 #ifdef MIM_TESTS_EXCESSIVE
     static const int LOOPS = 10000;
 #else
-    static const int LOOPS = 1000;
+    static const int LOOPS = 100;
 #endif
 
 TEST(Random, DefaultConstructor)

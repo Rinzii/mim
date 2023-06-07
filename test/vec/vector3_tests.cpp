@@ -3,7 +3,7 @@
 #include <mim/vec3.hpp>
 #include <gtest/gtest.h>
 
-TEST(Vector3, DefaultConstructor)
+TEST(Vector3Default, DefaultConstructor)
 {
     mim::vec3f v;
     EXPECT_EQ(v.x, 0.0f);
@@ -11,7 +11,7 @@ TEST(Vector3, DefaultConstructor)
     EXPECT_EQ(v.z, 0.0f);
 }
 
-TEST(Vector3, ValueConstructor)
+TEST(Vector3Default, ValueConstructor)
 {
     mim::vec3f v(1.0f, 2.0f, 3.0f);
     EXPECT_EQ(v.x, 1.0f);
@@ -19,7 +19,7 @@ TEST(Vector3, ValueConstructor)
     EXPECT_EQ(v.z, 3.0f);
 }
 
-TEST(Vector3, CopyConstructor)
+TEST(Vector3Default, CopyConstructor)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(v1);
@@ -28,7 +28,7 @@ TEST(Vector3, CopyConstructor)
     EXPECT_EQ(v2.z, 3.0f);
 }
 
-TEST(Vector3, MoveConstructor)
+TEST(Vector3Default, MoveConstructor)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(std::move(v1));
@@ -37,7 +37,7 @@ TEST(Vector3, MoveConstructor)
     EXPECT_EQ(v2.z, 3.0f);
 }
 
-TEST(Vector3, CopyAssignment)
+TEST(Vector3Default, CopyAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2;
@@ -47,7 +47,7 @@ TEST(Vector3, CopyAssignment)
     EXPECT_EQ(v2.z, 3.0f);
 }
 
-TEST(Vector3, MoveAssignment)
+TEST(Vector3Default, MoveAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2;
@@ -57,7 +57,7 @@ TEST(Vector3, MoveAssignment)
     EXPECT_EQ(v2.z, 3.0f);
 }
 
-TEST(Vector3, Addition)
+TEST(Vector3Default, Addition)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(4.0f, 5.0f, 6.0f);
@@ -67,7 +67,7 @@ TEST(Vector3, Addition)
     EXPECT_EQ(v3.z, 9.0f);
 }
 
-TEST(Vector3, Subtraction)
+TEST(Vector3Default, Subtraction)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(4.0f, 5.0f, 6.0f);
@@ -77,7 +77,7 @@ TEST(Vector3, Subtraction)
     EXPECT_EQ(v3.z, -3.0f);
 }
 
-TEST(Vector3, Multiplication)
+TEST(Vector3Default, Multiplication)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(4.0f, 5.0f, 6.0f);
@@ -87,7 +87,7 @@ TEST(Vector3, Multiplication)
     EXPECT_EQ(v3.z, 18.0f);
 }
 
-TEST(Vector3, Division)
+TEST(Vector3Default, Division)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2(4.0f, 5.0f, 6.0f);
@@ -97,7 +97,7 @@ TEST(Vector3, Division)
     EXPECT_EQ(v3.z, 0.5f);
 }
 
-TEST(Vector3, AdditionAssignment)
+TEST(Vector3Default, AdditionAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 += mim::vec3f(4.0f, 5.0f, 6.0f);
@@ -106,7 +106,7 @@ TEST(Vector3, AdditionAssignment)
     EXPECT_EQ(v1.z, 9.0f);
 }
 
-TEST(Vector3, SubtractionAssignment)
+TEST(Vector3Default, SubtractionAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 -= mim::vec3f(4.0f, 5.0f, 6.0f);
@@ -115,7 +115,7 @@ TEST(Vector3, SubtractionAssignment)
     EXPECT_EQ(v1.z, -3.0f);
 }
 
-TEST(Vector3, MultiplicationAssignment)
+TEST(Vector3Default, MultiplicationAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 *= mim::vec3f(4.0f, 5.0f, 6.0f);
@@ -124,7 +124,7 @@ TEST(Vector3, MultiplicationAssignment)
     EXPECT_EQ(v1.z, 18.0f);
 }
 
-TEST(Vector3, DivisionAssignment)
+TEST(Vector3Default, DivisionAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 /= mim::vec3f(4.0f, 5.0f, 6.0f);
@@ -133,7 +133,7 @@ TEST(Vector3, DivisionAssignment)
     EXPECT_EQ(v1.z, 0.5f);
 }
 
-TEST(Vector3, AdditionScalar)
+TEST(Vector3Default, AdditionScalar)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2 = v1 + 4.0f;
@@ -142,7 +142,7 @@ TEST(Vector3, AdditionScalar)
     EXPECT_EQ(v2.z, 7.0f);
 }
 
-TEST(Vector3, SubtractionScalar)
+TEST(Vector3Default, SubtractionScalar)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2 = v1 - 4.0f;
@@ -151,7 +151,7 @@ TEST(Vector3, SubtractionScalar)
     EXPECT_EQ(v2.z, -1.0f);
 }
 
-TEST(Vector3, MultiplicationScalar)
+TEST(Vector3Default, MultiplicationScalar)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2 = v1 * 4.0f;
@@ -160,7 +160,7 @@ TEST(Vector3, MultiplicationScalar)
     EXPECT_EQ(v2.z, 12.0f);
 }
 
-TEST(Vector3, DivisionScalar)
+TEST(Vector3Default, DivisionScalar)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     mim::vec3f v2 = v1 / 4.0f;
@@ -169,7 +169,7 @@ TEST(Vector3, DivisionScalar)
     EXPECT_EQ(v2.z, 0.75f);
 }
 
-TEST(Vector3, AdditionScalarAssignment)
+TEST(Vector3Default, AdditionScalarAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 += 4.0f;
@@ -178,7 +178,7 @@ TEST(Vector3, AdditionScalarAssignment)
     EXPECT_EQ(v1.z, 7.0f);
 }
 
-TEST(Vector3, SubtractionScalarAssignment)
+TEST(Vector3Default, SubtractionScalarAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 -= 4.0f;
@@ -187,7 +187,7 @@ TEST(Vector3, SubtractionScalarAssignment)
     EXPECT_EQ(v1.z, -1.0f);
 }
 
-TEST(Vector3, MultiplicationScalarAssignment)
+TEST(Vector3Default, MultiplicationScalarAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 *= 4.0f;
@@ -196,7 +196,7 @@ TEST(Vector3, MultiplicationScalarAssignment)
     EXPECT_EQ(v1.z, 12.0f);
 }
 
-TEST(Vector3, DivisionScalarAssignment)
+TEST(Vector3Default, DivisionScalarAssignment)
 {
     mim::vec3f v1(1.0f, 2.0f, 3.0f);
     v1 /= 4.0f;

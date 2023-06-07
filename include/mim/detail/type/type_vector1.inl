@@ -2,7 +2,36 @@
 
 #include "mim/detail/compute/compute_vector.hpp"
 
-namespace mim {
+namespace mim
+{
+
+// Element Accessors
+
+template <typename T, qualifier Q>
+constexpr T& VectorT<1, T, Q>::operator[](typename VectorT<1, T, Q>::size_type) {
+	return x;
+}
+
+template <typename T, qualifier Q>
+constexpr const T& VectorT<1, T, Q>::operator[](typename VectorT<1, T, Q>::size_type) const {
+	return x;
+}
+
+template <typename T, qualifier Q>
+T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i)
+{
+	assert(i < size());
+    return x;
+}
+
+template <typename T, qualifier Q>
+const T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i) const {
+	assert(i < size());
+    return x;
+}
+
+
+// Constructors
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q>::VectorT() : x(0) {}
@@ -11,11 +40,11 @@ template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q>::VectorT(VectorT const& v) : x(v.x) {}
 
 template <typename T, qualifier Q>
-template <qualifier P>
-constexpr VectorT<1, T, Q>::VectorT(VectorT<1, T, P> const& v) : x(v.x) {}
+constexpr VectorT<1, T, Q>::VectorT(T scalar) : x(scalar) {}
 
 template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q>::VectorT(T scalar) : x(scalar) {}
+template <qualifier P>
+constexpr VectorT<1, T, Q>::VectorT(VectorT<1, T, P> const& v) : x(v.x) {}
 
 template <typename T, qualifier Q>
 template <typename U, qualifier P>
@@ -29,23 +58,45 @@ template <typename T, qualifier Q>
 template <typename U, qualifier P>
 constexpr VectorT<1, T, Q>::VectorT(VectorT<3, U, P> const& v) : x(static_cast<T>(v.x)) {}
 
-/// Element Accessors
+
+// Assignment Operators
 
 template <typename T, qualifier Q>
-constexpr T& VectorT<1, T, Q>::operator[](typename VectorT<1, T, Q>::size_type) {
-	return x;
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(T scalar) {
+    this->x = scalar;
+    return *this;
 }
 
 template <typename T, qualifier Q>
-constexpr const T& VectorT<1, T, Q>::operator[](typename VectorT<1, T, Q>::size_type) const {
-	return x;
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(VectorT const& v) {
+    this->x = v.x;
+    return *this;
 }
-
-/// Unary Operators
 
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(VectorT<1, U, Q> const& v) {
+	this->x = static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(VectorT<2, U, Q> const& v) {
+	this->x = static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(VectorT<3, U, Q> const& v) {
+	this->x = static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator=(VectorT<4, U, Q> const& v) {
 	this->x = static_cast<T>(v.x);
 	return *this;
 }
@@ -66,6 +117,27 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator+=(VectorT<1, U, Q> const&
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator+=(VectorT<2, U, Q> const& v) {
+	this->x += static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator+=(VectorT<3, U, Q> const& v) {
+	this->x += static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator+=(VectorT<4, U, Q> const& v) {
+	this->x += static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(U scalar) {
 	this->x -= static_cast<T>(scalar);
 	return *this;
@@ -74,6 +146,27 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(U scalar) {
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(VectorT<1, U, Q> const& v) {
+	this->x -= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(VectorT<2, U, Q> const& v) {
+	this->x -= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(VectorT<3, U, Q> const& v) {
+	this->x -= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator-=(VectorT<4, U, Q> const& v) {
 	this->x -= static_cast<T>(v.x);
 	return *this;
 }
@@ -94,7 +187,32 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator*=(VectorT<1, U, Q> const&
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator*=(VectorT<2, U, Q> const& v) {
+	this->x *= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator*=(VectorT<3, U, Q> const& v) {
+	this->x *= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator*=(VectorT<4, U, Q> const& v) {
+	this->x *= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(U scalar) {
+	// TODO: Check the performance difference between checking for division by zero and not
+	if (scalar == 0)
+        throw std::overflow_error("Division by zero exception");
+
 	this->x /= static_cast<T>(scalar);
 	return *this;
 }
@@ -102,9 +220,49 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(U scalar) {
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<1, U, Q> const& v) {
+	// TODO: Check the performance difference between checking for division by zero and not
+	if (v.x == 0)
+		throw std::overflow_error("Division by zero exception");
+
 	this->x /= static_cast<T>(v.x);
 	return *this;
 }
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<2, U, Q> const& v) {
+	// TODO: Check the performance difference between checking for division by zero and not
+	if (v.x == 0)
+		throw std::overflow_error("Division by zero exception");
+
+	this->x /= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<3, U, Q> const& v) {
+	// TODO: Check the performance difference between checking for division by zero and not
+	if (v.x == 0)
+		throw std::overflow_error("Division by zero exception");
+
+	this->x /= static_cast<T>(v.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<4, U, Q> const& v) {
+	// TODO: Check the performance difference between checking for division by zero and not
+	if (v.x == 0)
+		throw std::overflow_error("Division by zero exception");
+
+	this->x /= static_cast<T>(v.x);
+	return *this;
+}
+
+
+// Increment and Decrement Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator++() {
@@ -132,11 +290,13 @@ constexpr const VectorT<1, T, Q> VectorT<1, T, Q>::operator--(int) {
 	return result;
 }
 
-/// Unary bit operators
+
+/// Bitwise Assignment Operators
 
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator%=(U scalar) {
+	static_assert(std::is_integral<T>::value, "Cannot perform modulo operation on non-integral type.");
 	this->x %= static_cast<T>(scalar);
 	return *this;
 }
@@ -144,6 +304,7 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator%=(U scalar) {
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator%=(VectorT<1, U, Q> const& v) {
+	static_assert(std::is_integral<T>::value, "Cannot perform modulo operation on non-integral type.");
 	this->x %= static_cast<T>(v.x);
 	return *this;
 }
@@ -151,6 +312,7 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator%=(VectorT<1, U, Q> const&
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator&=(U scalar) {
+
 	this->x &= static_cast<T>(scalar);
 	return *this;
 }
@@ -218,7 +380,8 @@ constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator>>=(VectorT<1, U, Q> const
 	return *this;
 }
 
-/// Unary constant operators
+
+// Unary Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v) {
@@ -229,8 +392,6 @@ template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v) {
 	return VectorT<1, T, Q>(-v.x);
 }
-
-/// Binary arithmetic operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v, T scalar) {
@@ -292,7 +453,8 @@ constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v1, VectorT<1, T, Q
 	return VectorT<1, T, Q>(v1.x / v2.x);
 }
 
-/// Binary bit operators
+
+// Bitwise Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v, T scalar) {
@@ -389,7 +551,8 @@ constexpr VectorT<1, T, Q> operator~(VectorT<1, T, Q> const& v) {
 	return VectorT<1, T, Q>(~v.x);
 }
 
-/// Boolean operators
+
+// Comparison Operators
 
 template <typename T, qualifier Q>
 constexpr bool operator==(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2) {
@@ -401,14 +564,15 @@ constexpr bool operator!=(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2
 	return !(v1 == v2);
 }
 
+// TODO: This does not work. Try to fix it later.
 template <qualifier Q>
 constexpr bool operator&&(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2) {
-	return VectorT<1, bool, Q>(v1.x && v2.x);
+	return (v1.x && v2.x);
 }
 
 template <qualifier Q>
 constexpr bool operator||(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2) {
-	return VectorT<1, bool, Q>(v1.x || v2.x);
+	return (v1.x || v2.x);
 }
 
 } // namespace mim

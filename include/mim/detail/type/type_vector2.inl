@@ -2,22 +2,69 @@
 
 #include "mim/detail/compute/compute_vector.hpp"
 
-namespace mim {
+namespace mim
+{
+
+// Element Accessors
+
+template <typename T, qualifier Q>
+constexpr T& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) {
+	assert(i >= 0 && i < this->size());
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	}
+}
+
+template <typename T, qualifier Q>
+constexpr T const& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) const {
+	assert(i >= 0 && i < this->size());
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	}
+}
+
+template <typename T, qualifier Q>
+T& VectorT<2, T, Q>::at(std::size_t i) {
+	assert(i >= 0 && i < this->size());
+    switch (i) {
+    default:
+    case 0: return x;
+    case 1: return y;
+    }
+}
+
+template <typename T, qualifier Q>
+const T& VectorT<2, T, Q>::at(std::size_t i) const {
+    assert(i >= 0 && i < this->size());
+    switch (i) {
+    default:
+    case 0: return x;
+    case 1: return y;
+    }
+}
+
+
+// Constructors
+
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q>::VectorT() : x(0), y(0) {}
+
+template <typename T, qualifier Q>
+constexpr VectorT<2, T, Q>::VectorT(T _x, T _y) : x(_x), y(_y) {}
 
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q>::VectorT(VectorT<2, T, Q> const& v) : x(v.x), y(v.y) {}
 
 template <typename T, qualifier Q>
-template <qualifier P>
-constexpr VectorT<2, T, Q>::VectorT(VectorT<2, T, P> const& v) : x(v.x), y(v.y) {}
-
-template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q>::VectorT(T scalar) : x(scalar), y(scalar) {}
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, T, Q>::VectorT(T _x, T _y) : x(_x), y(_y) {}
+template <qualifier P>
+constexpr VectorT<2, T, Q>::VectorT(VectorT<2, T, P> const& v) : x(v.x), y(v.y) {}
 
 template <typename T, qualifier Q>
 template <typename U, qualifier P>
@@ -51,24 +98,21 @@ template <typename T, qualifier Q>
 template <typename U, qualifier P>
 constexpr VectorT<2, T, Q>::VectorT(VectorT<4, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
 
+
+// Assignment Operators
+
 template <typename T, qualifier Q>
-constexpr T& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	}
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(T scalar) {
+    this->x = scalar;
+    this->y = scalar;
+    return *this;
 }
 
 template <typename T, qualifier Q>
-constexpr T const& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) const {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	}
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<2, T, Q> const& v) {
+    this->x = v.x;
+    this->y = v.y;
+    return *this;
 }
 
 template <typename T, qualifier Q>
@@ -105,6 +149,22 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(VectorT<2, U, Q> const&
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(VectorT<3, U, Q> const& v) {
+	this->x += static_cast<T>(v.x);
+	this->y += static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(VectorT<4, U, Q> const& v) {
+	this->x += static_cast<T>(v.x);
+	this->y += static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(U scalar) {
 	this->x -= static_cast<T>(scalar);
 	this->y -= static_cast<T>(scalar);
@@ -122,6 +182,22 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<1, U, Q> const&
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<2, U, Q> const& v) {
+	this->x -= static_cast<T>(v.x);
+	this->y -= static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<3, U, Q> const& v) {
+	this->x -= static_cast<T>(v.x);
+	this->y -= static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<4, U, Q> const& v) {
 	this->x -= static_cast<T>(v.x);
 	this->y -= static_cast<T>(v.y);
 	return *this;
@@ -153,6 +229,22 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(VectorT<2, U, Q> const&
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(VectorT<3, U, Q> const& v) {
+	this->x *= static_cast<T>(v.x);
+	this->y *= static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(VectorT<4, U, Q> const& v) {
+	this->x *= static_cast<T>(v.x);
+	this->y *= static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(U scalar) {
 	this->x /= static_cast<T>(scalar);
 	this->y /= static_cast<T>(scalar);
@@ -174,6 +266,25 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(VectorT<2, U, Q> const&
 	this->y /= static_cast<T>(v.y);
 	return *this;
 }
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(VectorT<3, U, Q> const& v) {
+	this->x /= static_cast<T>(v.x);
+	this->y /= static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(VectorT<4, U, Q> const& v) {
+	this->x /= static_cast<T>(v.x);
+	this->y /= static_cast<T>(v.y);
+	return *this;
+}
+
+
+// Increment and Decrement Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator++() {
@@ -204,6 +315,9 @@ constexpr const VectorT<2, T, Q> VectorT<2, T, Q>::operator--(int) {
 	--this->y;
 	return v;
 }
+
+
+// Bitwise Assignment Operators
 
 template <typename T, qualifier Q>
 template <typename U>
@@ -349,6 +463,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator>>=(VectorT<2, U, Q> const
 	return *this;
 }
 
+
+// Unary operators
+
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator+(VectorT<2, T, Q> const& v) {
 	return v;
@@ -458,6 +575,9 @@ template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator/(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {
 	return VectorT<2, T, Q>(v1.x / v2.x, v1.y / v2.y);
 }
+
+
+// Bitwise Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator%(VectorT<2, T, Q> const& v, T scalar) {
@@ -613,6 +733,9 @@ template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator~(VectorT<2, T, Q> const& v) {
 	return VectorT<2, T, Q>(~v.x, ~v.y);
 }
+
+
+// Conditional Operators
 
 template <typename T, qualifier Q>
 constexpr bool operator==(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {

@@ -1,5 +1,8 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
+/// \ref core
+/// \file mim/vec2.hpp
+
 #pragma once
 
 #include "mim/detail/qualifier.hpp"
@@ -8,15 +11,52 @@
 
 #include "mim/detail/type/type_vector2.hpp"
 
-namespace mim {
+namespace mim
+{
+
+/**
+ * \brief Alias for the default 2D vector types.
+ * \tparam T Type of the vector.
+ * \tparam Q Qualifier of the vector.
+ * \addtogroup VectorCore
+ */
 template <typename T = float, qualifier Q = qualifier::defaultp>
 using vec2 = VectorT<2, T, Q>;
 
+/**
+ * \brief Helper alias for 2D vectors of type float.
+ * \addtogroup VectorCore
+ */
 using vec2f = VectorT<2, float, defaultp>;
+
+/**
+ * \brief Helper alias for 2D vectors of type int.
+ * \addtogroup VectorCore
+ */
 using vec2i = VectorT<2, int, defaultp>;
+
+/**
+ * \brief Helper alias for 2D vectors of type unsigned int.
+ * \addtogroup VectorCore
+ */
 using vec2u = VectorT<2, unsigned int, defaultp>;
+
+/**
+ * \brief Helper alias for 2D vectors of type double.
+ * \addtogroup VectorCore
+ */
 using vec2d = VectorT<2, double, defaultp>;
+
+/**
+ * \brief Helper alias for 2D vectors of type bool.
+ * \addtogroup VectorCore
+ */
 using vec2b = VectorT<2, bool, defaultp>;
+
+/**
+ * \brief Helper alias for 2D vectors of type half.
+ * \addtogroup VectorCore
+ */
 using vec2h = VectorT<2, half, defaultp>;
 
 using highp_vec2 = VectorT<2, float, highp>;

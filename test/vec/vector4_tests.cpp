@@ -3,7 +3,7 @@
 #include <mim/vec4.hpp>
 #include <gtest/gtest.h>
 
-TEST(Vector4, DefaultConstructor)
+TEST(Vector4Default, DefaultConstructor)
 {
     mim::vec4f v;
 	EXPECT_EQ(v.x, 0.0f);
@@ -12,7 +12,7 @@ TEST(Vector4, DefaultConstructor)
 	EXPECT_EQ(v.w, 0.0f);
 }
 
-TEST(Vector4, ValueConstructor)
+TEST(Vector4Default, ValueConstructor)
 {
     mim::vec4f v(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_EQ(v.x, 1.0f);
@@ -21,7 +21,7 @@ TEST(Vector4, ValueConstructor)
     EXPECT_EQ(v.w, 4.0f);
 }
 
-TEST(Vector4, CopyConstructor)
+TEST(Vector4Default, CopyConstructor)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(v1);
@@ -31,7 +31,7 @@ TEST(Vector4, CopyConstructor)
     EXPECT_EQ(v2.w, 4.0f);
 }
 
-TEST(Vector4, MoveConstructor)
+TEST(Vector4Default, MoveConstructor)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(std::move(v1));
@@ -41,7 +41,7 @@ TEST(Vector4, MoveConstructor)
     EXPECT_EQ(v2.w, 4.0f);
 }
 
-TEST(Vector4, CopyAssignment)
+TEST(Vector4Default, CopyAssignment)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2;
@@ -52,7 +52,7 @@ TEST(Vector4, CopyAssignment)
     EXPECT_EQ(v2.w, 4.0f);
 }
 
-TEST(Vector4, MoveAssignment)
+TEST(Vector4Default, MoveAssignment)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2;
@@ -63,7 +63,7 @@ TEST(Vector4, MoveAssignment)
     EXPECT_EQ(v2.w, 4.0f);
 }
 
-TEST(Vector4, Addition)
+TEST(Vector4Default, Addition)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(5.0f, 6.0f, 7.0f, 8.0f);
@@ -74,7 +74,7 @@ TEST(Vector4, Addition)
     EXPECT_EQ(v3.w, 12.0f);
 }
 
-TEST(Vector4, AdditionAssignment)
+TEST(Vector4Default, AdditionAssignment)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(5.0f, 6.0f, 7.0f, 8.0f);
@@ -85,7 +85,7 @@ TEST(Vector4, AdditionAssignment)
     EXPECT_EQ(v1.w, 12.0f);
 }
 
-TEST(Vector4, Subtraction)
+TEST(Vector4Default, Subtraction)
 {
     mim::vec4f v1(5.0f, 6.0f, 7.0f, 8.0f);
     mim::vec4f v2(1.0f, 2.0f, 3.0f, 4.0f);
@@ -96,7 +96,7 @@ TEST(Vector4, Subtraction)
     EXPECT_EQ(v3.w, 4.0f);
 }
 
-TEST(Vector4, SubtractionAssignment)
+TEST(Vector4Default, SubtractionAssignment)
 {
     mim::vec4f v1(5.0f, 6.0f, 7.0f, 8.0f);
     mim::vec4f v2(1.0f, 2.0f, 3.0f, 4.0f);
@@ -107,7 +107,7 @@ TEST(Vector4, SubtractionAssignment)
     EXPECT_EQ(v1.w, 4.0f);
 }
 
-TEST(Vector4, Multiplication)
+TEST(Vector4Default, Multiplication)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(5.0f, 6.0f, 7.0f, 8.0f);
@@ -118,7 +118,7 @@ TEST(Vector4, Multiplication)
     EXPECT_EQ(v3.w, 32.0f);
 }
 
-TEST(Vector4, MultiplicationAssignment)
+TEST(Vector4Default, MultiplicationAssignment)
 {
     mim::vec4f v1(1.0f, 2.0f, 3.0f, 4.0f);
     mim::vec4f v2(5.0f, 6.0f, 7.0f, 8.0f);
@@ -129,7 +129,7 @@ TEST(Vector4, MultiplicationAssignment)
     EXPECT_EQ(v1.w, 32.0f);
 }
 
-TEST(Vector4, Division)
+TEST(Vector4Default, Division)
 {
     mim::vec4f v1(5.0f, 6.0f, 7.0f, 8.0f);
     mim::vec4f v2(1.0f, 2.0f, 3.0f, 4.0f);
@@ -140,7 +140,7 @@ TEST(Vector4, Division)
     EXPECT_EQ(v3.w, 2.0f);
 }
 
-TEST(Vector4, DivisionAssignment)
+TEST(Vector4Default, DivisionAssignment)
 {
     mim::vec4f v1(5.0f, 6.0f, 7.0f, 8.0f);
     mim::vec4f v2(1.0f, 2.0f, 3.0f, 4.0f);
