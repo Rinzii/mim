@@ -1,11 +1,7 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #include "mim/internal/setup.hpp"
-
 #include "mim/random.hpp"
-//#include "../include/mim/internal/setup.hpp"
-//#include "../include/mim/random.hpp"
-
 #include <climits>
 
 namespace mim
