@@ -17,6 +17,7 @@
 
 
 #include <cmath>
+#include <climits>
 
 
 
@@ -40,7 +41,9 @@ namespace mim
 #if defined(_MSC_VER) || defined(__clang__)
         return lrintf(f);
 #elif defined(__GNUC__)
+		MIM_ENABLE_IGNORE_GCC_WARNING(-Wconversion)
         return __builtin_lrintf(f);
+		MIM_DISABLE_IGNORE_GCC_WARNING(-Wconversion)
 #elif defined(__INTEL_COMPILER)
         return _lrintf(f);
 #else
