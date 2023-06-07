@@ -13,7 +13,6 @@ out/*
 # User Specific Configuration Files
 CMakeSettings.json
 compile_commands.json
-/CMakePresets.json
 /CMakeUserPresets.json
 
 ### C++ specific
