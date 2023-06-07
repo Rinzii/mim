@@ -11,19 +11,6 @@ add_library(mim::test ALIAS mim-test)
 target_link_libraries(mim-test PUBLIC mim::mim)
 target_include_directories(mim-test PUBLIC .)
 
-# Options to conditionally disable tests for faster build times when testing specific components.
-# By default, all tests are enabled.
-option(TEST_MIM_DISABLE_COMMON_TESTS "Disable mimMath tests" OFF)
-option(TEST_MIM_DISABLE_HALF_TESTS "Disable half tests" OFF)
-option(TEST_MIM_DISABLE_MATRIX_TESTS "Disable matrix tests" OFF)
-option(TEST_MIM_DISABLE_QUATERNION_TESTS "Disable quaternion tests" OFF)
-option(TEST_MIM_DISABLE_VECTOR_TESTS "Disable vector tests" OFF)
-
-message(STATUS "COMMON TESTS:     ${TEST_MIM_DISABLE_COMMON_TESTS}")
-message(STATUS "HALF TESTS:       ${TEST_MIM_DISABLE_HALF_TESTS}")
-message(STATUS "MATRIX TESTS:     ${TEST_MIM_DISABLE_MATRIX_TESTS}")
-message(STATUS "QUATERNION TESTS: ${TEST_MIM_DISABLE_QUATERNION_TESTS}")
-message(STATUS "VECTOR TESTS:     ${TEST_MIM_DISABLE_VECTOR_TESTS}")
 
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
@@ -103,8 +90,6 @@ endif()
 target_link_libraries(mim-test PRIVATE
     mim::mim
     gtest::gtest
-
-    ${PThreadLib}
     )
 
 # Only test vectors

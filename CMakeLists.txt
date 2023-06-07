@@ -16,7 +16,7 @@ project(mim VERSION ${build_version})
 set(is_root_project OFF)
 
 # Check if we are the root project
-if(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(is_root_project ON)
 endif()
 
@@ -24,11 +24,13 @@ endif()
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
 option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
-option(MIM_DISABLE_FORCED_INLINING "Disable forced inlining of functions in mim" OFF)
 
 
 
 include(GNUInstallDirs)
+include(CheckPIESupported)
+
+check_pie_supported()
 
 configure_file(src/version.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.hpp" @ONLY)
 
@@ -54,10 +56,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
-
-# Currently everything is headers only
-
-
 # Currently we are only a static LIB but I'd like to enable the ability to be dynamic!
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
@@ -76,8 +74,8 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 #endif ()
 
 if (MIM_BUILD_TEST)
-  enable_testing()
   add_subdirectory(ext)
+  enable_testing()
   add_subdirectory(test)
 endif()
 
