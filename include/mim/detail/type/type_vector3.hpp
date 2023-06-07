@@ -171,110 +171,110 @@ constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator+(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator+(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator+(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator-(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator-(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator-(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator*(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator*(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator*(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator/(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator/(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator/(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator%(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator%(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator%(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator&(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator&(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator&(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator|(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator|(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator|(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator^(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator^(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator^(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator<<(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator<<(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator<<(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, T scalar);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v1, VectorT<1, T, Q> const& sv);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator>>(T scalar, VectorT<3, T, Q> const& v);
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator>>(VectorT<1, T, Q> const& v1, VectorT<3, T, Q> const& v2);
+constexpr VectorT<3, T, Q> operator>>(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v2);
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2);
 

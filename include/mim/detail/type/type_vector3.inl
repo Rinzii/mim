@@ -693,12 +693,12 @@ constexpr bool operator!=(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, bool, Q> operator&&(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2) {
-	return VectorT<3, bool, Q>(v1.x && v2.x, v1.y && v2.y, v1.z && v2.z);
+	return (v1.x && v2.x, v1.y && v2.y, v1.z && v2.z);
 }
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, bool, Q> operator||(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2) {
-	return VectorT<3, bool, Q>(v1.x || v2.x, v1.y || v2.y, v1.z || v2.z);
+	return (v1.x || v2.x, v1.y || v2.y, v1.z || v2.z);
 }
 } // namespace mim
 

@@ -727,13 +727,13 @@ constexpr bool operator!=(VectorT<4, T, Q> const& v1, VectorT<4, T, Q> const& v2
 }
 
 template <qualifier Q>
-constexpr VectorT<4, bool, Q> operator&&(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2) {
-	return VectorT<4, bool, Q>(v1.x && v2.x, v1.y && v2.y, v1.z && v2.z, v1.w && v2.w);
+constexpr bool operator&&(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2) {
+	return (v1.x && v2.x, v1.y && v2.y, v1.z && v2.z, v1.w && v2.w);
 }
 
 template <qualifier Q>
-constexpr VectorT<4, bool, Q> operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2) {
-	return VectorT<4, bool, Q>(v1.x || v2.x, v1.y || v2.y, v1.z || v2.z, v1.w || v2.w);
+constexpr bool operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2) {
+	return (v1.x || v2.x, v1.y || v2.y, v1.z || v2.z, v1.w || v2.w);
 }
 
 } // namespace mim

@@ -4,6 +4,9 @@
 #include <gtest/gtest.h>
 
 
+// TODO: We are still missing many tests for core vector1 functionality. Aim to try and add more over time.
+
+
 // Accessors
 
 TEST(Vector1Defaults, ElementsAccessor)
@@ -682,7 +685,6 @@ TEST(Vector1Defaults, Inequality)
 	EXPECT_TRUE(v1 != v2);
 }
 
-/* TODO: Logical AND is currently broken. Must fix */
 TEST(Vector1Defaults, LogicalAnd)
 {
 	mim::vec1b v1(true);
@@ -692,7 +694,6 @@ TEST(Vector1Defaults, LogicalAnd)
 }
 
 
-/* TODO: Logical OR is currently broken. Must fix */
 TEST(Vector1Defaults, LogicalOr)
 {
     mim::vec1b v1(true);

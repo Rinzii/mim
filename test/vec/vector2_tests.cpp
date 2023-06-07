@@ -3,6 +3,9 @@
 #include <mim/vec.hpp>
 #include <gtest/gtest.h>
 
+// TODO: We are still missing many tests for core vector2 functionality. Aim to try and add more over time.
+
+
 // Element Accessors
 
 TEST(Vector2Defaults, Data)

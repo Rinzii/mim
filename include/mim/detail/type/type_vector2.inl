@@ -125,6 +125,22 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<2, U, Q> const& 
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<3, U, Q> const& v) {
+	this->x = static_cast<T>(v.x);
+	this->y = static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<4, U, Q> const& v) {
+	this->x = static_cast<T>(v.x);
+	this->y = static_cast<T>(v.y);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(U scalar) {
 	this->x += static_cast<T>(scalar);
 	this->y += static_cast<T>(scalar);
@@ -464,6 +480,8 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator>>=(VectorT<2, U, Q> const
 }
 
 
+// TODO: Decide if we want to support unary operators for vectors 3-4
+
 // Unary operators
 
 template <typename T, qualifier Q>
@@ -748,13 +766,13 @@ constexpr bool operator!=(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, bool, Q> operator&&(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {
-	return VectorT<2, bool, Q>(v1.x && v2.x, v1.y && v2.y);
+constexpr bool operator&&(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {
+	return (v1.x && v2.x, v1.y && v2.y);
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, bool, Q> operator||(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {
-	return VectorT<2, bool, Q>(v1.x || v2.x, v1.y || v2.y);
+constexpr bool operator||(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2) {
+	return (v1.x || v2.x, v1.y || v2.y);
 }
 
 } // namespace mim

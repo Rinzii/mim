@@ -398,22 +398,22 @@ template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator>>(VectorT<2, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, bool, Q> operator~(VectorT<2, T, Q> const& v);
+constexpr VectorT<2, T, Q> operator~(VectorT<2, T, Q> const& v);
 
 
 // Conditional operators
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, bool, Q> operator==(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2);
+constexpr bool operator==(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2);
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, bool, Q> operator!=(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2);
+constexpr bool operator!=(VectorT<2, T, Q> const& v1, VectorT<2, T, Q> const& v2);
 
 template <qualifier Q>
-constexpr VectorT<2, bool, Q> operator&&(VectorT<2, bool, Q> const& v1, VectorT<2, bool, Q> const& v2);
+constexpr bool operator&&(VectorT<2, bool, Q> const& v1, VectorT<2, bool, Q> const& v2);
 
 template <qualifier Q>
-constexpr VectorT<2, bool, Q> operator||(VectorT<2, bool, Q> const& v1, VectorT<2, bool, Q> const& v2);
+constexpr bool operator||(VectorT<2, bool, Q> const& v1, VectorT<2, bool, Q> const& v2);
 } // namespace mim
 
 #include "mim/detail/type/type_vector2.inl"

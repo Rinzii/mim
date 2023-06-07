@@ -355,10 +355,10 @@ template <typename T, qualifier Q>
 constexpr bool operator!=(VectorT<4, T, Q> const& v1, VectorT<4, T, Q> const& v2);
 
 template <qualifier Q>
-constexpr VectorT<4, bool, Q> operator&&(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
+constexpr bool operator&&(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
 
 template <qualifier Q>
-constexpr VectorT<4, bool, Q> operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
+constexpr bool operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
 } // namespace mim
 
 #include "mim/detail/type/type_vector4.inl"
