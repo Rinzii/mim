@@ -1,4 +1,15 @@
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
 project(mim-test)
+
+if(NOT TARGET mim)
+    find_package(mim CONFIG REQUIRED)
+endif()
+
+add_library(mim-test)
+add_library(mim::test ALIAS mim-test)
+target_link_libraries(mim-test PUBLIC mim::mim)
+target_include_directories(mim-test PUBLIC .)
 
 # Options to conditionally disable tests for faster build times when testing specific components.
 # By default, all tests are enabled.
@@ -16,70 +27,76 @@ message(STATUS "VECTOR TESTS:     ${TEST_MIM_DISABLE_VECTOR_TESTS}")
 
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
-    mim_test_main.cpp
-    )
+        mim_test_main.cpp
+        )
 
-if (NOT TEST_MIM_DISABLE_COMMON_TESTS )
-    target_sources(${PROJECT_NAME} PRIVATE
-            common/mimMath_tests.cpp
-            common/random_tests.cpp
-            )
-endif ()
+target_sources(${PROJECT_NAME} PRIVATE
+        common/mimMath_tests.cpp
+        common/random_tests.cpp
+        )
 
-if (NOT TEST_MIM_DISABLE_HALF_TESTS )
-    target_sources(${PROJECT_NAME} PRIVATE
-            half/half_tests.cpp
-            )
-endif ()
 
-if (NOT TEST_MIM_DISABLE_MATRIX_TESTS )
-    target_sources(${PROJECT_NAME} PRIVATE
-            mat/mat2x2_tests.cpp
-            mat/mat2x3_tests.cpp
-            mat/mat2x4_tests.cpp
-            mat/mat3x2_tests.cpp
-            mat/mat3x3_tests.cpp
-            mat/mat3x4_tests.cpp
-            mat/mat4x2_tests.cpp
-            mat/mat4x3_tests.cpp
-            mat/mat4x4_tests.cpp
 
-            mat/mat2x2_func_tests.cpp
-            mat/mat2x3_func_tests.cpp
-            mat/mat2x4_func_tests.cpp
-            mat/mat3x2_func_tests.cpp
-            mat/mat3x3_func_tests.cpp
-            mat/mat3x4_func_tests.cpp
-            mat/mat4x2_func_tests.cpp
-            mat/mat4x3_func_tests.cpp
-            mat/mat4x4_func_tests.cpp
-            )
-endif ()
+target_sources(${PROJECT_NAME} PRIVATE
+        half/half_tests.cpp
+        )
 
-if (NOT TEST_MIM_DISABLE_QUATERNION_TESTS )
-    target_sources(${PROJECT_NAME} PRIVATE
-            quat/quat_tests.cpp
-            quat/quat_func_tests.cpp
-            )
-endif ()
 
-if (NOT TEST_MIM_DISABLE_VECTOR_TESTS )
-    target_sources(${PROJECT_NAME} PRIVATE
-            vec/vector1_tests.cpp
-            vec/vector2_tests.cpp
-            vec/vector3_tests.cpp
-            vec/vector4_tests.cpp
 
-            vec/vector1_func_tests.cpp
-            vec/vector2_func_tests.cpp
-            vec/vector3_func_tests.cpp
-            vec/vector4_func_tests.cpp
-            )
-endif ()
+target_sources(${PROJECT_NAME} PRIVATE
+        mat/mat2x2_tests.cpp
+        mat/mat2x3_tests.cpp
+        mat/mat2x4_tests.cpp
+        mat/mat3x2_tests.cpp
+        mat/mat3x3_tests.cpp
+        mat/mat3x4_tests.cpp
+        mat/mat4x2_tests.cpp
+        mat/mat4x3_tests.cpp
+        mat/mat4x4_tests.cpp
+
+        mat/mat2x2_func_tests.cpp
+        mat/mat2x3_func_tests.cpp
+        mat/mat2x4_func_tests.cpp
+        mat/mat3x2_func_tests.cpp
+        mat/mat3x3_func_tests.cpp
+        mat/mat3x4_func_tests.cpp
+        mat/mat4x2_func_tests.cpp
+        mat/mat4x3_func_tests.cpp
+        mat/mat4x4_func_tests.cpp
+        )
+
+
+target_sources(${PROJECT_NAME} PRIVATE
+        quat/quat_tests.cpp
+        quat/quat_func_tests.cpp
+        )
+
+
+
+target_sources(${PROJECT_NAME} PRIVATE
+        vec/vector1_tests.cpp
+        vec/vector2_tests.cpp
+        vec/vector3_tests.cpp
+        vec/vector4_tests.cpp
+
+        vec/vector1_func_tests.cpp
+        vec/vector2_func_tests.cpp
+        vec/vector3_func_tests.cpp
+        vec/vector4_func_tests.cpp
+        )
+
 
 if(MIM_OS_WINDOWS)
   # For Windows: Prevent overriding the parent project's compiler/linker settings
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
+else ()
+  target_compile_options(dj-test PUBLIC
+          -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
+          )
 endif()
 
 
