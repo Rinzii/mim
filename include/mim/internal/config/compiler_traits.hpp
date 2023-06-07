@@ -177,9 +177,6 @@
 #define MIM_DISABLE_GCC_WARNING(w)   \
 				_Pragma("GCC diagnostic push")  \
 				_Pragma(MIMGCCWHELP2(w))
-#elif defined(MIM_COMPILER_GNUC) && (MIM_COMPILER_VERSION >= 4004)
-#define MIM_DISABLE_GCC_WARNING(w)   \
-				_Pragma(MIMGCCWHELP2(w))
 #else
 #define MIM_DISABLE_GCC_WARNING(w)
 #endif
