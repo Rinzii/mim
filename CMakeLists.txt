@@ -104,6 +104,7 @@ if(MIM_INSTALL)
           NAMESPACE ${PROJECT_NAME}::
           DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
           )
+
   # configure ${PROJECT_NAME}-config.cmake
   configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.in"
           "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
