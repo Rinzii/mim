@@ -105,11 +105,11 @@ endif()
 # Only supported compilers currently are MSVC, GNU and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
     target_compile_options(mim-test PUBLIC
-            /W4 /WX
+            /W4 /WX /permissive-
             )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(mim-test PUBLIC
-          -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
+          -Wall -Wextra -Wconversion -Werror=return-type -Wno-pedantic -Wno-unused-function
           )
 endif()
 

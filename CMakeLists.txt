@@ -60,7 +60,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
           )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
+          -Wall -Wextra -Wconversion -Werror=return-type -Wno-pedantic -Wno-unused-function
           )
 endif()
 

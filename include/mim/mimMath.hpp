@@ -242,11 +242,6 @@ namespace mim
         // TODO: Validate this implementation for correctness.
         // Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
         // https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-        if (power < 0)
-        {
-            base /= 1;
-            power = -power;
-        }
 
         if (power == 0)
         {

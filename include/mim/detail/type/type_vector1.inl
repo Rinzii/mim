@@ -20,13 +20,17 @@ constexpr const T& VectorT<1, T, Q>::operator[](typename VectorT<1, T, Q>::size_
 template <typename T, qualifier Q>
 T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i)
 {
-	assert(i < size());
+	if(i >= size())
+		throw std::out_of_range("VectorT<1, T, Q>::at() : Index out of range.");
+
     return x;
 }
 
 template <typename T, qualifier Q>
 const T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i) const {
-	assert(i < size());
+	if(i >= size())
+		throw std::out_of_range("VectorT<1, T, Q>::at() : Index out of range.");
+
     return x;
 }
 
@@ -436,6 +440,11 @@ constexpr VectorT<1, T, Q> operator*(T scalar, VectorT<1, T, Q> const& v) {
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator*(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2) {
 	return VectorT<1, T, Q>(v1.x * v2.x);
+}
+
+template <qualifier Q>
+constexpr VectorT<1, bool, Q> operator*(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2) {
+	return VectorT<1, bool, Q>(v1.x && v2.x);
 }
 
 template <typename T, qualifier Q>
