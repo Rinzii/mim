@@ -111,7 +111,7 @@ namespace mim
     template <>
     float floor<float>(const float& val)
     {
-        return ::std::floorf(val);
+        return floorf(val);
     }
 
     template <typename T>
@@ -123,7 +123,7 @@ namespace mim
     template <>
     float ceil<float>(const float& val)
     {
-        return ::std::ceilf(val);
+        return ceilf(val);
     }
 
     template <typename T>
@@ -185,7 +185,7 @@ namespace mim
     template <>
 	float sqrt<float>(const float& val)
     {
-        return ::std::sqrtf(val);
+        return sqrtf(val);
     }
 
     template <typename T>
@@ -271,7 +271,7 @@ namespace mim
     template <>
 	float pow<float, float>(float& base, float& power)
     {
-        return ::std::powf(base, power);
+        return powf(base, power);
     }
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -289,7 +289,7 @@ namespace mim
     template <>
 	float exp<float>(const float& val)
     {
-        return ::std::expf(val);
+        return expf(val);
     }
 
     template <typename T>
@@ -301,7 +301,7 @@ namespace mim
     template <>
 	float sin<float>(const float& val)
     {
-        return ::std::sinf(val);
+        return sinf(val);
     }
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -319,7 +319,7 @@ namespace mim
     template <>
 	float cos(const float& val)
     {
-        return ::std::cosf(val);
+        return cosf(val);
     }
 
 
@@ -339,7 +339,7 @@ namespace mim
     template <>
 	float tan<float>(const float& val)
     {
-        return ::std::tanf(val);
+        return tanf(val);
     }
 
     template <typename T>
@@ -357,7 +357,7 @@ namespace mim
     template <>
     float asin<float>(const float& val)
     {
-        return ::std::asinf(val);
+        return asinf(val);
     }
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -375,7 +375,7 @@ namespace mim
     template <>
     float acos<float>(const float& val)
     {
-        return ::std::acosf(val);
+        return acosf(val);
     }
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -432,7 +432,7 @@ namespace mim
     template <>
 	float atan<float>(const float& val)
     {
-        return ::std::atanf(val);
+        return atanf(val);
     }
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -450,7 +450,7 @@ namespace mim
     template <>
 	float atan2<float>(const float& y, const float& x)
     {
-        return ::std::atan2f(y, x);
+        return atan2f(y, x);
     }
 
 	template <typename T>

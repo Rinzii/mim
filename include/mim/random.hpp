@@ -15,11 +15,20 @@ namespace mim {
  */
 class random {
   public:
-	static const detail::u64 DEFAULT_SEED = 1442695040888963407ULL;
-	static const detail::u64 DEFAULT_INC = PCG_DEFAULT_INC_64;
+	static constexpr detail::u64 DEFAULT_SEED = 1442695040888963407ULL;
+	static constexpr detail::u64 DEFAULT_INC = 1442695040888963407ULL;
+
+	explicit random() {
+
+
+		current_seed = DEFAULT_SEED;
+		current_inc = DEFAULT_INC;
+
+		rng = {seed_source};
+	}
 
 	template <typename T = detail::u64>
-	explicit random(T seed_ = DEFAULT_SEED, T inc_ = DEFAULT_INC) {
+	explicit random(T seed_, T inc_) {
 
 		if (seed_ < 0) seed_ = -seed_;
 
@@ -27,6 +36,17 @@ class random {
 
 		current_seed = static_cast<detail::u64>(seed_);
 		current_inc = static_cast<detail::u64>(inc_);
+
+		rng = {seed_source};
+	}
+
+	template <typename T = detail::u64>
+	explicit random(T seed_) {
+
+		if (seed_ < 0) seed_ = -seed_;
+
+		current_seed = static_cast<detail::u64>(seed_);
+		current_inc = DEFAULT_INC;
 
 		rng = {seed_source};
 	}
