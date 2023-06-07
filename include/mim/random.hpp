@@ -18,8 +18,9 @@ class random {
 	static const detail::u64 DEFAULT_SEED = 1442695040888963407ULL;
 	static const detail::u64 DEFAULT_INC = PCG_DEFAULT_INC_64;
 
-	template <typename T = detail::u64, typename = typename std::enable_if<std::is_integral<T>::value>::type>
+	template <typename T = detail::u64>
 	explicit random(T seed_ = DEFAULT_SEED, T inc_ = DEFAULT_INC) {
+
 		if (seed_ < 0) seed_ = -seed_;
 
 		if (inc_ < 0) inc_ = -inc_;

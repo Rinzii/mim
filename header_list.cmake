@@ -12,7 +12,6 @@ set(mim_detail_compute_headers
         )
 
 set(mim_detail_func_headers
-        # Matrix
         include/mim/detail/func/func_matrix2x2.inl
         include/mim/detail/func/func_matrix2x3.inl
         include/mim/detail/func/func_matrix2x4.inl
@@ -24,11 +23,9 @@ set(mim_detail_func_headers
         include/mim/detail/func/func_matrix4x4.inl
         include/mim/detail/func/func_matrix4x4_simd.inl
 
-        # Quaternion
         include/mim/detail/func/func_quaternion.inl
         include/mim/detail/func/func_quaternion_simd.inl
 
-        # Vector
         include/mim/detail/func/func_vector1.inl
         include/mim/detail/func/func_vector1_simd.inl
         include/mim/detail/func/func_vector2.inl
@@ -40,7 +37,6 @@ set(mim_detail_func_headers
         )
 
 set(mim_detail_type_headers
-        # Matrix
         include/mim/detail/type/type_matrix2x2.hpp
         include/mim/detail/type/type_matrix2x2.inl
         include/mim/detail/type/type_matrix2x3.hpp
@@ -60,12 +56,11 @@ set(mim_detail_type_headers
         include/mim/detail/type/type_matrix4x4.hpp
         include/mim/detail/type/type_matrix4x4.inl
 
-        # Quaternion
         include/mim/detail/type/type_quaternion.hpp
         include/mim/detail/type/type_quaternion.inl
         include/mim/detail/type/type_quaternion_simd.inl
 
-        # Vector
+
         include/mim/detail/type/type_vector1.hpp
         include/mim/detail/type/type_vector1.inl
         include/mim/detail/type/type_vector2.hpp
@@ -118,7 +113,6 @@ set(mim_simd_headers
 
 
 set(mim_headers
-
         ${mim_detail_headers}
         ${mim_internal_headers}
         ${mim_simd_headers}
@@ -128,6 +122,9 @@ set(mim_headers
 
         include/mim/half.hpp
         include/mim/mat.hpp
+        include/mim/mat2.hpp
+        include/mim/mat3.hpp
+        include/mim/mat4.hpp
         include/mim/mathUtils.hpp
         include/mim/mimMath.hpp
         include/mim/mimMathDefs.hpp

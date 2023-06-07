@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
+enable_language(CXX)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_DEBUG_POSTFIX "-d")
@@ -7,15 +9,20 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE Debug)
+endif()
+
 # We will hit 1.0.0 when we have a stable API
 # We will hit 0.1.0 when we have finished the basic API
 set(build_version 0.0.3)
 
+include(CheckPIESupported)
+check_pie_supported()
+
 project(mim VERSION ${build_version})
 
-set(is_root_project OFF)
-
-# Check if we are the root project
+set(is_root_project OFF) # Identifies if this is the root project
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(is_root_project ON)
 endif()
@@ -26,53 +33,45 @@ option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
 option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
 
 
-
-include(GNUInstallDirs)
-include(CheckPIESupported)
-
-check_pie_supported()
-
-configure_file(src/version.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.hpp" @ONLY)
-
 # include the global configuration file
 include(cmake/GlobalConfig.cmake)
 
 
 add_library(${PROJECT_NAME})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-target_include_directories(${PROJECT_NAME} PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-# Add the source files
+
+target_include_directories(${PROJECT_NAME} ${system} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+        )
 
 include(header_list.cmake)
 target_sources(${PROJECT_NAME} PRIVATE ${mim_headers})
-
 target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
+# Only supported compilers currently are MSVC, GNU and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
           /W4 /WX /permissive- /Zc:__cplusplus
           )
-else ()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(${PROJECT_NAME} PRIVATE
           -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
           )
 endif()
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+configure_file(src/version.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME}/version.hpp" @ONLY)
 
 if (MIM_BUILD_TEST)
-  add_subdirectory(ext)
   enable_testing()
+  add_subdirectory(ext)
   add_subdirectory(test)
 endif()
+
 
 if(MIM_INSTALL)
   include(GNUInstallDirs)

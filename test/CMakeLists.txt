@@ -8,7 +8,10 @@ endif()
 
 add_library(mim-test)
 add_library(mim::test ALIAS mim-test)
-target_link_libraries(mim-test PUBLIC mim::mim)
+target_link_libraries(mim-test PUBLIC
+        mim::mim
+        gtest::gtest
+        )
 target_include_directories(mim-test PUBLIC .)
 target_sources(mim-test PRIVATE
         mim_test_main.cpp
@@ -17,11 +20,11 @@ target_sources(mim-test PRIVATE
 
 add_executable(mim-test-common)
 target_sources(mim-test-common PRIVATE
-        mim_test_main.cpp
         common/mimMath_tests.cpp
         common/random_tests.cpp
         )
 target_link_libraries(mim-test-common PRIVATE
+        mim::test
         gtest::gtest
         )
 
@@ -93,16 +96,18 @@ target_link_libraries(mim-test-vector PRIVATE
         )
 
 
+
 if(MIM_OS_WINDOWS)
   # For Windows: Prevent overriding the parent project's compiler/linker settings
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 endif()
 
+# Only supported compilers currently are MSVC, GNU and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
     target_compile_options(mim-test PUBLIC
             /W4 /WX
             )
-else ()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(mim-test PUBLIC
           -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
           )

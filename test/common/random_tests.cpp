@@ -1,8 +1,9 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
-#include <mim/random.hpp>
 #include <gtest/gtest.h>
 #include <cstdint>
+
+#include <mim/random.hpp>
 
 #ifdef MIM_TESTS_EXCESSIVE
     static const int LOOPS = 10000;
