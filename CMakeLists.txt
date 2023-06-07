@@ -53,15 +53,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
-
-# GNU and Clang are struggling with unused parameters in the random.cpp file
-# This is not the fault of random but instead the fault of the PCG headers
-# which have some weird jank in them.
-if(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
-  set_source_files_properties(src/random.cpp PROPERTIES COMPILE_FLAGS -Wno-unused-parameter)
-endif()
-
-
 # Only supported compilers currently are MSVC, GNU and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
