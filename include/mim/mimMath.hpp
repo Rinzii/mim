@@ -39,11 +39,13 @@ namespace mim
 	static int ftoifast(float const& f)
     {
 #if defined(_MSC_VER) || defined(__clang__)
+		MIM_DISABLE_CLANG_WARNING(-Wshorten-64-to-32)
         return lrintf(f);
+		MIM_RESTORE_CLANG_WARNING()
 #elif defined(__GNUC__)
-		MIM_ENABLE_IGNORE_GCC_WARNING(-Wconversion)
+		MIM_DISABLE_GCC_WARNING(-Wconversion)
         return __builtin_lrintf(f);
-		MIM_DISABLE_IGNORE_GCC_WARNING(-Wconversion)
+		MIM_RESTORE_GCC_WARNING()
 #elif defined(__INTEL_COMPILER)
         return _lrintf(f);
 #else

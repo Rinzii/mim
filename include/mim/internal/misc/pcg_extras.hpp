@@ -148,7 +148,9 @@ std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>&
 	do {
 		auto div = value / BASE;
 		auto mod = uint32_t(value - (div * BASE));
+		MIM_DISABLE_CLANG_WARNING(-Wimplicit-int-conversion)
 		*(--pos) = '0' + mod;
+		MIM_RESTORE_CLANG_WARNING()
 		value = div;
 	} while (value != pcg128_t(0ULL));
 	return out << pos;

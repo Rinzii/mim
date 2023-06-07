@@ -32,7 +32,7 @@ struct Quaternion {
 		};
 #endif
 
-		using data = detail::Storage<4, T, detail::IsAligned<Q>::value>;
+		typename detail::Storage<4, T, detail::IsAligned<Q>::value> data;
 	};
 
 	static constexpr auto size() { return sizeV; }
