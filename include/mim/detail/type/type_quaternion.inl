@@ -91,11 +91,17 @@ constexpr Quaternion<T, Q>::Quaternion(const VectorT<3, T, Q>& euler) {
 	z = c.x * c.y * s.z - s.x * s.y * c.z;
 }
 
+/* TODO: Once matrix is implemented bring this back in.
 template <typename T, qualifier Q>
-constexpr Quaternion<T, Q>::Quaternion(const MatrixT<3, 3, T, Q>& m) {}
+constexpr Quaternion<T, Q>::Quaternion(const MatrixT<3, 3, T, Q>& m) {
+
+}
 
 template <typename T, qualifier Q>
-constexpr Quaternion<T, Q>::Quaternion(const MatrixT<4, 4, T, Q>& m) {}
+constexpr Quaternion<T, Q>::Quaternion(const MatrixT<4, 4, T, Q>& m) {
+
+}
+*/
 
 template <typename T, qualifier Q>
 template <typename U>
@@ -109,11 +115,23 @@ constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator=(const Quaternion<U, Q>& 
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator+=(const Quaternion<U, Q>& q) {}
+constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator+=(const Quaternion<U, Q>& q) {
+	this->x += static_cast<T>(q.w);
+    this->y += static_cast<T>(q.x);
+    this->z += static_cast<T>(q.y);
+    this->w += static_cast<T>(q.z);
+    return *this;
+}
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator-=(const Quaternion<U, Q>& q) {}
+constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator-=(const Quaternion<U, Q>& q) {
+	this->x -= static_cast<T>(q.w);
+    this->y -= static_cast<T>(q.x);
+    this->z -= static_cast<T>(q.y);
+    this->w -= static_cast<T>(q.z);
+    return *this;
+}
 
 template <typename T, qualifier Q>
 template <typename U>
@@ -130,7 +148,20 @@ constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator*=(const Quaternion<U, Q>&
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator*=(const U& scalar) {}
+constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator/=(const U& scalar)
+{
+    return *this *= static_cast<T>(1) / scalar;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
+constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator*=(const U& scalar) {
+	this->x *= scalar;
+    this->y *= scalar;
+    this->z *= scalar;
+    this->w *= scalar;
+    return *this;
+}
 
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator+(const Quaternion<T, Q>& q)

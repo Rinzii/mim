@@ -101,6 +101,71 @@
 #ifndef GOOGLETEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
 #define GOOGLETEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
 
+
+#ifndef G_DISABLE_CLANG_WARNINGS
+#if defined(__clang__)
+#define G_DISABLE_CLANG_WARNINGS \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Wextra\"") \
+  _Pragma("clang diagnostic ignored \"-Wsign-compare\"") \
+  _Pragma("clang diagnostic ignored \"-Wsign-conversion\"") \
+  _Pragma("clang diagnostic ignored \"-Wshorten-64-to-32\"") \
+  _Pragma("clang diagnostic ignored \"-Wshadow\"") \
+  _Pragma("clang diagnostic ignored \"-Wundef\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-parameter\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-variable\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-function\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-private-field\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-template\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-local-typedef\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-member-function\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-const-variable\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-const-variable\"") \
+  _Pragma("clang diagnostic ignored \"-Wunused-value\"") \
+  _Pragma("clang diagnostic ignored \"-Wused-but-marked-unused\"") \
+  _Pragma("clang diagnostic ignored \"-Wzero-as-null-pointer-constant\"") \
+  _Pragma("clang diagnostic ignored \"-Wimplicit-int-float-conversion\"")
+#else
+#define G_DISABLE_CLANG_WARNINGS
+#endif  // G_DISABLE_CLANG_WARNINGS
+#endif
+
+#ifndef G_REENABLE_CLANG_WARNINGS
+#if defined(__clang__)
+#define G_REENABLE_CLANG_WARNINGS \
+  _Pragma("clang diagnostic pop")
+#else
+    #define G_REENABLE_CLANG_WARNINGS
+#endif  // // defined(__clang__)
+#endif
+
+
+#ifndef G_DISABLE_GCC_WARNINGS
+    #if defined(__GNUC__) && !defined(__clang__)
+    #define G_DISABLE_GCC_WARNINGS \
+	    _Pragma("GCC diagnostic push")\
+
+    #else
+        #define G_DISABLE_GCC_WARNINGS
+    #endif  // G_DISABLE_GCC_WARNINGS
+#endif // G_DISABLE_GCC_WARNINGS
+
+
+
+#ifndef G_REENABLE_GCC_WARNINGS
+#if defined(__GNUC__) && !defined(__clang__)
+#define G_REENABLE_GCC_WARNINGS \
+  _Pragma("GCC diagnostic pop")
+#else
+#define G_REENABLE_GCC_WARNINGS
+#endif  // G_REENABLE_GCC_WARNINGS
+#endif
+
+
+
+G_DISABLE_CLANG_WARNINGS
+G_DISABLE_GCC_WARNINGS
+
 #include <functional>
 #include <memory>
 #include <ostream>  // NOLINT
@@ -111,6 +176,8 @@
 #include <typeinfo>
 #include <utility>
 #include <vector>
+
+
 
 #include "gtest/internal/gtest-internal.h"
 #include "gtest/internal/gtest-port.h"
@@ -541,14 +608,14 @@ int AppropriateResolution(FloatType val) {
     } else if (val >= 1e6) {  // 1,000,000 to 9,999,999
       divfor6 = 10;
     }
-    if (static_cast<int32_t>(val / divfor6 + 0.5) * divfor6 == val) return 6;
+    if (static_cast<int32_t>(val / divfor6 + 0.5) * divfor6 == val) return 6; // NOLINT
   }
   return full;
 }
 
 inline void PrintTo(float f, ::std::ostream* os) {
   auto old_precision = os->precision();
-  os->precision(AppropriateResolution(f));
+  os->precision(AppropriateResolution(f));// NOLINT
   *os << f;
   os->precision(old_precision);
 }
@@ -1127,5 +1194,8 @@ template <typename T>
 // We must include this header at the end to make sure it can use the
 // declarations from this file.
 #include "gtest/internal/custom/gtest-printers.h"
+
+G_REENABLE_GCC_WARNINGS
+G_REENABLE_CLANG_WARNINGS
 
 #endif  // GOOGLETEST_INCLUDE_GTEST_GTEST_PRINTERS_H_

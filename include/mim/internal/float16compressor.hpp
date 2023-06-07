@@ -10,7 +10,8 @@
 #include "mim/internal/setup.hpp"
 
 // Disable warnings for conversion from float to int
-MIM_ENABLE_IGNORE_GCC_WARNING(-Wconversion)
+MIM_DISABLE_GCC_WARNING(-Wconversion)
+MIM_DISABLE_CLANG_WARNING(-Wconversion)
 
 #if defined(MIM_ARCH_SSE2)
 #include <emmintrin.h>
@@ -155,7 +156,7 @@ class Float16Compressor {
 	}
 
 #endif
-	MIM_DISABLE_IGNORE_GCC_WARNING(-Wconversion)
-
+	MIM_RESTORE_GCC_WARNING()
+	MIM_RESTORE_CLANG_WARNING()
 };
 } // namespace mim

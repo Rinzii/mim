@@ -305,13 +305,6 @@
 
 
 // ------------------------------------------------------------------------
-// MIM_DISABLE_ALL_CLANG_WARNINGS / MIM_RESTORE_ALL_CLANG_WARNINGS
-//
-// The situation for clang is the same as for GCC. See above.
-// ------------------------------------------------------------------------
-
-
-// ------------------------------------------------------------------------
 // MIM_ENABLE_CLANG_WARNING_AS_ERROR / MIM_DISABLE_CLANG_WARNING_AS_ERROR
 //
 // Example usage:

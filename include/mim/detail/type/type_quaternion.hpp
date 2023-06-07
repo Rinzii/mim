@@ -38,7 +38,9 @@ struct Quaternion {
 	static constexpr auto size() { return sizeV; }
 
 	constexpr T& operator[](size_type i) {
-		assert(i >= 0 && i < this->size());
+		if (i > this->size())
+			throw std::out_of_range("Quaternion::operator[]");
+
 #if MIM_FORCE_QUATERNION_XYZW
 		return (&x)[i];
 #else
@@ -46,7 +48,9 @@ struct Quaternion {
 #endif
 	}
 	constexpr T const& operator[](size_type i) const {
-		assert(i >= 0 && i < this->size());
+		if (i > this->size())
+			throw std::out_of_range("Quaternion::operator[]");
+
 #if MIM_FORCE_QUATERNION_XYZW
 		return (&x)[i];
 #else
@@ -77,8 +81,10 @@ struct Quaternion {
 
 	constexpr explicit Quaternion(VectorT<3, T, Q> const& euler);
 
+	/* TODO: Once matrix is implemented bring this back in.
 	constexpr explicit Quaternion(MatrixT<3, 3, T, Q> const& m);
 	constexpr explicit Quaternion(MatrixT<4, 4, T, Q> const& m);
+	 */
 
 	constexpr Quaternion<T, Q>& operator=(Quaternion<T, Q> const& q) = default;
 
@@ -95,6 +101,7 @@ struct Quaternion {
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator/=(U const& scalar);
 };
+
 
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator+(Quaternion<T, Q> const& q);
