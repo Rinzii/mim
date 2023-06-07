@@ -40,11 +40,18 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: configure
-        run: cmake -S . --preset=default -B build
-      - name: build
+      - name: install homebrew formulae
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: init
+        run: brew install ninja gcc@11
+      - name: configure gcc
+        run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
+      - name: configure clang
+        run: cmake -S . --preset=ninja-clang -B clang
+      - name: build gcc
         run: cmake --build build --config=Release
+      - name: build clang
+        run: cmake --build clang --config=Release
       - name: test
         run: cd build && ctest -C Release
-
 
