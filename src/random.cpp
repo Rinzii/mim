@@ -4,6 +4,8 @@
 
 #include "mim/random.hpp"
 
+#include <climits>
+
 namespace mim
 {
 	void random::set_seed(detail::u64 newSeed)
