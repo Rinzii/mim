@@ -56,22 +56,17 @@ target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
-# Currently we are only a static LIB but I'd like to enable the ability to be dynamic!
-
-set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL GNU)
+if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE
+          /W4 /WX /permissive- /Zc:__cplusplus
+          )
+else ()
   target_compile_options(${PROJECT_NAME} PRIVATE
           -Wall -Wextra -Wpedantic -Wconversion -Werror=return-type -Wunused
           )
 endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
-
-# Disabled for now but may be enabled in the future
-#if (MIM_DISABLE_FORCED_INLINING)
-#  target_compile_definitions(${PROJECT_NAME} PUBLIC MIM_DISABLE_FORCED_INLINING)
-#endif ()
 
 if (MIM_BUILD_TEST)
   add_subdirectory(ext)
