@@ -2,21 +2,24 @@
 Language: Cpp
 BasedOnStyle: LLVM
 AlwaysBreakTemplateDeclarations: Yes
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Linux
 ColumnLimit: 160
 SpaceAfterTemplateKeyword: true
 Standard: c++20
 TabWidth: 4
 IndentWidth: 4
 UseTab: Always
+NamespaceIndentation: All
+FixNamespaceComments: true
+CompactNamespaces: true
 AllowShortEnumsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: All
+AllowShortFunctionsOnASingleLine: InlineOnly
 AllowShortLambdasOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
 AllowShortIfStatementsOnASingleLine: Always
 AllowShortLoopsOnASingleLine: true
-IndentRequires: true
+IndentPPDirectives: BeforeHash
 IncludeCategories:
     # Headers in <> with .h extension.
     - Regex: '<([A-Za-z0-9\/-_])+\.h>'
@@ -28,3 +31,21 @@ IncludeCategories:
     - Regex: '<([A-Za-z0-9\/-_])+>'
       Priority: 30
 PointerAlignment: Left
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: false
+    AfterEnum: false
+    AfterFunction: false
+    AfterNamespace: true
+    AfterObjCDeclaration: false
+    AfterStruct: false
+    AfterUnion: false
+    AfterExternBlock: false
+    BeforeCatch: false
+    BeforeElse: false
+    IndentBraces: false
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
+    SplitEmptyNamespace: false
+    BeforeLambdaBody: false
+    BeforeWhile: false

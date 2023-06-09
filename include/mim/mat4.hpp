@@ -10,4 +10,6 @@
 #include "mim/detail/type/type_matrix4x3.hpp"
 #include "mim/detail/type/type_matrix4x4.hpp"
 
-namespace mim {}
+namespace mim
+{
+}

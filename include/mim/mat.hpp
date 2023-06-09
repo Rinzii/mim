@@ -12,4 +12,6 @@
 #include "mim/mat3.hpp"
 #include "mim/mat4.hpp"
 
-namespace mim {}
+namespace mim
+{
+}

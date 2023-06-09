@@ -8,4 +8,6 @@
 
 #include "mim/detail/type/type_quaternion.hpp"
 
-namespace mim {}
+namespace mim
+{
+}

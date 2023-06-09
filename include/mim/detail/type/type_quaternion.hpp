@@ -12,135 +12,135 @@
 
 #include "mim/detail/compute/compute_quaternion.hpp"
 
-namespace mim {
-template <typename T, qualifier Q>
-struct Quaternion {
-	using value_type = T;
-	using type = Quaternion<T, Q>;
-	using size_type = size_t;
+namespace mim
+{
+	template <typename T, qualifier Q>
+	struct Quaternion {
+		using value_type = T;
+		using type = Quaternion<T, Q>;
+		using size_type = size_t;
 
-	static constexpr auto sizeV = 4;
-
-#ifdef MIM_FORCE_QUATERNION_XYZW
-	T x, y, z, w;
-#else
-	T w, x, y, z;
-#endif
-
-	static constexpr auto size() { return sizeV; }
-
-	constexpr T& operator[](size_type i) {
-		if (i > this->size())
-			throw std::out_of_range("Quaternion::operator[]");
-
-#if MIM_FORCE_QUATERNION_XYZW
-		return (&x)[i];
-#else
-		return (&w)[i];
-#endif
-	}
-	constexpr T const& operator[](size_type i) const {
-		if (i > this->size())
-			throw std::out_of_range("Quaternion::operator[]");
-
-#if MIM_FORCE_QUATERNION_XYZW
-		return (&x)[i];
-#else
-		return (&w)[i];
-#endif
-	}
-
-	constexpr Quaternion() = default;
-	constexpr Quaternion(Quaternion const&) = default;
-	template <qualifier P>
-	constexpr explicit Quaternion(Quaternion<T, P> const& q);
-
-	constexpr Quaternion(T const& s, VectorT<3, T, Q> const& v);
+		static constexpr auto sizeV = 4;
 
 #ifdef MIM_FORCE_QUATERNION_XYZW
-	constexpr Quaternion(T const& x, T const& y, T const& z, T const& w);
+		T x, y, z, w;
 #else
-	constexpr Quaternion(T const& w, T const& x, T const& y, T const& z);
+		T w, x, y, z;
 #endif
 
-	template <typename U, qualifier P>
-	constexpr explicit Quaternion(Quaternion<U, P> const& q);
+		static constexpr auto size() { return sizeV; }
 
-	explicit operator MatrixT<3, 3, T, Q>() const;
-	explicit operator MatrixT<4, 4, T, Q>() const;
+		constexpr T& operator[](size_type i)
+		{
+			if (i > this->size()) throw std::out_of_range("Quaternion::operator[]");
 
-	Quaternion(VectorT<3, T, Q> const& a1, VectorT<3, T, Q> const& a2);
+#if MIM_FORCE_QUATERNION_XYZW
+			return (&x)[i];
+#else
+			return (&w)[i];
+#endif
+		}
+		constexpr T const& operator[](size_type i) const
+		{
+			if (i > this->size()) throw std::out_of_range("Quaternion::operator[]");
 
-	constexpr explicit Quaternion(VectorT<3, T, Q> const& euler);
+#if MIM_FORCE_QUATERNION_XYZW
+			return (&x)[i];
+#else
+			return (&w)[i];
+#endif
+		}
 
-	/* TODO: Once matrix is implemented bring this back in.
-	constexpr explicit Quaternion(MatrixT<3, 3, T, Q> const& m);
-	constexpr explicit Quaternion(MatrixT<4, 4, T, Q> const& m);
-	 */
+		constexpr Quaternion() = default;
+		constexpr Quaternion(Quaternion const&) = default;
+		template <qualifier P>
+		constexpr explicit Quaternion(Quaternion<T, P> const& q);
 
-	constexpr Quaternion<T, Q>& operator=(Quaternion<T, Q> const& q) = default;
+		constexpr Quaternion(T const& s, VectorT<3, T, Q> const& v);
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator=(Quaternion<U, Q> const& q);
+#ifdef MIM_FORCE_QUATERNION_XYZW
+		constexpr Quaternion(T const& x, T const& y, T const& z, T const& w);
+#else
+		constexpr Quaternion(T const& w, T const& x, T const& y, T const& z);
+#endif
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator+=(Quaternion<U, Q> const& q);
+		template <typename U, qualifier P>
+		constexpr explicit Quaternion(Quaternion<U, P> const& q);
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator-=(Quaternion<U, Q> const& q);
+		explicit operator MatrixT<3, 3, T, Q>() const;
+		explicit operator MatrixT<4, 4, T, Q>() const;
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator*=(Quaternion<U, Q> const& r);
+		Quaternion(VectorT<3, T, Q> const& a1, VectorT<3, T, Q> const& a2);
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator*=(U const& scalar);
+		constexpr explicit Quaternion(VectorT<3, T, Q> const& euler);
 
-	template <typename U>
-	constexpr Quaternion<T, Q>& operator/=(U const& scalar);
-};
+		/* TODO: Once matrix is implemented bring this back in.
+		constexpr explicit Quaternion(MatrixT<3, 3, T, Q> const& m);
+		constexpr explicit Quaternion(MatrixT<4, 4, T, Q> const& m);
+		 */
 
+		constexpr Quaternion<T, Q>& operator=(Quaternion<T, Q> const& q) = default;
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator+(Quaternion<T, Q> const& q);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator=(Quaternion<U, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator-(Quaternion<T, Q> const& q);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator+=(Quaternion<U, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator+(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator-=(Quaternion<U, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator-(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator*=(Quaternion<U, Q> const& r);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator*=(U const& scalar);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<3, T, Q> const& v);
+		template <typename U>
+		constexpr Quaternion<T, Q>& operator/=(U const& scalar);
+	};
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(VectorT<3, T, Q> const& v, Quaternion<T, Q> const& q);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator+(Quaternion<T, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<4, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator-(Quaternion<T, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(VectorT<4, T, Q> const& v, Quaternion<T, Q> const& q);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator+(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, T const& scalar);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator-(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator*(T const& scalar, Quaternion<T, Q> const& q);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
 
-template <typename T, qualifier Q>
-constexpr Quaternion<T, Q> operator/(Quaternion<T, Q> const& q, T const& scalar);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<3, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr bool operator==(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(VectorT<3, T, Q> const& v, Quaternion<T, Q> const& q);
 
-template <typename T, qualifier Q>
-constexpr bool operator!=(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<4, T, Q> const& v);
+
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(VectorT<4, T, Q> const& v, Quaternion<T, Q> const& q);
+
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, T const& scalar);
+
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator*(T const& scalar, Quaternion<T, Q> const& q);
+
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q> operator/(Quaternion<T, Q> const& q, T const& scalar);
+
+	template <typename T, qualifier Q>
+	constexpr bool operator==(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+
+	template <typename T, qualifier Q>
+	constexpr bool operator!=(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
 
 } // namespace mim
 

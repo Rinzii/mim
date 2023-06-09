@@ -14,325 +14,309 @@
 
 namespace mim
 {
-template <typename T, qualifier Q>
-struct VectorT<1, T, Q>
-{
-	/// Aliases
+	template <typename T, qualifier Q>
+	struct VectorT<1, T, Q> {
+		/// Aliases
 
-	using value_type = T;
-	using type = VectorT<1, T, Q>;
-	using size_type = size_t;
-	static constexpr auto size_v = 1;
+		using value_type = T;
+		using type = VectorT<1, T, Q>;
+		using size_type = size_t;
+		static constexpr auto size_v = 1;
 
+		/// Data
+		T x;
 
-	/// Data
-	T x;
+		/// Element Accessors
 
+		static constexpr std::size_t size() { return size_v; }
 
-	/// Element Accessors
+		constexpr T& operator[](std::size_t i);
 
-	static constexpr std::size_t size() { return size_v; }
+		constexpr const T& operator[](std::size_t i) const;
 
-	constexpr T& operator[](std::size_t i);
+		T& at(std::size_t i);
 
-	constexpr const T& operator[](std::size_t i) const;
+		const T& at(std::size_t i) const;
 
-	T& at(std::size_t i);
+		// Much of this code uses as reference section 5.4.1 of the GLSL 1.30.08 specification
 
-	const T& at(std::size_t i) const;
+		/// Constructors
 
+		constexpr VectorT();
 
-	// Much of this code uses as reference section 5.4.1 of the GLSL 1.30.08 specification
+		constexpr VectorT(VectorT<1, T, Q> const& v);
 
-	/// Constructors
+		constexpr explicit VectorT(T scalar);
 
-	constexpr VectorT();
+		/// Template Constructors
 
-	constexpr VectorT(VectorT<1, T, Q> const& v);
+		template <qualifier P>
+		constexpr explicit VectorT(VectorT<1, T, P> const& v);
 
-	constexpr explicit VectorT(T scalar);
+		template <typename U>
+		constexpr explicit VectorT(U scalar);
 
+		template <typename U, qualifier P>
+		constexpr explicit VectorT(VectorT<1, U, P> const& v);
 
-	/// Template Constructors
+		template <typename U, qualifier P>
+		constexpr explicit VectorT(VectorT<2, U, P> const& v);
 
-	template <qualifier P>
-	constexpr explicit VectorT(VectorT<1, T, P> const& v);
+		template <typename U, qualifier P>
+		constexpr explicit VectorT(VectorT<3, U, P> const& v);
 
-	template <typename U>
-	constexpr explicit VectorT(U scalar);
+		template <typename U, qualifier P>
+		constexpr explicit VectorT(VectorT<4, U, P> const& v);
 
-	template <typename U, qualifier P>
-	constexpr explicit VectorT(VectorT<1, U, P> const& v);
+		/// Assignment Operators
 
-	template <typename U, qualifier P>
-	constexpr explicit VectorT(VectorT<2, U, P> const& v);
+		constexpr VectorT<1, T, Q>& operator=(T scalar);
 
-	template <typename U, qualifier P>
-	constexpr explicit VectorT(VectorT<3, U, P> const& v);
+		constexpr VectorT<1, T, Q>& operator=(VectorT<1, T, Q> const& v);
 
-	template <typename U, qualifier P>
-	constexpr explicit VectorT(VectorT<4, U, P> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator=(VectorT<1, U, Q> const& v);
 
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator=(VectorT<2, U, Q> const& v);
 
-	/// Assignment Operators
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator=(VectorT<3, U, Q> const& v);
 
-	constexpr VectorT<1, T, Q>& operator=(T scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator=(VectorT<4, U, Q> const& v);
 
-	constexpr VectorT<1, T, Q>& operator=(VectorT<1, T, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator+=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator+=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator=(VectorT<2, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator+=(VectorT<2, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator=(VectorT<3, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator+=(VectorT<3, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator=(VectorT<4, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator+=(VectorT<4, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator+=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator-=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator+=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator-=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator+=(VectorT<2, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator-=(VectorT<2, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator+=(VectorT<3, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator-=(VectorT<3, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator+=(VectorT<4, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator-=(VectorT<4, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator-=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator*=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator-=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator*=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator-=(VectorT<2, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator*=(VectorT<2, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator-=(VectorT<3, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator*=(VectorT<3, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator-=(VectorT<4, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator*=(VectorT<4, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator*=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator/=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator*=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator/=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator*=(VectorT<2, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator/=(VectorT<2, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator*=(VectorT<3, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator/=(VectorT<3, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator*=(VectorT<4, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator/=(VectorT<4, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator/=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator%=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator/=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator%=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator/=(VectorT<2, U, Q> const& v);
+		/// Increment and Decrement Operators
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator/=(VectorT<3, U, Q> const& v);
+		constexpr VectorT<1, T, Q>& operator++();
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator/=(VectorT<4, U, Q> const& v);
+		constexpr VectorT<1, T, Q>& operator--();
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator%=(U scalar);
+		constexpr const VectorT<1, T, Q> operator++(int);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator%=(VectorT<1, U, Q> const& v);
+		constexpr const VectorT<1, T, Q> operator--(int);
 
+		/// Bitwise Assignment Operators
 
-	/// Increment and Decrement Operators
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator&=(U scalar);
 
-	constexpr VectorT<1, T, Q>& operator++();
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator&=(VectorT<1, U, Q> const& v);
 
-	constexpr VectorT<1, T, Q>& operator--();
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator|=(U scalar);
 
-	constexpr const VectorT<1, T, Q> operator++(int);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator|=(VectorT<1, U, Q> const& v);
 
-	constexpr const VectorT<1, T, Q> operator--(int);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator^=(U scalar);
 
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator^=(VectorT<1, U, Q> const& v);
 
-	/// Bitwise Assignment Operators
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator<<=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator&=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator<<=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator&=(VectorT<1, U, Q> const& v);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator>>=(U scalar);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator|=(U scalar);
+		template <typename U>
+		constexpr VectorT<1, T, Q>& operator>>=(VectorT<1, U, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator|=(VectorT<1, U, Q> const& v);
+		/// Stream Implementation
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator^=(U scalar);
+		friend std::ostream& operator<<(std::ostream& os, VectorT<1, T, Q> const& v) { return os << "(" << v.x << ")"; }
+	};
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator^=(VectorT<1, U, Q> const& v);
+	/// Unary Operators
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator<<=(U scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator<<=(VectorT<1, U, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v);
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator>>=(U scalar);
+	/// Binary Operators
 
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator>>=(VectorT<1, U, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v, T scalar);
 
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator+(T scalar, VectorT<1, T, Q> const& v);
 
-	/// Stream Implementation
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-	friend std::ostream& operator<<(std::ostream& os, VectorT<1, T, Q> const& v)
-	{
-		return os << "(" << v.x << ")";
-	}
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v, T scalar);
 
-};
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator-(T scalar, VectorT<1, T, Q> const& v);
 
-/// Unary Operators
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator*(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator*(T scalar, VectorT<1, T, Q> const& v);
 
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator*(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-/// Binary Operators
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator/(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator+(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator%(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator-(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	/// Bitwise Binary Operators
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator*(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator&(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator*(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator&(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator*(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator&(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator|(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator/(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator|(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator|(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator^(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator%(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator^(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator^(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator<<(VectorT<1, T, Q> const& v, T scalar);
 
-/// Bitwise Binary Operators
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator<<(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator&(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator<<(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator&(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator>>(VectorT<1, T, Q> const& v, T scalar);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator&(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator>>(T scalar, VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator|(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator>>(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator|(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr VectorT<1, T, Q> operator~(VectorT<1, T, Q> const& v);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator|(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	/// Comparison Operators
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator^(VectorT<1, T, Q> const& v, T scalar);
+	template <typename T, qualifier Q>
+	constexpr bool operator==(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator^(T scalar, VectorT<1, T, Q> const& v);
+	template <typename T, qualifier Q>
+	constexpr bool operator!=(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator^(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+	template <qualifier Q>
+	constexpr bool operator&&(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);
 
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator<<(VectorT<1, T, Q> const& v, T scalar);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator<<(T scalar, VectorT<1, T, Q> const& v);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator<<(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator>>(VectorT<1, T, Q> const& v, T scalar);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator>>(T scalar, VectorT<1, T, Q> const& v);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator>>(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
-
-template <typename T, qualifier Q>
-constexpr VectorT<1, T, Q> operator~(VectorT<1, T, Q> const& v);
-
-
-/// Comparison Operators
-
-template <typename T, qualifier Q>
-constexpr bool operator==(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
-
-template <typename T, qualifier Q>
-constexpr bool operator!=(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
-
-template <qualifier Q>
-constexpr bool operator&&(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);
-
-template <qualifier Q>
-constexpr bool operator||(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);
+	template <qualifier Q>
+	constexpr bool operator||(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);
 
 } // namespace mim
 

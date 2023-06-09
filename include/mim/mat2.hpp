@@ -12,4 +12,6 @@
 #include "mim/detail/type/type_matrix2x3.hpp"
 #include "mim/detail/type/type_matrix2x4.hpp"
 
-namespace mim {}
+namespace mim
+{
+}
