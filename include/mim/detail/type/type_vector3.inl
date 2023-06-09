@@ -32,25 +32,43 @@ constexpr T const& VectorT<3, T, Q>::operator[](size_type i) const {
 	}
 }
 
+
+/// Constructors
+
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q>::VectorT() : x(0), y(0), z(0) {}
-
-template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q>::VectorT(VectorT const& v) : x(v.x), y(v.y), z(v.z) {}
-
-template <typename T, qualifier Q>
-template <qualifier P>
-constexpr VectorT<3, T, Q>::VectorT(VectorT<3, T, P> const& v) : x(v.x), y(v.y), z(v.z) {}
-
-template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q>::VectorT(T scalar) : x(scalar), y(scalar), z(scalar) {}
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q>::VectorT(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
 
 template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q>::VectorT(VectorT<3, T, Q> const& v) : x(v.x), y(v.y), z(v.z) {}
+
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q>::VectorT(T scalar) : x(scalar), y(scalar), z(scalar) {}
+
+
+/// Template Constructors
+
+template <typename T, qualifier Q>
+template <qualifier P>
+constexpr VectorT<3, T, Q>::VectorT(VectorT<3, T, P> const& v) : x(v.x), y(v.y), z(v.z) {}
+
+
+// U Template Constructors
+
+// Vec1 is deliberately treated like a scalar to mimic shader languages.
+
+template <typename T, qualifier Q>
 template <typename U, qualifier P>
-constexpr VectorT<3, T, Q>::VectorT(VectorT<1, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)) {}
+constexpr VectorT<3, T, Q>::VectorT(VectorT<1, U, P> const& scalar) : x(static_cast<T>(scalar.x)), y(static_cast<T>(scalar.x)), z(static_cast<T>(scalar.x)) {}
+
+template <typename T, qualifier Q>
+template <typename U, qualifier P>
+constexpr VectorT<3, T, Q>::VectorT(VectorT<3, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)) {}
+
+
+// XYZ Template Constructors
 
 template <typename T, qualifier Q>
 template <typename X, typename Y, typename Z>
@@ -88,6 +106,9 @@ template <typename X, typename Y, typename Z>
 constexpr VectorT<3, T, Q>::VectorT(VectorT<1, X, Q> const& _x, VectorT<1, Y, Q> const& _y, VectorT<1, Z, Q> const& _z)
 	: x(static_cast<T>(_x.x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z.z)) {}
 
+
+// AB Template Constructors
+
 template <typename T, qualifier Q>
 template <typename A, typename B, qualifier P>
 constexpr VectorT<3, T, Q>::VectorT(VectorT<2, A, P> const& _xy, B _z) : x(static_cast<T>(_xy.x)), y(static_cast<T>(_xy.y)), z(static_cast<T>(_z)) {}
@@ -106,13 +127,36 @@ template <typename A, typename B, qualifier P>
 constexpr VectorT<3, T, Q>::VectorT(VectorT<1, A, P> const& _x, VectorT<2, B, P> const& _yz)
 	: x(static_cast<T>(_x.x)), y(static_cast<T>(_yz.y)), z(static_cast<T>(_yz.z)) {}
 
-template <typename T, qualifier Q>
-template <typename U, qualifier P>
-constexpr VectorT<3, T, Q>::VectorT(VectorT<3, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)) {}
+
+/// Assignment Operators
 
 template <typename T, qualifier Q>
-template <typename U, qualifier P>
-constexpr VectorT<3, T, Q>::VectorT(VectorT<4, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)) {}
+constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(T scalar) {
+    x = scalar;
+    y = scalar;
+    z = scalar;
+    return *this;
+}
+
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(VectorT<3, T, Q> const& v) {
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    return *this;
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+template <typename U>
+constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(VectorT<1, U, Q> const& scalar) {
+	x = static_cast<T>(scalar.x);
+	y = static_cast<T>(scalar.x);
+	z = static_cast<T>(scalar.x);
+	return *this;
+}
 
 template <typename T, qualifier Q>
 template <typename U>
@@ -132,6 +176,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator+=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator+=(VectorT<1, U, Q> const& v) {
@@ -159,14 +206,18 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(VectorT<1, U, Q> const& v) {
-	x -= static_cast<T>(v.x);
-	y -= static_cast<T>(v.x);
-	z -= static_cast<T>(v.x);
+constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(VectorT<1, U, Q> const& scalar) {
+	x -= static_cast<T>(scalar.x);
+	y -= static_cast<T>(scalar.x);
+	z -= static_cast<T>(scalar.x);
 	return *this;
 }
+
 
 template <typename T, qualifier Q>
 template <typename U>
@@ -186,6 +237,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator*=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator*=(VectorT<1, U, Q> const& v) {
@@ -213,6 +267,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(VectorT<1, U, Q> const& v) {
@@ -230,6 +287,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(VectorT<3, U, Q> const&
 	z /= static_cast<T>(v.z);
 	return *this;
 }
+
+
+/// Increment and decrement operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator++() {
@@ -261,6 +321,9 @@ constexpr const VectorT<3, T, Q> VectorT<3, T, Q>::operator--(int) {
 	return result;
 }
 
+
+/// Bitwise Assignment Operators
+
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(U scalar) {
@@ -270,6 +333,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(VectorT<1, U, Q> const& v) {
@@ -297,6 +363,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator&=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator&=(VectorT<1, U, Q> const& v) {
@@ -324,6 +393,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator|=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator|=(VectorT<1, U, Q> const& v) {
@@ -351,6 +423,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator^=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator^=(VectorT<1, U, Q> const& v) {
@@ -378,6 +453,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator<<=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator<<=(VectorT<1, U, Q> const& v) {
@@ -405,6 +483,9 @@ constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator>>=(U scalar) {
 	return *this;
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator>>=(VectorT<1, U, Q> const& v) {
@@ -439,15 +520,21 @@ constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x + sv.x, v.y + sv.x, v.z + sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator+(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar + v.x, scalar + v.y, scalar + v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x + sv.x, v.y + sv.x, v.z + sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator+(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x + v.x, sv.x + v.y, sv.x + v.z);
@@ -464,15 +551,21 @@ constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x - sv.x, v.y - sv.x, v.z - sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator-(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar - v.x, scalar - v.y, scalar - v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x - sv.x, v.y - sv.x, v.z - sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator-(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x - v.x, sv.x - v.y, sv.x - v.z);
@@ -489,15 +582,21 @@ constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x * sv.x, v.y * sv.x, v.z * sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator*(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar * v.x, scalar * v.y, scalar * v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x * sv.x, v.y * sv.x, v.z * sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator*(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x * v.x, sv.x * v.y, sv.x * v.z);
@@ -514,15 +613,21 @@ constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x / sv.x, v.y / sv.x, v.z / sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator/(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar / v.x, scalar / v.y, scalar / v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x / sv.x, v.y / sv.x, v.z / sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator/(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x / v.x, sv.x / v.y, sv.x / v.z);
@@ -539,15 +644,21 @@ constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x % sv.x, v.y % sv.x, v.z % sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator%(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar % v.x, scalar % v.y, scalar % v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x % sv.x, v.y % sv.x, v.z % sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator%(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x % v.x, sv.x % v.y, sv.x % v.z);
@@ -564,15 +675,21 @@ constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x & sv.x, v.y & sv.x, v.z & sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator&(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar & v.x, scalar & v.y, scalar & v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x & sv.x, v.y & sv.x, v.z & sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator&(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x & v.x, sv.x & v.y, sv.x & v.z);
@@ -589,15 +706,21 @@ constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x | sv.x, v.y | sv.x, v.z | sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator|(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar | v.x, scalar | v.y, scalar | v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x | sv.x, v.y | sv.x, v.z | sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator|(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x | v.x, sv.x | v.y, sv.x | v.z);
@@ -614,15 +737,22 @@ constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x ^ sv.x, v.y ^ sv.x, v.z ^ sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator^(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar ^ v.x, scalar ^ v.y, scalar ^ v.z);
 }
 
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x ^ sv.x, v.y ^ sv.x, v.z ^ sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator^(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x ^ v.x, sv.x ^ v.y, sv.x ^ v.z);
@@ -639,15 +769,22 @@ constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x << sv.x, v.y << sv.x, v.z << sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator<<(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar << v.x, scalar << v.y, scalar << v.z);
 }
 
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x << sv.x, v.y << sv.x, v.z << sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator<<(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x << v.x, sv.x << v.y, sv.x << v.z);
@@ -664,15 +801,21 @@ constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
-	return VectorT<3, T, Q>(v.x >> sv.x, v.y >> sv.x, v.z >> sv.x);
-}
-
-template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator>>(T scalar, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(scalar >> v.x, scalar >> v.y, scalar >> v.z);
 }
 
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
+template <typename T, qualifier Q>
+constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv) {
+	return VectorT<3, T, Q>(v.x >> sv.x, v.y >> sv.x, v.z >> sv.x);
+}
+
+/*
+ * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+ */
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q> operator>>(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v) {
 	return VectorT<3, T, Q>(sv.x >> v.x, sv.x >> v.y, sv.x >> v.z);

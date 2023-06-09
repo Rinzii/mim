@@ -5,6 +5,8 @@
 #include "mim/internal/setup.hpp"
 #include "mim/simd/simdSetup.hpp"
 
+#include <cstddef>
+
 namespace mim {
 
 enum qualifier {
@@ -33,19 +35,25 @@ enum qualifier {
 
 using precision = qualifier;
 
-template <size_t S, typename T, qualifier Q = defaultp>
+template <std::size_t S, typename T, qualifier Q = defaultp>
 struct VectorT;
-template <size_t C, size_t R, typename T, qualifier Q = defaultp>
+template <std::size_t C, std::size_t R, typename T, qualifier Q = defaultp>
 struct MatrixT;
 template <typename T, qualifier Q = defaultp>
 struct Quaternion;
 
+// TODO: Decide what to do with this
+// Currently I'm planning to move away from this more complex implementation
+// of storage handling and instead moving towards a simpler approach though I plan to keep this here for now
+// just in case I decided to go back to it/
+
+
 namespace detail {
+
 template <qualifier P>
 struct IsAligned {
 	static const bool value = false;
 };
-
 #if MIM_SIMD
 template <>
 struct IsAligned<aligned_highp> {
@@ -63,6 +71,7 @@ struct IsAligned<aligned_lowp> {
 };
 #endif
 
+/*
 template <size_t S, typename T, bool is_aligned>
 struct Storage {
 	using type = struct Type {
@@ -152,6 +161,6 @@ struct Storage<4, uint32_t, true> {
 	using type = MIM_u32vec4;
 };
 #endif
-
+*/
 } // namespace detail
 } // namespace mim

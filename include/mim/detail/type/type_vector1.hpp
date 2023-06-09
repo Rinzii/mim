@@ -9,12 +9,15 @@
 
 #include "mim/detail/qualifier.hpp"
 
+// I've decided a vec1 should be treated like a scalar as this appears to be a common
+// convention in GLSL. This means that a vec1 can be implicitly converted to a scalar.
+
 namespace mim
 {
 template <typename T, qualifier Q>
 struct VectorT<1, T, Q>
 {
-	// Aliases
+	/// Aliases
 
 	using value_type = T;
 	using type = VectorT<1, T, Q>;
@@ -22,11 +25,11 @@ struct VectorT<1, T, Q>
 	static constexpr auto size_v = 1;
 
 
-	// Data
+	/// Data
 	T x;
 
 
-	// Element Accessors
+	/// Element Accessors
 
 	static constexpr std::size_t size() { return size_v; }
 
@@ -41,16 +44,22 @@ struct VectorT<1, T, Q>
 
 	// Much of this code uses as reference section 5.4.1 of the GLSL 1.30.08 specification
 
-	// Constructors
+	/// Constructors
 
 	constexpr VectorT();
 
-	constexpr VectorT(VectorT const& v);
+	constexpr VectorT(VectorT<1, T, Q> const& v);
 
 	constexpr explicit VectorT(T scalar);
 
+
+	/// Template Constructors
+
 	template <qualifier P>
 	constexpr explicit VectorT(VectorT<1, T, P> const& v);
+
+	template <typename U>
+	constexpr explicit VectorT(U scalar);
 
 	template <typename U, qualifier P>
 	constexpr explicit VectorT(VectorT<1, U, P> const& v);
@@ -65,11 +74,11 @@ struct VectorT<1, T, Q>
 	constexpr explicit VectorT(VectorT<4, U, P> const& v);
 
 
-	// Assignment Operators
+	/// Assignment Operators
 
 	constexpr VectorT<1, T, Q>& operator=(T scalar);
 
-	constexpr VectorT<1, T, Q>& operator=(VectorT const& v);
+	constexpr VectorT<1, T, Q>& operator=(VectorT<1, T, Q> const& v);
 
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator=(VectorT<1, U, Q> const& v);
@@ -104,14 +113,11 @@ struct VectorT<1, T, Q>
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator-=(VectorT<1, U, Q> const& v);
 
-
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator-=(VectorT<2, U, Q> const& v);
 
-
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator-=(VectorT<3, U, Q> const& v);
-
 
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator-=(VectorT<4, U, Q> const& v);
@@ -146,8 +152,14 @@ struct VectorT<1, T, Q>
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator/=(VectorT<4, U, Q> const& v);
 
+	template <typename U>
+	constexpr VectorT<1, T, Q>& operator%=(U scalar);
 
-	// Increment and Decrement Operators
+	template <typename U>
+	constexpr VectorT<1, T, Q>& operator%=(VectorT<1, U, Q> const& v);
+
+
+	/// Increment and Decrement Operators
 
 	constexpr VectorT<1, T, Q>& operator++();
 
@@ -158,13 +170,7 @@ struct VectorT<1, T, Q>
 	constexpr const VectorT<1, T, Q> operator--(int);
 
 
-	// Bitwise Assignment Operators
-
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator%=(U scalar);
-
-	template <typename U>
-	constexpr VectorT<1, T, Q>& operator%=(VectorT<1, U, Q> const& v);
+	/// Bitwise Assignment Operators
 
 	template <typename U>
 	constexpr VectorT<1, T, Q>& operator&=(U scalar);
@@ -197,7 +203,7 @@ struct VectorT<1, T, Q>
 	constexpr VectorT<1, T, Q>& operator>>=(VectorT<1, U, Q> const& v);
 
 
-	// Stream Operators
+	/// Stream Implementation
 
 	friend std::ostream& operator<<(std::ostream& os, VectorT<1, T, Q> const& v)
 	{
@@ -206,15 +212,16 @@ struct VectorT<1, T, Q>
 
 };
 
-// TODO: Implement Unary Operators for vec2-4
-
-// Unary Operators
+/// Unary Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v);
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator-(VectorT<1, T, Q> const& v);
+
+
+/// Binary Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator+(VectorT<1, T, Q> const& v, T scalar);
@@ -252,9 +259,6 @@ constexpr VectorT<1, T, Q> operator/(T scalar, VectorT<1, T, Q> const& v);
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator/(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
-
-// Bitwise Operators
-
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v, T scalar);
 
@@ -263,6 +267,9 @@ constexpr VectorT<1, T, Q> operator%(T scalar, VectorT<1, T, Q> const& v);
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator%(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
+
+
+/// Bitwise Binary Operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator&(VectorT<1, T, Q> const& v, T scalar);
@@ -313,15 +320,13 @@ template <typename T, qualifier Q>
 constexpr VectorT<1, T, Q> operator~(VectorT<1, T, Q> const& v);
 
 
-// Comparison Operators
+/// Comparison Operators
 
 template <typename T, qualifier Q>
 constexpr bool operator==(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
 
 template <typename T, qualifier Q>
 constexpr bool operator!=(VectorT<1, T, Q> const& v1, VectorT<1, T, Q> const& v2);
-
-// TODO: These two operators are not working currently and need to be fixed.
 
 template <qualifier Q>
 constexpr bool operator&&(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);

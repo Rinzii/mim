@@ -21,19 +21,11 @@ struct Quaternion {
 
 	static constexpr auto sizeV = 4;
 
-	union {
 #ifdef MIM_FORCE_QUATERNION_XYZW
-		struct {
-			T x, y, z, w;
-		};
+	T x, y, z, w;
 #else
-		struct {
-			T w, x, y, z;
-		};
+	T w, x, y, z;
 #endif
-
-		typename detail::Storage<4, T, detail::IsAligned<Q>::value> data;
-	};
 
 	static constexpr auto size() { return sizeV; }
 
@@ -90,14 +82,19 @@ struct Quaternion {
 
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator=(Quaternion<U, Q> const& q);
+
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator+=(Quaternion<U, Q> const& q);
+
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator-=(Quaternion<U, Q> const& q);
+
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator*=(Quaternion<U, Q> const& r);
+
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator*=(U const& scalar);
+
 	template <typename U>
 	constexpr Quaternion<T, Q>& operator/=(U const& scalar);
 };
@@ -117,16 +114,22 @@ constexpr Quaternion<T, Q> operator-(Quaternion<T, Q> const& q1, Quaternion<T, Q
 
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q1, Quaternion<T, Q> const& p);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<3, T, Q> const& v);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(VectorT<3, T, Q> const& v, Quaternion<T, Q> const& q);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, VectorT<4, T, Q> const& v);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(VectorT<4, T, Q> const& v, Quaternion<T, Q> const& q);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(Quaternion<T, Q> const& q, T const& scalar);
+
 template <typename T, qualifier Q>
 constexpr Quaternion<T, Q> operator*(T const& scalar, Quaternion<T, Q> const& q);
 
