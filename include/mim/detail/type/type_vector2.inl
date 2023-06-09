@@ -8,8 +8,10 @@ namespace mim
 // Element Accessors
 
 template <typename T, qualifier Q>
-constexpr T& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) {
-	assert(i >= 0 && i < this->size());
+constexpr T& VectorT<2, T, Q>::operator[](size_type i) {
+	if(i >= this->size()) {
+        throw std::out_of_range("VectorT<2, T, Q>::operator[]");
+    }
 	switch (i) {
 	default:
 	case 0: return x;
@@ -18,8 +20,11 @@ constexpr T& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i
 }
 
 template <typename T, qualifier Q>
-constexpr T const& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_type i) const {
-	assert(i >= 0 && i < this->size());
+constexpr T const& VectorT<2, T, Q>::operator[](size_type i) const {
+	if(i >= this->size()) {
+		throw std::out_of_range("VectorT<2, T, Q>::operator[]");
+	}
+
 	switch (i) {
 	default:
 	case 0: return x;
@@ -29,7 +34,10 @@ constexpr T const& VectorT<2, T, Q>::operator[](typename VectorT<2, T, Q>::size_
 
 template <typename T, qualifier Q>
 T& VectorT<2, T, Q>::at(std::size_t i) {
-	assert(i >= 0 && i < this->size());
+	if(i >= this->size()) {
+        throw std::out_of_range("VectorT<2, T, Q>::at");
+	}
+
     switch (i) {
     default:
     case 0: return x;
@@ -39,7 +47,10 @@ T& VectorT<2, T, Q>::at(std::size_t i) {
 
 template <typename T, qualifier Q>
 const T& VectorT<2, T, Q>::at(std::size_t i) const {
-    assert(i >= 0 && i < this->size());
+	if(i >= this->size()) {
+		throw std::out_of_range("VectorT<2, T, Q>::at");
+	}
+
     switch (i) {
     default:
     case 0: return x;
@@ -117,6 +128,14 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<2, T, Q> const& 
 
 template <typename T, qualifier Q>
 template <typename U>
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<1, U, Q> const& scalar) {
+	this->x = static_cast<T>(scalar.x);
+	this->y = static_cast<T>(scalar.x);
+	return *this;
+}
+
+template <typename T, qualifier Q>
+template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<2, U, Q> const& v) {
 	this->x = static_cast<T>(v.x);
 	this->y = static_cast<T>(v.y);
@@ -149,9 +168,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(U scalar) {
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(VectorT<1, U, Q> const& v) {
-	this->x += static_cast<T>(v.x);
-	this->y += static_cast<T>(v.x);
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator+=(VectorT<1, U, Q> const& scalar) {
+	this->x += static_cast<T>(scalar.x);
+	this->y += static_cast<T>(scalar.x);
 	return *this;
 }
 
@@ -189,9 +208,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(U scalar) {
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<1, U, Q> const& v) {
-	this->x -= static_cast<T>(v.x);
-	this->y -= static_cast<T>(v.x);
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator-=(VectorT<1, U, Q> const& scalar) {
+	this->x -= static_cast<T>(scalar.x);
+	this->y -= static_cast<T>(scalar.x);
 	return *this;
 }
 
@@ -229,9 +248,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(U scalar) {
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(VectorT<1, U, Q> const& v) {
-	this->x *= static_cast<T>(v.x);
-	this->y *= static_cast<T>(v.x);
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator*=(VectorT<1, U, Q> const& scalar) {
+	this->x *= static_cast<T>(scalar.x);
+	this->y *= static_cast<T>(scalar.x);
 	return *this;
 }
 
@@ -269,9 +288,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(U scalar) {
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(VectorT<1, U, Q> const& v) {
-	this->x /= static_cast<T>(v.x);
-	this->y /= static_cast<T>(v.x);
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator/=(VectorT<1, U, Q> const& scalar) {
+	this->x /= static_cast<T>(scalar.x);
+	this->y /= static_cast<T>(scalar.x);
 	return *this;
 }
 
@@ -335,6 +354,8 @@ constexpr const VectorT<2, T, Q> VectorT<2, T, Q>::operator--(int) {
 
 // Bitwise Assignment Operators
 
+// We will not be supporting bitwise assignment operations between vec 3-4 as it would not make much sense from a math standpoint.
+
 template <typename T, qualifier Q>
 template <typename U>
 constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator%=(U scalar) {
@@ -345,9 +366,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator%=(U scalar) {
 
 template <typename T, qualifier Q>
 template <typename U>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator%=(VectorT<1, U, Q> const& v) {
-	this->x %= static_cast<T>(v.x);
-	this->y %= static_cast<T>(v.x);
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator%=(VectorT<1, U, Q> const& scalar) {
+	this->x %= static_cast<T>(scalar.x);
+	this->y %= static_cast<T>(scalar.x);
 	return *this;
 }
 
@@ -480,9 +501,9 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator>>=(VectorT<2, U, Q> const
 }
 
 
-// TODO: Decide if we want to support unary operators for vectors 3-4
+// We will not be supporting binary operations between vec 3-4 as it would not make much sense from a math standpoint.
 
-// Unary operators
+// Binary operators
 
 template <typename T, qualifier Q>
 constexpr VectorT<2, T, Q> operator+(VectorT<2, T, Q> const& v) {

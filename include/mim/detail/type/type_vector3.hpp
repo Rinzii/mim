@@ -15,14 +15,8 @@ struct VectorT<3, T, Q> {
 	using size_type = size_t;
 	static constexpr auto size_v = 3;
 
-	union {
-		// This anonymous struct is only for syntactic sugar.
-		struct {
-			T x, y, z;
-		};
-
-		typename detail::Storage<3, T, detail::IsAligned<Q>::value>::type data;
-	};
+	// Data
+	T x, y, z;
 
 	static constexpr size_type size() { return size_v; }
 

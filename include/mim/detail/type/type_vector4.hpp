@@ -15,14 +15,8 @@ struct VectorT<4, T, Q> {
 	using size_type = size_t;
 	static constexpr auto size_v = 4;
 
-	union {
-		// This anonymous struct is only for syntactic sugar.
-		struct {
-			T x, y, z, w;
-		};
-
-		typename detail::Storage<4, T, detail::IsAligned<Q>::value>::type data;
-	};
+	// Data
+	T x, y, z, w;
 
 	static constexpr size_type size() noexcept { return size_v; }
 

@@ -17,18 +17,8 @@ struct VectorT<2, T, Q>
 	using size_type = size_t;
 	static constexpr auto size_v = 2;
 
-
 	// Data
-
-	union {
-		// This anonymous struct is only for syntactic sugar.
-		struct {
-			T x, y;
-		};
-
-		typename detail::Storage<2, T, detail::IsAligned<Q>::value>::type data;
-	};
-
+	T x, y;
 
 	// Element Accessors
 
@@ -90,6 +80,9 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator=(VectorT const& v);
 
 	template <typename U>
+	constexpr VectorT<2, T, Q>& operator=(VectorT<1, U, Q> const& scalar);
+
+	template <typename U>
 	constexpr VectorT<2, T, Q>& operator=(VectorT<2, U, Q> const& v);
 
 	template <typename U>
@@ -102,7 +95,7 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator+=(U scalar);
 
 	template <typename U>
-	constexpr VectorT<2, T, Q>& operator+=(VectorT<1, U, Q> const& v);
+	constexpr VectorT<2, T, Q>& operator+=(VectorT<1, U, Q> const& scalar);
 
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator+=(VectorT<2, U, Q> const& v);
@@ -117,7 +110,7 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator-=(U scalar);
 
 	template <typename U>
-	constexpr VectorT<2, T, Q>& operator-=(VectorT<1, U, Q> const& v);
+	constexpr VectorT<2, T, Q>& operator-=(VectorT<1, U, Q> const& scalar);
 
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator-=(VectorT<2, U, Q> const& v);
@@ -132,7 +125,7 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator*=(U scalar);
 
 	template <typename U>
-	constexpr VectorT<2, T, Q>& operator*=(VectorT<1, U, Q> const& v);
+	constexpr VectorT<2, T, Q>& operator*=(VectorT<1, U, Q> const& scalar);
 
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator*=(VectorT<2, U, Q> const& v);
@@ -147,7 +140,7 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator/=(U scalar);
 
 	template <typename U>
-	constexpr VectorT<2, T, Q>& operator/=(VectorT<1, U, Q> const& v);
+	constexpr VectorT<2, T, Q>& operator/=(VectorT<1, U, Q> const& scalar);
 
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator/=(VectorT<2, U, Q> const& v);
@@ -176,7 +169,7 @@ struct VectorT<2, T, Q>
 	constexpr VectorT<2, T, Q>& operator%=(U scalar);
 
 	template <typename U>
-	constexpr VectorT<2, T, Q>& operator%=(VectorT<1, U, Q> const& v);
+	constexpr VectorT<2, T, Q>& operator%=(VectorT<1, U, Q> const& scalar);
 
 	template <typename U>
 	constexpr VectorT<2, T, Q>& operator%=(VectorT<2, U, Q> const& v);

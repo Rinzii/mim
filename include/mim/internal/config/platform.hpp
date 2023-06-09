@@ -16,7 +16,7 @@
 #endif
 
 // MinGW
-// This is a pseudo-platform which will be defined along with RIOT_PLATFORM_WINDOWS when
+// This is a pseudo-platform which will be defined along with MIM_PLATFORM_WINDOWS when
 // using the MinGW Windows build environment.
 #if defined(__MINGW32__) || defined(__MINGW64__)
 #define MIM_PLATFORM_MINGW 1

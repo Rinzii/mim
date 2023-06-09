@@ -23,12 +23,7 @@ struct VectorT<1, T, Q>
 
 
 	// Data
-
-	union {
-		struct { T x; };
-
-		typename detail::Storage<1, T, detail::IsAligned<Q>::value>::type data;
-	};
+	T x;
 
 
 	// Element Accessors

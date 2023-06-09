@@ -3,6 +3,35 @@
 #include "mim/detail/compute/compute_vector.hpp"
 
 namespace mim {
+
+template <typename T, qualifier Q>
+constexpr T& VectorT<3, T, Q>::operator[](size_type i) {
+	if (i >= this->length()) {
+		throw std::out_of_range("VectorT<3, T, Q>::operator[]");
+    }
+
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	case 2: return z;
+	}
+}
+
+template <typename T, qualifier Q>
+constexpr T const& VectorT<3, T, Q>::operator[](size_type i) const {
+	if (i >= this->length()) {
+		throw std::out_of_range("VectorT<3, T, Q>::operator[]");
+	}
+
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	case 2: return z;
+	}
+}
+
 template <typename T, qualifier Q>
 constexpr VectorT<3, T, Q>::VectorT() : x(0), y(0), z(0) {}
 
@@ -84,28 +113,6 @@ constexpr VectorT<3, T, Q>::VectorT(VectorT<3, U, P> const& v) : x(static_cast<T
 template <typename T, qualifier Q>
 template <typename U, qualifier P>
 constexpr VectorT<3, T, Q>::VectorT(VectorT<4, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)) {}
-
-template <typename T, qualifier Q>
-constexpr T& VectorT<3, T, Q>::operator[](typename VectorT<3, T, Q>::size_type i) {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	case 2: return z;
-	}
-}
-
-template <typename T, qualifier Q>
-constexpr T const& VectorT<3, T, Q>::operator[](typename VectorT<3, T, Q>::size_type i) const {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	case 2: return z;
-	}
-}
 
 template <typename T, qualifier Q>
 template <typename U>

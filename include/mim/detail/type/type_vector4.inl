@@ -5,6 +5,36 @@
 namespace mim {
 
 template <typename T, qualifier Q>
+constexpr T& VectorT<4, T, Q>::operator[](size_type i) {
+	if (i >= this->length()) {
+        throw std::out_of_range("VectorT<4, T, Q>::operator[]");
+    }
+
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	case 2: return z;
+	case 3: return w;
+	}
+}
+
+template <typename T, qualifier Q>
+constexpr T const& VectorT<4, T, Q>::operator[](size_type i) const {
+	if (i >= this->length()) {
+		throw std::out_of_range("VectorT<4, T, Q>::operator[]");
+	}
+
+	switch (i) {
+	default:
+	case 0: return x;
+	case 1: return y;
+	case 2: return z;
+	case 3: return w;
+	}
+}
+
+template <typename T, qualifier Q>
 constexpr VectorT<4, T, Q>::VectorT() : x(0), y(0), z(0), w(0) {}
 
 template <typename T, qualifier Q>
@@ -188,30 +218,6 @@ template <typename T, qualifier Q>
 template <typename U, qualifier P>
 constexpr VectorT<4, T, Q>::VectorT(VectorT<4, U, P> const& v)
 	: x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z)), w(static_cast<T>(v.w)) {}
-
-template <typename T, qualifier Q>
-constexpr T& VectorT<4, T, Q>::operator[](typename VectorT<4, T, Q>::size_type i) {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	case 2: return z;
-	case 3: return w;
-	}
-}
-
-template <typename T, qualifier Q>
-constexpr T const& VectorT<4, T, Q>::operator[](typename VectorT<4, T, Q>::size_type i) const {
-	MIM_ASSERT(i >= 0 && i < this->length());
-	switch (i) {
-	default:
-	case 0: return x;
-	case 1: return y;
-	case 2: return z;
-	case 3: return w;
-	}
-}
 
 template <typename T, qualifier Q>
 template <typename U>

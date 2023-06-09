@@ -2,6 +2,8 @@
 
 #pragma once
 
+// TODO: Better define what every feature between C++17 and C++20 are and define if our supported compiler supports said feature.
+
 // MIM_COMPILER_HAS_FEATURE
 #ifndef MIM_COMPILER_HAS_FEATURE
 #if defined(__clang__)

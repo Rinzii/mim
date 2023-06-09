@@ -2,6 +2,13 @@
 
 #pragma once
 
+// TODO: Better define what every feature between C++17 and C++20 are and define if our supported compiler supports said feature.
+// Our goal is to build a compatability layer between compilers so we can use the latest features of C++ without having to worry about compiler support.
+// We also need to start moving towards more modern feature sets once this is achieved and the API is more stable.
+// The current plan to to achieve compiler independence through macros.
+
+// Use this for reference: https://en.cppreference.com/w/cpp/compiler_support
+
 #include "mim/internal/config/compiler.hpp"
 #include "mim/internal/config/compiler_features.hpp"
 
