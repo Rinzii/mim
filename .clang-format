@@ -19,6 +19,7 @@ AllowShortLambdasOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
 AllowShortIfStatementsOnASingleLine: Always
 AllowShortLoopsOnASingleLine: true
+AccessModifierOffset: -4
 IndentPPDirectives: BeforeHash
 IncludeCategories:
     # Headers in <> with .h extension.

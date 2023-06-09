@@ -21,7 +21,7 @@ namespace mim
 {
 	class Float16Compressor
 	{
-	  protected:
+	protected:
 		union FloatBits {
 			float fl;
 			int32_t sint;
@@ -51,7 +51,7 @@ namespace mim
 		static int32_t constexpr maxDiff = inf16 - max16 - 1; // diff. between max FP16 normal and infinity
 		static int32_t constexpr minDiff = min16 - sub32 - 1; // diff. between min FP16 normal and max float32 subnormal
 
-	  public:
+	public:
 		static uint16_t Compress(float value)
 		{
 			FloatBits value_bits, shift_bits;

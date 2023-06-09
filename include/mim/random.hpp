@@ -16,7 +16,7 @@ namespace mim
 	 */
 	class random
 	{
-	  public:
+	public:
 		static constexpr detail::u64 DEFAULT_SEED = 1442695040888963407ULL;
 		static constexpr detail::u64 DEFAULT_INC = 1442695040888963407ULL;
 
@@ -167,7 +167,7 @@ namespace mim
 		 */
 		double next_double(double lowerBound, double upperBound);
 
-	  private:
+	private:
 		pcg_extras::seed_seq_from<std::random_device> seed_source; /*!< The seed source. */
 		pcg32 rng;												   /*!< The random number generator using the PCG Algorithm. */
 		detail::u64 current_seed = 0;							   /*!< The current seed. */

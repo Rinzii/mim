@@ -19,10 +19,10 @@ namespace mim
 		static constexpr std::size_t ColumnSizeV = T{4};
 		static constexpr T SizeV = VectorT<2, std::size_t, Q>(4);
 
-	  private:
+	private:
 		using Data = std::array<ColumnType, ColumnSizeV>;
 
-	  public:
+	public:
 		static constexpr SizeType size() { return SizeV; }
 		static constexpr SizeType row_size() { return RowSizeV; }
 		static constexpr SizeType column_size() { return ColumnSizeV; }
