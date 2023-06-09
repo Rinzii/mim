@@ -127,7 +127,7 @@ constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(T scalar) {
 }
 
 template <typename T, qualifier Q>
-constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT<2, T, Q> const& v) {
+constexpr VectorT<2, T, Q>& VectorT<2, T, Q>::operator=(VectorT const& v) {
     this->x = v.x;
     this->y = v.y;
     return *this;

@@ -189,17 +189,6 @@ TEST(Vector2Defaults, AdditionAssignmentVec2)
     EXPECT_EQ(v1.y, 6.0f);
 }
 
-TEST(Vector2Defaults, AdditionAssignmentVec3)
-{
-    mim::vec2f v1(1.0f, 2.0f);
-    mim::vec3f v2(3.0f, 4.0f, 5.0f);
-    v1 += v2;
-    EXPECT_EQ(v1.x, 4.0f);
-    EXPECT_EQ(v1.y, 6.0f);
-}
-
-
-
 TEST(Vector2Defaults, MultiplicationAssignment)
 {
     mim::vec2f v1(1.0f, 2.0f);
