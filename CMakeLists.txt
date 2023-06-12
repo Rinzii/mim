@@ -31,6 +31,7 @@ endif()
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
 option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
+option(MIM_USE_SIMD "Use SIMD instructions" OFF)
 
 
 # include the global configuration file
@@ -71,6 +72,11 @@ if (MIM_BUILD_TEST)
   add_subdirectory(ext)
   add_subdirectory(test)
 endif()
+
+if (MIM_USE_SIMD)
+  # TODO: Add a better way to handle enabling simd internally.
+  #add_compile_definitions(INTERNAL_ENABLE_CHECK_FOR_SIMD)
+endif ()
 
 
 if(MIM_INSTALL)
