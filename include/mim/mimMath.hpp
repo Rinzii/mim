@@ -8,6 +8,16 @@
 
 #include <climits>
 #include <cmath>
+#include <bit>
+
+// Chapter 8. Built-In Functions
+// Reference: https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.pdf
+
+
+// TODO: Decide if Vector variants should be implemented here.
+
+// I may move more common functions such as abs for vectors to here
+// instead of implementing them directly in the vector classes.
 
 namespace mim::math
 {
@@ -22,245 +32,6 @@ namespace mim::math
 	static T radToDeg(T rad)
 	{
 		return (rad * T{180}) / MIM_PI<T>;
-	}
-
-	static int ftoifast(float const& f)
-	{
-#if defined(_MSC_VER) || defined(__clang__)
-		MIM_DISABLE_CLANG_WARNING(-Wshorten - 64 - to - 32)
-		return lrintf(f);
-		MIM_RESTORE_CLANG_WARNING()
-#elif defined(__GNUC__)
-		MIM_DISABLE_GCC_WARNING(-Wconversion)
-		return __builtin_lrintf(f);
-		MIM_RESTORE_GCC_WARNING()
-#elif defined(__INTEL_COMPILER)
-		return _lrintf(f);
-#else
-		return static_cast<int>(f);
-#endif
-	}
-
-	template <typename T>
-	static T min(const T& a, const T& b)
-	{
-		MIM_STATIC_ASSERT(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
-		return (b < a) ? b : a;
-	}
-
-	template <typename T, typename... Args>
-	static T min(const T& a, const T& b, const Args&... args)
-	{
-		return min(min(a, b), std::forward<Args>(args)...);
-	}
-
-	template <typename T>
-	static T max(const T& a, const T& b)
-	{
-		MIM_STATIC_ASSERT(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
-		return (a < b) ? b : a;
-	}
-
-	template <typename T, typename... Args>
-	static T max(const T& a, const T& b, const Args&... args)
-	{
-		return max(max(a, b), std::forward<Args>(args)...);
-	}
-
-	template <typename T>
-	static T clamp(const T& val, const T& min, const T& max)
-	{
-		return min(max(val, min), max);
-	}
-
-	template <typename T>
-	void swap(const T& a, const T& b)
-	{
-		::std::swap(a, b);
-	}
-
-	template <typename T>
-	static T abs(const T& val)
-	{
-		return ::std::abs(val);
-	}
-
-	// I've noticed slight improvements in performance with this method when handling integers.
-	template <>
-	int abs<int>(const int& val)
-	{
-		int const mask = val >> (sizeof(int) * CHAR_BIT - 1);
-		return (val ^ mask) - mask;
-	}
-
-	template <typename T>
-	static T floor(const T& val)
-	{
-		return ::std::floor(val);
-	}
-
-	template <>
-	float floor<float>(const float& val)
-	{
-		return floorf(val);
-	}
-
-	template <typename T>
-	static T ceil(const T& val)
-	{
-		return ::std::ceil(val);
-	}
-
-	template <>
-	float ceil<float>(const float& val)
-	{
-		return ceilf(val);
-	}
-
-	template <typename T>
-	static T round(const T& val)
-	{
-		return ::std::round(val);
-	}
-
-	template <>
-	float round<float>(const float& val)
-	{
-		return ::std::roundf(val);
-	}
-
-	template <typename T>
-	static T trunc(const T& val)
-	{
-		return ::std::trunc(val);
-	}
-
-	template <>
-	float trunc<float>(const float& val)
-	{
-		return ::std::truncf(val);
-	}
-
-	template <typename T>
-	static T frac(const T& val)
-	{
-		return val - trunc(val);
-	}
-
-	template <typename T>
-	static bool isnan(const T& val)
-	{
-#if MIM_COMPILER_CPP11_ENABLED
-		return ::std::isnan(val);
-#elif MIM_COMPILER_MSVC
-		return _isnan(val) != 0;
-#elif (MIM_COMPILER_GCC || MIM_COMPILER_CLANG) && (MIM_PLATFORM_ANDROID) && __cplusplus < 201103L
-		return _isnan(val) != 0;
-#else
-		return ::std::isnan(val);
-#endif
-	}
-
-	template <typename T>
-	static bool isinf(const T& val)
-	{
-		return ::std::isinf(val);
-	}
-
-	template <typename T>
-	static T sqrt(const T& val)
-	{
-		return ::std::sqrt(val);
-	}
-
-	template <>
-	float sqrt<float>(const float& val)
-	{
-		return sqrtf(val);
-	}
-
-	template <typename T>
-	static T inv_sqrt(const T& val)
-	{
-		return T{1} / sqrt(val);
-	}
-
-	// std::pow is relatively slow when working with floats instead of doubles. This is due to pow having to convert from double to float.
-	// So we will use a custom implementation of pow for floats.
-	// https://baptiste-wicht.com/posts/2017/09/cpp11-performance-tip-when-to-use-std-pow.html
-	template <typename T, typename Q>
-	static T pow(T& base, Q& power)
-	{
-		return ::std::pow<T>(base, power);
-	}
-
-	// This custom implementation is significantly faster than std::pow for integers.
-	template <>
-	detail::i32 pow<detail::i32, detail::i32>(detail::i32& base, detail::i32& power)
-	{
-		// TODO: Validate this implementation for correctness.
-		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
-		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-		if (power < 0) {
-			base /= 1;
-			power = -power;
-		}
-
-		if (power == 0) { return 1; }
-
-		int result = base;
-		while (power > 1) {
-			if (power & 1) { result *= base; }
-			base *= base;
-			power >>= 1;
-		}
-
-		return result;
-	}
-
-	// This custom implementation is significantly faster than std::pow for integers.
-	template <>
-	detail::u32 pow<detail::u32, detail::u32>(detail::u32& base, detail::u32& power)
-	{
-		// TODO: Validate this implementation for correctness.
-		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
-		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-
-		if (power == 0) { return 1; }
-
-		detail::u32 result = base;
-		while (power > 1) {
-			if (power & 1) { result *= base; }
-			base *= base;
-			power >>= 1;
-		}
-
-		return result;
-	}
-
-	// TODO: Find a faster implementation of pow for floats.
-	template <>
-	float pow<float, float>(float& base, float& power)
-	{
-		return powf(base, power);
-	}
-
-	template <std::size_t S, typename T, qualifier Q>
-	static VectorT<S, T, Q> pow(const VectorT<S, T, Q>& base, const VectorT<S, T, Q>& power)
-	{
-		return detail::functor2<VectorT, S, T, T, Q>::compute(pow, base, power);
-	}
-
-	template <typename T>
-	static T exp(const T& val)
-	{
-		return ::std::exp(val);
-	}
-
-	template <>
-	float exp<float>(const float& val)
-	{
-		return expf(val);
 	}
 
 	template <typename T>
@@ -355,23 +126,24 @@ namespace mim::math
 
 	// Safe version of acos won't return NaN if the input is out of range.
 	template <typename T>
-	static T acos_s(T& val)
+	static T acos_s(const T& val)
 	{
-		if (abs(val) >= T{1}) {
-			val = (val > T{0}) ? T{0} : MIM_PI<T>;
-			return val;
+		if (val <= -1) {
+			return MIM_PI<T>;
+		} else if (val >= 1) {
+			return static_cast<T>(0);
+		} else {
+			return acos(val);
 		}
-
-		return acos(val);
 	}
 
 	// Safe version of asin won't return NaN if the input is out of range.
 	template <typename T>
-	static T asin_s(T& val)
+	static T asin_s(const T& val)
 	{
 		if (abs(val) >= T{1}) {
-			val = (val > T{0}) ? MIM_PI<T> / T{2} : -MIM_PI<T> / T{2};
-			return val;
+			auto temp = (val > T{0}) ? MIM_PI<T> / T{2} : -MIM_PI<T> / T{2};
+			return temp;
 		}
 
 		return asin(val);
@@ -379,11 +151,11 @@ namespace mim::math
 
 	// Specialization for float that takes advantage of using multiplication vs division.
 	template <>
-	float asin_s(float& val)
+	float asin_s(const float& val)
 	{
 		if (abs(val) >= 1.0f) {
-			val = (val > 0.0f) ? 0.5f * MIM_PI<float> : -0.5f * MIM_PI<float>;
-			return val;
+			auto temp = (val > 0.0f) ? 0.5f * MIM_PI<float> : -0.5f * MIM_PI<float>;
+			return temp;
 		}
 
 		return asin(val);
@@ -434,7 +206,7 @@ namespace mim::math
 	template <typename T>
 	static T sinh(const T& val)
 	{
-		return ::std::cosh(val);
+		return ::std::sinh(val);
 	}
 
 	template <std::size_t S, typename T, qualifier Q>
@@ -492,6 +264,372 @@ namespace mim::math
 	}
 
 	template <typename T>
+	static T abs(const T& val)
+	{
+		return ::std::abs(val);
+	}
+
+	// I've noticed slight improvements in performance with this method when handling integers.
+	template <>
+	int abs<int>(const int& val)
+	{
+		int const mask = val >> (sizeof(int) * CHAR_BIT - 1);
+		return (val ^ mask) - mask;
+	}
+
+	template <typename T>
+	static T sign(const T& val)
+	{
+		// Specifically not using copysign as it tends to be slow when handling integer types.
+		return (T{0} < val) - (val < T{0});
+	}
+
+	template <typename T>
+	static T floor(const T& val)
+	{
+		return ::std::floor(val);
+	}
+
+	template <>
+	float floor<float>(const float& val)
+	{
+		return floorf(val);
+	}
+
+	template <typename T>
+	static T trunc(const T& val)
+	{
+		return ::std::trunc(val);
+	}
+
+	template <>
+	float trunc<float>(const float& val)
+	{
+		return ::std::truncf(val);
+	}
+
+	template <typename T>
+	static T round(const T& val)
+	{
+		return ::std::round(val);
+	}
+
+	template <>
+	float round<float>(const float& val)
+	{
+		return ::std::roundf(val);
+	}
+
+	template <typename T>
+	static T roundEven(const T& val)
+    {
+        return ::std::rint(val);
+    }
+
+	static int roundEvenFast(float const& f)
+	{
+#if defined(_MSC_VER) || defined(__clang__)
+		MIM_DISABLE_CLANG_WARNING(-Wshorten-64-to-32)
+		return lrintf(f);
+		MIM_RESTORE_CLANG_WARNING()
+#elif defined(__GNUC__)
+		MIM_DISABLE_GCC_WARNING(-Wconversion)
+		return __builtin_lrintf(f);
+		MIM_RESTORE_GCC_WARNING()
+#elif defined(__INTEL_COMPILER)
+		return _lrintf(f);
+#else
+		return ::std::rintf(f);
+#endif
+	}
+
+	static int roundEvenFast(double const& f)
+	{
+#if defined(_MSC_VER) || defined(__clang__)
+		MIM_DISABLE_CLANG_WARNING(-Wshorten-64-to-32)
+		return lrint(f);
+		MIM_RESTORE_CLANG_WARNING()
+#elif defined(__GNUC__)
+		MIM_DISABLE_GCC_WARNING(-Wconversion)
+		return __builtin_lrint(f);
+		MIM_RESTORE_GCC_WARNING()
+#elif defined(__INTEL_COMPILER)
+		return _lrint(f);
+#else
+		return ::std::rint(f);
+#endif
+	}
+
+	template <typename T>
+	static T ceil(const T& val)
+	{
+		return ::std::ceil(val);
+	}
+
+	template <>
+	float ceil<float>(const float& val)
+	{
+		return ceilf(val);
+	}
+
+	template <typename T>
+	static constexpr T fract(const T& val)
+	{
+		return val - floor(val);
+	}
+
+	template <typename T>
+	static constexpr T mod(const T& val, const T& mod)
+    {
+        return val - mod * floor(val / mod);
+    }
+
+	static float modf(const float& val, float* intpart)
+    {
+        return ::std::modf(val, intpart);
+    }
+
+	static double modf(const double& val, double* intpart)
+	{
+		return ::std::modf(val, intpart);
+	}
+
+	template <typename T>
+	static constexpr T min(const T& a, const T& b)
+	{
+		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
+		return (b < a) ? b : a;
+	}
+
+	template <typename T, typename... Args>
+	static constexpr T min(const T& a, const T& b, const Args&... args)
+	{
+		return min(min(a, b), std::forward<Args>(args)...);
+	}
+
+	template <typename T>
+	static constexpr T max(const T& a, const T& b)
+	{
+		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
+		return (a < b) ? b : a;
+	}
+
+	template <typename T, typename... Args>
+	static constexpr T max(const T& a, const T& b, const Args&... args)
+	{
+		return max(max(a, b), std::forward<Args>(args)...);
+	}
+
+	template <typename T>
+	static constexpr T clamp(const T& val, const T& min, const T& max)
+	{
+		return min(max(val, min), max);
+	}
+
+	template <typename T>
+	static constexpr T mix(const T& a, const T& b, const T& t)
+    {
+        return a * (T{1} - t) + b * t;
+    }
+
+	template <typename T>
+	static constexpr T step(const T& edge, const T& val)
+    {
+        return (val < edge) ? T{0} : T{1};
+    }
+
+	template <typename T>
+	static constexpr T smoothstep(const T& edge0, const T& edge1, const T& val)
+    {
+		const T t = clamp((val - edge0) / (edge1 - edge0), T{0}, T{1});
+        return t * t * (T{3} - T{2} * t);
+    }
+
+	template <typename T>
+	static constexpr bool isnan(const T& val)
+	{
+		return ::std::isnan(val);
+	}
+
+	template <typename T>
+	static constexpr bool isinf(const T& val)
+	{
+		return ::std::isinf(val);
+	}
+
+	static constexpr int floatBitsToInt(const float& val)
+    {
+		return std::bit_cast<int>(val);
+    }
+
+	static constexpr unsigned int floatBitsToUint(const float& val)
+    {
+        return std::bit_cast<unsigned int>(val);
+    }
+
+	static constexpr float intBitsToFloat(const int& val)
+    {
+        return std::bit_cast<float>(val);
+    }
+
+	static constexpr float uintBitsToFloat(const unsigned int& val)
+    {
+        return std::bit_cast<float>(val);
+    }
+
+	static float fma(const float& x, const float& y, const float& z)
+    {
+        return std::fma(x, y, z);
+    }
+
+	static float frexp(const float& val, int* exp)
+    {
+        return std::frexp(val, exp);
+    }
+
+	static float ldexp(const float& val, const int& exp)
+    {
+        return std::ldexp(val, exp);
+    }
+
+	// std::pow is relatively slow when working with floats instead of doubles. This is due to pow having to convert from double to float.
+	// So we will use a custom implementation of pow for floats.
+	// https://baptiste-wicht.com/posts/2017/09/cpp11-performance-tip-when-to-use-std-pow.html
+	template <typename T, typename Q>
+	static T pow(T base, Q power)
+	{
+		return ::std::pow<T>(base, power);
+	}
+
+	// This custom implementation is significantly faster than std::pow for integers.
+	template <>
+	detail::i32 pow<detail::i32, detail::i32>(detail::i32 base, detail::i32 power)
+	{
+		// TODO: Validate this implementation for correctness.
+		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
+		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
+		if (power < 0) {
+			base /= 1;
+			power = -power;
+		}
+
+		if (power == 0) { return 1; }
+
+		int result = base;
+		while (power > 1) {
+			if (power & 1) { result *= base; }
+			base *= base;
+			power >>= 1;
+		}
+
+		return result;
+	}
+
+	// This custom implementation is significantly faster than std::pow for integers.
+	template <>
+	detail::u32 pow<detail::u32, detail::u32>(detail::u32 base, detail::u32 power)
+	{
+		// TODO: Validate this implementation for correctness.
+		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
+		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
+
+		if (power == 0) { return 1; }
+
+		detail::u32 result = base;
+		while (power > 1) {
+			if (power & 1) { result *= base; }
+			base *= base;
+			power >>= 1;
+		}
+
+		return result;
+	}
+
+	// TODO: Find a faster implementation of pow for floats.
+	template <>
+	float pow<float, float>(float base, float power)
+	{
+		return powf(base, power);
+	}
+
+	template <std::size_t S, typename T, qualifier Q>
+	static VectorT<S, T, Q> pow(const VectorT<S, T, Q>& base, const VectorT<S, T, Q>& power)
+	{
+		return detail::functor2<VectorT, S, T, T, Q>::compute(pow, base, power);
+	}
+
+	template <typename T>
+	static T exp(const T& val)
+	{
+		return ::std::exp(val);
+	}
+
+	template <>
+	float exp<float>(const float& val)
+	{
+		return expf(val);
+	}
+
+	template <typename T>
+	static T log(const T& val)
+    {
+        return ::std::log(val);
+    }
+
+	template <>
+	float log<float>(const float& val)
+    {
+        return logf(val);
+    }
+
+	template <typename T>
+	static T exp2(const T& val)
+    {
+        return ::std::exp2(val);
+    }
+
+	template <>
+	float exp2<float>(const float& val)
+    {
+        return exp2f(val);
+    }
+
+	template <typename T>
+	static T log2(const T& val)
+    {
+        return ::std::log2(val);
+    }
+
+	template <>
+	float log2<float>(const float& val)
+    {
+        return log2f(val);
+    }
+
+	template <typename T>
+	static T sqrt(const T& val)
+	{
+		return ::std::sqrt(val);
+	}
+
+	template <>
+	float sqrt<float>(const float& val)
+	{
+		return sqrtf(val);
+	}
+
+	template <typename T>
+	static T inversesqrt(const T& val)
+	{
+		if (val <= T{0})
+        {
+            return T{0};
+        }
+
+		return T{1} / sqrt(val);
+	}
+
+	template <typename T>
 	static bool nearlyEquals(const T& a, const T& b, const T& epsilon = MIM_EPSILON<T>)
 	{
 		// Check if we have equality. This is needed to handle infinities.
@@ -507,17 +645,12 @@ namespace mim::math
 	}
 
 	template <typename T>
-	static T sign(const T& val)
-	{
-		// Specifically not using copysign as it tends to be slow when handling integer types.
-		return (T{0} < val) - (val < T{0});
-	}
-
-	template <typename T>
 	static T inverse(const T& val)
 	{
 		return T{1} / val;
 	}
+
+	// TODO: Decide if these VectorT versions of the functions should be moved elsewhere.
 
 	template <std::size_t S, typename T, qualifier Q>
 	static VectorT<S, T, Q> inverse(const VectorT<S, T, Q>& val)
@@ -525,16 +658,10 @@ namespace mim::math
 		return detail::functor1<VectorT, S, T, T, Q>::compute(inverse, val);
 	}
 
-	template <std::floating_point T>
-	static float distance(const T& a, const T& b)
-	{
-		return abs(b - a);
-	}
-
 	template <typename T = float>
 	static T lerp(const T& start, const T& end, const T& t)
 	{
-		return start + (end - start) * t;
+		return lerp_unclamped(start, end, t);
 	}
 
 	template <typename T = float>
@@ -574,12 +701,6 @@ namespace mim::math
 		return clamp(inverseLerp(start, end, val), T{0}, T{1});
 	}
 
-	template <typename T = float>
-	static constexpr T smooth_step(const T& start, const T& end, const T& t)
-	{
-		T x = clamp((t - start) / (end - start), T{0}, T{1});
-		return x * x * (T{3} - T{2} * x);
-	}
 
 	template <typename T = float>
 	static typename std::enable_if<std::is_floating_point<T>::value, T>::type cubic_interp(T start, T end, T pre, T post, T t)
