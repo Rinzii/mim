@@ -106,4 +106,82 @@ namespace mim
     {
         return (x - v.x) * (x - v.x) + (y - v.y) * (y - v.y) + (z - v.z) * (z - v.z);
     }
+
+
+	/// Functions
+
+	template <typename T, qualifier Q>
+	T VectorT<3, T, Q>::dot(const VectorT<3, T, Q>& v) const
+	{
+		return x * v.x + y * v.y + z * v.z;
+	}
+
+	template <typename T, qualifier Q>
+	T VectorT<3, T, Q>::cross(const VectorT<3, T, Q>& v) const
+	{
+		return x * v.y - y * v.x - z * v.z;
+	}
+
+	template <typename T, qualifier Q>
+	void VectorT<3, T, Q>::rotate(T angle)
+	{
+		// TODO: Implement rotation of a vec3 using Euler angles.
+
+	}
+
+	template <typename T, qualifier Q>
+	VectorT<3, T, Q> VectorT<3, T, Q>::rotated(T angle) const
+	{
+        VectorT<3, T, Q> v = *this;
+		v.rotate(angle);
+		return v;
+
+	}
+
+	template <typename T, qualifier Q>
+	VectorT<3, T, Q> VectorT<3, T, Q>::clamp(const VectorT<3, T, Q>& min, const VectorT<3, T, Q>& max) const
+	{
+		return VectorT<3, T, Q>(
+			mim::math::clamp(x, min.x, max.x),
+			mim::math::clamp(y, min.y, max.y),
+			mim::math::clamp(z, min.z, max.z)
+		);
+	}
+
+	template <typename T, qualifier Q>
+	VectorT<3, T, Q> VectorT<3, T, Q>::reflect(const VectorT<3, T, Q>& normal) const
+	{
+		T factor = T{ -2 } * normal.dot(*this);
+
+		return VectorT<3, T, Q>(
+            factor * normal.x + x,
+            factor * normal.y + y,
+            factor * normal.z + z
+        );
+	}
+
+	template <typename T, qualifier Q>
+	VectorT<3, T, Q> VectorT<3, T, Q>::refract(const VectorT<3, T, Q>& normal, T eta) const
+	{
+		// TODO: Validate this function.
+
+		T dot = normal.dot(*this);
+        T k = T{ 1 } - eta * eta * (T{ 1 } - dot * dot);
+
+        if (k < T{ 0 })
+        {
+            return VectorT<3, T, Q>{};
+        }
+        else
+        {
+            return eta * *this - (eta * dot + mim::math::sqrt(k)) * normal;
+        }
+	}
+
+	template <typename T, qualifier Q>
+	VectorT<3, T, Q> VectorT<3, T, Q>::project(const VectorT<3, T, Q>& to) const
+	{
+		// TODO: Validate this function.
+		return to * (this->dot(to) / to.length_squared());
+	}
 }

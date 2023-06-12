@@ -195,7 +195,7 @@ namespace mim
 		friend std::ostream& operator<<(std::ostream& os, VectorT<2, T, Q> const& v) { return os << "(" << v.x << ", " << v.y << ")"; }
 
 
-		/// Function Declarations
+		/// Generic Function Declarations
 
 		MIM_NODISCARD bool isfinite() const;
 		VectorT<2, T, Q> sign() const;
@@ -218,6 +218,23 @@ namespace mim
 		T distance(const VectorT<2, T, Q>& v) const;
 
 		T distance_squared(const VectorT<2, T, Q>& v) const;
+
+
+		/// Function Declarations
+
+		T dot(const VectorT<2, T, Q>& v) const;
+
+		T cross(const VectorT<2, T, Q>& v) const;
+
+		VectorT<2, T, Q> rotated(T angle) const;
+
+		VectorT<2, T, Q> clamp(const VectorT<2, T, Q>& min, const VectorT<2, T, Q>& max) const;
+
+		VectorT<2, T, Q> reflect(const VectorT<2, T, Q>& normal) const;
+
+		VectorT<2, T, Q> refract(const VectorT<2, T, Q>& normal, T eta) const;
+
+		VectorT<2, T, Q> project(const VectorT<2, T, Q>& normal) const;
 	};
 
 	/// Unary Operators
