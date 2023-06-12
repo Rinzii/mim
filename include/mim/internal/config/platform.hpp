@@ -7,22 +7,6 @@
 // https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html
 // https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-170
 
-// Cygwin
-// This is a pseudo-platform which will be defined along with MIM_PLATFORM_LINUX when
-// using the Cygwin build environment.
-#if defined(__CYGWIN__)
-	#define MIM_PLATFORM_CYGWIN 1
-	#define MIM_PLATFORM_DESKTOP 1
-#endif
-
-// MinGW
-// This is a pseudo-platform which will be defined along with MIM_PLATFORM_WINDOWS when
-// using the MinGW Windows build environment.
-#if defined(__MINGW32__) || defined(__MINGW64__)
-	#define MIM_PLATFORM_MINGW 1
-	#define MIM_PLATFORM_DESKTOP 1
-#endif
-
 #if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64)
 	#ifdef MIM_PLATFORM_WINDOWS
 		#undef MIM_PLATFORM_WINDOWS
