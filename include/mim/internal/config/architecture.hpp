@@ -41,6 +41,7 @@
 	#error "Unknown architecture"
 #endif
 
+// TODO: Add a better way of handling this.
 #if defined(INTERNAL_ENABLE_CHECK_FOR_SIMD) || defined(MIM_SIMD)
 
 	// Identify if we are allowing simd instructions.
