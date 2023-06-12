@@ -5,6 +5,13 @@
 #include <limits>
 #include "mim/detail/qualifier.hpp"
 
+/*
+ * Compute should only handle data type independent operations for the specified type we are computing.
+ * We should not be implementing non-standard operations here. Such as the Dot product and so on.
+ * The point of this file is to just offload more simple computations such as equality and inequality.
+ * Allowing for internal implementation details to be instead handled in a singular place.
+ * Anything detailing more specialized operations such as Dot and Cross should be handled inside func_vector.inl.
+ */
 namespace mim::detail
 {
 

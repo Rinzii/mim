@@ -27,13 +27,9 @@ set(mim_detail_func_headers
         include/mim/detail/func/func_quaternion_simd.inl
 
         include/mim/detail/func/func_vector1.inl
-        include/mim/detail/func/func_vector1_simd.inl
         include/mim/detail/func/func_vector2.inl
-        include/mim/detail/func/func_vector2_simd.inl
         include/mim/detail/func/func_vector3.inl
-        include/mim/detail/func/func_vector3_simd.inl
         include/mim/detail/func/func_vector4.inl
-        include/mim/detail/func/func_vector4_simd.inl
         )
 
 set(mim_detail_type_headers

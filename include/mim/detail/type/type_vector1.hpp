@@ -197,6 +197,34 @@ namespace mim
 		/// Stream Implementation
 
 		friend std::ostream& operator<<(std::ostream& os, VectorT<1, T, Q> const& v) { return os << "(" << v.x << ")"; }
+
+
+		/// Function Declarations
+
+		MIM_NODISCARD bool isfinite() const;
+        VectorT<1, T, Q> sign() const;
+		VectorT<1, T, Q> floor() const;
+		VectorT<1, T, Q> ceil() const;
+		VectorT<1, T, Q> round() const;
+		VectorT<1, T, Q> min(const VectorT<1, T, Q>& v) const;
+		VectorT<1, T, Q> max(const VectorT<1, T, Q>& v) const;
+
+		T length() const;
+
+		T length_squared() const;
+
+		void normalize();
+
+		VectorT<1, T, Q> normalized() const;
+
+		MIM_NODISCARD bool is_normalized() const;
+
+		T distance(const VectorT<1, T, Q>& v) const;
+
+		T distance_squared(const VectorT<1, T, Q>& v) const;
+
+
+
 	};
 
 	/// Unary Operators
@@ -318,6 +346,8 @@ namespace mim
 	template <qualifier Q>
 	constexpr bool operator||(VectorT<1, bool, Q> const& v1, VectorT<1, bool, Q> const& v2);
 
+
 } // namespace mim
 
 #include "mim/detail/type/type_vector1.inl"
+#include "mim/detail/func/func_vector1.inl"

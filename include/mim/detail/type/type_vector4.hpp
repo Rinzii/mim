@@ -263,6 +263,31 @@ namespace mim
 		{
 			return os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
 		}
+
+
+		/// Function Declarations
+
+		MIM_NODISCARD bool isfinite() const;
+		VectorT<4, T, Q> sign() const;
+		VectorT<4, T, Q> floor() const;
+		VectorT<4, T, Q> ceil() const;
+		VectorT<4, T, Q> round() const;
+		VectorT<4, T, Q> min(const VectorT<4, T, Q>& v) const;
+		VectorT<4, T, Q> max(const VectorT<4, T, Q>& v) const;
+
+		T length() const;
+
+		T length_squared() const;
+
+		void normalize();
+
+		VectorT<4, T, Q> normalized() const;
+
+		MIM_NODISCARD bool is_normalized() const;
+
+		T distance(const VectorT<4, T, Q>& v) const;
+
+		T distance_squared(const VectorT<4, T, Q>& v) const;
 	};
 
 	/// Unary Operators
@@ -443,6 +468,9 @@ namespace mim
 
 	template <qualifier Q>
 	constexpr bool operator||(VectorT<4, bool, Q> const& v1, VectorT<4, bool, Q> const& v2);
+
+
 } // namespace mim
 
 #include "mim/detail/type/type_vector4.inl"
+#include "mim/detail/func/func_vector4.inl"

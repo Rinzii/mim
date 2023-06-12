@@ -2,23 +2,14 @@
 
 #pragma once
 
-#include "mim/internal/setup.hpp"
-
-#include "mim/mimMathDefs.hpp"
-
-#include "mim/detail/compute/compute_functors.hpp"
-
 #include "mim/detail/qualifier.hpp"
-
-#include "mim/half.hpp"
-#include "mim/mat.hpp"
-#include "mim/quat.hpp"
-#include "mim/vec.hpp"
+#include "mim/mimMathDefs.hpp"
+#include "mim/detail/compute/compute_functors.hpp"
 
 #include <climits>
 #include <cmath>
 
-namespace mim
+namespace mim::math
 {
 
 	template <typename T>

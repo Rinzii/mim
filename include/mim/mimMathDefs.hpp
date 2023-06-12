@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "mim/internal/setup.hpp"
-
 #include <limits>
 
 namespace mim
