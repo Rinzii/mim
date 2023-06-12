@@ -1,20 +1,20 @@
 # Mim
-### A modern math framework for real time graphics.
+### A modern math framework for real-time graphics.
 
 
 ## Features
 - (WIP) Robust implementation of common 3D math objects. Including vectors, matrices, quaternions, and more.
-- (WIP) Supports efficient SIMD operations on all math objects along with efficient structure packing for non-SIMD operations.
 - Various utility functions for common math operations.
-- (WIP) Implementation of common graphics algorithms such as ray tracing, and intersection tests.
 - Lightweight and portable. No external dependencies.
-- Using modern C++20 features with a focus of maintaining support from C+20 and onwards.
+- Using modern C++20 features with plans to maintain backward compatibility with C++20.
 
-> Currently Mim is still in development and is not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
+> Mim is still in development and not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
 
 
 ## Contributing
-Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md) for more information.
+Contributions are welcome!
+
+If you would like to contribute to Mim, open a PR, and feel free to add any features or bug fixes you would like. If you are unsure, just open an issue, and we can discuss it there!
 
 
 ### Supported Compilers
