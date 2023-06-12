@@ -8,7 +8,7 @@
 - Various utility functions for common math operations.
 - (WIP) Implementation of common graphics algorithms such as ray tracing, and intersection tests.
 - Lightweight and portable. No external dependencies.
-- (WIP) Using modern C++17 and C++20 features with a focus of supporting down to C++17.
+- Using modern C++20 features with a focus of maintaining support from C+20 and onwards.
 
 > Currently Mim is still in development and is not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
 
@@ -27,7 +27,7 @@ Contributions are welcome! Please read the [contributing guide](CONTRIBUTING.md)
 
 
 ### Technology Used
-- C++17
+- C++20
 - Cmake 3.18 (may change)
 - Doxygen (planned)
 - Cppcheck
