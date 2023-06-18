@@ -6,7 +6,6 @@
 
 #include "mim/detail/qualifier.hpp"
 #include "mim/half.hpp"
-#include "mim/internal/setup.hpp"
 
 #include "mim/detail/type/type_matrix2x2.hpp"
 #include "mim/detail/type/type_matrix2x3.hpp"
