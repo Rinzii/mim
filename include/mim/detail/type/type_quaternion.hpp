@@ -3,14 +3,10 @@
 #pragma once
 
 #include "mim/detail/qualifier.hpp"
-
-#include "mim/detail/type/type_vector3.hpp"
-#include "mim/detail/type/type_vector4.hpp"
-
-#include "mim/detail/type/type_matrix3x3.hpp"
-#include "mim/detail/type/type_matrix4x4.hpp"
-
 #include "mim/detail/compute/compute_quaternion.hpp"
+
+#include <stdexcept>
+#include <iostream>
 
 namespace mim
 {
