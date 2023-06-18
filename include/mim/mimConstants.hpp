@@ -39,7 +39,7 @@ namespace mim
 	template <typename T = float> constexpr T MIM_EPSILON;
 	template <> constexpr long double MIM_EPSILON<long double> = 1.0842e-19;                        //!< machine epsilon, long double
 	template <> constexpr double MIM_EPSILON<double> = 2.22045e-16;                                 //!< machine epsilon, double
-    template <> constexpr float MIM_EPSILON<float> = 1.19209e-07;                                   //!< machine epsilon, float
+    template <> constexpr float MIM_EPSILON<float> = 1.19209e-07f;                                   //!< machine epsilon, float
 
 
 	template <typename T> constexpr T MIM_UNIT_EPSILON = static_cast<T>(0.00001);                   //!< unit epsilon

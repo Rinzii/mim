@@ -6,6 +6,7 @@
 #include "mim/detail/qualifier.hpp"
 #include "mim/mimConstants.hpp"
 
+#include <climits>
 #include <limits>
 #include <cmath>
 #include <bit>
@@ -144,7 +145,7 @@ namespace mim::math
 	template <typename T>
 	static T asin_s(const T& val)
 	{
-		if (abs(val) >= T{1}) {
+		if (std::abs(val) >= T{1}) {
 			auto temp = (val > T{0}) ? MIM_PI<T> / T{2} : -MIM_PI<T> / T{2};
 			return temp;
 		}
@@ -156,7 +157,7 @@ namespace mim::math
 	template <>
 	float asin_s(const float& val)
 	{
-		if (abs(val) >= 1.0f) {
+		if (std::abs(val) >= 1.0f) {
 			auto temp = (val > 0.0f) ? 0.5f * MIM_PI<float> : -0.5f * MIM_PI<float>;
 			return temp;
 		}
