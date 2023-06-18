@@ -40,7 +40,7 @@ namespace mim
     // Copied from: https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
 	// Did not want to include all of <limits> since all I need is epsilon
 
-	template <typename T = float> inline constexpr T MIM_EPSILON = static_cast<T>(0);          //!< machine epsilon
+	template <typename T = float> inline constexpr T MIM_EPSILON = static_cast<T>(0);   //!< machine epsilon
 	template <> inline constexpr long double MIM_EPSILON<long double> = 1.0842e-19L;    //!< machine epsilon, long double
 	template <> inline constexpr double MIM_EPSILON<double> = 2.22045e-16;              //!< machine epsilon, double
 	template <> inline constexpr float MIM_EPSILON<float> = 1.19209e-07f;               //!< machine epsilon, float

@@ -9,13 +9,14 @@
 #include <climits>
 #include <limits>
 #include <cmath>
-#include <bit>
+#include <cstring> // For std::memcpy
 
 // Chapter 8. Built-In Functions
 // Reference: https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.pdf
 
 
 // TODO: Decide if Vector variants should be implemented here.
+// TODO: Go over all of this functions and figure out what can and cannot be constexpr.
 
 // I may move more common functions such as abs for vectors to here
 // instead of implementing them directly in the vector classes.
@@ -341,6 +342,8 @@ namespace mim::math
         return ::std::rint(val);
     }
 
+	// TODO: I need to profile this more extensively to see if its worth even keeping it.
+
 	static int roundEvenFast(float const& f)
 	{
 #if defined(_MSC_VER) || defined(__clang__)
@@ -472,38 +475,47 @@ namespace mim::math
 		return ::std::isinf(val);
 	}
 
-	// TODO: Replace bit_cast with something that works with C++17
-	static constexpr int floatBitsToInt(const float& val)
+	// bit_cast has issues in Apple Clang, so we will instead just use memcpy
+
+	static inline int floatBitsToInt(const float& val)
     {
-		return std::bit_cast<int>(val);
+		int result = 0;
+		std::memcpy(&result, &val, sizeof(float));
+		return result;
     }
 
-	static constexpr unsigned int floatBitsToUint(const float& val)
+	static inline unsigned int floatBitsToUint(const float& val)
     {
-        return std::bit_cast<unsigned int>(val);
+		unsigned int result = 0;
+		std::memcpy(&result, &val, sizeof(float));
+		return result;
     }
 
-	static constexpr float intBitsToFloat(const int& val)
+	static inline float intBitsToFloat(const int& val)
     {
-        return std::bit_cast<float>(val);
+		float result = 0;
+		std::memcpy(&result, &val, sizeof(int));
+		return result;
     }
 
-	static constexpr float uintBitsToFloat(const unsigned int& val)
+	static inline float uintBitsToFloat(const unsigned int& val)
     {
-        return std::bit_cast<float>(val);
+		float result = 0;
+		std::memcpy(&result, &val, sizeof(unsigned int));
+		return result;
     }
 
-	static float fma(const float& x, const float& y, const float& z)
+	static constexpr float fma(const float& x, const float& y, const float& z)
     {
         return std::fma(x, y, z);
     }
 
-	static float frexp(const float& val, int* exp)
+	static constexpr float frexp(const float& val, int* exp)
     {
         return std::frexp(val, exp);
     }
 
-	static float ldexp(const float& val, const int& exp)
+	static constexpr float ldexp(const float& val, const int& exp)
     {
         return std::ldexp(val, exp);
     }
@@ -636,8 +648,10 @@ namespace mim::math
 		return sqrtf(val);
 	}
 
+	// IanP: May not allow constexpr
+
 	template <typename T>
-	static T inversesqrt(const T& val)
+	static constexpr T inversesqrt(const T& val)
 	{
 		if (val <= T{0})
         {
@@ -663,7 +677,7 @@ namespace mim::math
 	}
 
 	template <typename T>
-	static T inverse(const T& val)
+	static constexpr T inverse(const T& val)
 	{
 		return T{1} / val;
 	}
@@ -677,25 +691,25 @@ namespace mim::math
 	}
 
 	template <typename T = float>
-	static T lerp(const T& start, const T& end, const T& t)
+	static constexpr T lerp(const T& start, const T& end, const T& t)
 	{
 		return lerp_unclamped(start, end, t);
 	}
 
 	template <typename T = float>
-	static T lerp_unclamped(const T& start, const T& end, const T& t)
+	static constexpr T lerp_unclamped(const T& start, const T& end, const T& t)
 	{
 		return start + (end - start) * t;
 	}
 
 	template <typename T = float>
-	static T lerp_clamped(const T& start, const T& end, const T& t)
+	static constexpr T lerp_clamped(const T& start, const T& end, const T& t)
 	{
 		return lerp(start, end, clamp(t, T{0}, T{1}));
 	}
 
 	template <typename T>
-	static T lerp_angle(const T& start, const T& end, const T& t)
+	static constexpr T lerp_angle(const T& start, const T& end, const T& t)
 	{
 		T delta = end - start;
 		if (delta > T{180}) {
@@ -721,14 +735,14 @@ namespace mim::math
 
 
 	template <typename T = float>
-	static typename std::enable_if<std::is_floating_point<T>::value, T>::type cubic_interp(T start, T end, T pre, T post, T t)
+	static constexpr typename std::enable_if<std::is_floating_point<T>::value, T>::type cubic_interp(T start, T end, T pre, T post, T t)
 	{
 		return T{0.5} * ((T{2} * start) + ((-pre + end) * t) + ((T{2} * pre - T{5} * start + T{4} * end - post) * t * t) +
 						 ((-pre + T{3} * start - T{3} * end + post) * t * t * t));
 	}
 
 	template <typename T = float>
-	static typename std::enable_if<std::is_floating_point<T>::value, T>::type cubic_interp_angle(T start, T end, T pre, T post, T t)
+	static constexpr typename std::enable_if<std::is_floating_point<T>::value, T>::type cubic_interp_angle(T start, T end, T pre, T post, T t)
 	{
 		double startRot = fmod(start, MIM_TAU<T>);
 
