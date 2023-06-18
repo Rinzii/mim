@@ -54,20 +54,3 @@ jobs:
         run: cmake --build clang --config=Release
       - name: test
         run: cd build && ctest -C Release
-
-# Not sure if this will work as it's kinda a hack. May be removed if it does not work.
-  experimental-build-arm:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: pguyot/arm-runner-action@v2
-      - name: init
-        run: sudo apt install -yqq ninja-build g++-11
-      - name: configure clang
-        run: cmake -S . --preset=ninja-clang -B clang
-      - name: build clang
-        run: cmake --build clang --config=Release
-      - name: test
-        run: cd build && ctest -C Release
-
-
