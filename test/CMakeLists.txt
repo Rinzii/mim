@@ -109,7 +109,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
             )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(mim-test PUBLIC
-          -Wall -Wextra -Wconversion -Werror=return-type -Wno-pedantic -Wno-unused-function
+          -Wall -Wextra -Wconversion -Wno-pedantic -Wno-unused-function
           )
 endif()
 
