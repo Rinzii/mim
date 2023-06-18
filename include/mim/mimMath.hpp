@@ -510,7 +510,7 @@ namespace mim::math
         return std::fma(x, y, z);
     }
 
-	static constexpr float frexp(const float& val, int* exp)
+	static inline float frexp(const float& val, int* exp)
     {
         return std::frexp(val, exp);
     }
