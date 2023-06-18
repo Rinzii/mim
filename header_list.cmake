@@ -123,7 +123,7 @@ set(mim_headers
         include/mim/mat4.hpp
         include/mim/mathUtils.hpp
         include/mim/mimMath.hpp
-        include/mim/mimMathDefs.hpp
+        include/mim/mimConstants.hpp
         include/mim/quat.hpp
         include/mim/random.hpp
         include/mim/vec.hpp
