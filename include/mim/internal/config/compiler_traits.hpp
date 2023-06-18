@@ -271,7 +271,7 @@
 		#define MIMCLANGWHELP1(x) MIMCLANGWHELP0(clang diagnostic ignored x)
 		#define MIMCLANGWHELP2(x) MIMCLANGWHELP1(#x)
 
-		#define MIM_DISABLE_CLANG_WARNING(w) _Pragma("clang diagnostic push") _Pragma(MIMCLANGWHELP2(-Wunknown - warning - option)) _Pragma(MIMCLANGWHELP2(w))
+		#define MIM_DISABLE_CLANG_WARNING(w) _Pragma("clang diagnostic push") _Pragma(MIMCLANGWHELP2(-Wunknown-warning-option)) _Pragma(MIMCLANGWHELP2(w))
 	#else
 		#define MIM_DISABLE_CLANG_WARNING(w)
 	#endif
