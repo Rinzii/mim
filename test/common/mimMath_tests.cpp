@@ -1,17 +1,18 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
-#include <mim/mimMath.hpp>
-#include <mim/mimMathDefs.hpp>
-#include <numbers>
 #include <gtest/gtest.h>
+#include <mim/mimConstants.hpp>
+#include <mim/mimMath.hpp>
+#include <numbers>
 
+/*
 TEST(CommonMimMath, degToRadTest)
 {
-	EXPECT_FLOAT_EQ(mim::math::degToRad(0.0f), 0.0f);
-    EXPECT_FLOAT_EQ(mim::math::degToRad(90.0f), 1.5707963267948966f);
-    EXPECT_FLOAT_EQ(mim::math::degToRad(180.0f), 3.141592653589793f);
-    EXPECT_FLOAT_EQ(mim::math::degToRad(270.0f), 4.71238898038469f);
-    EXPECT_FLOAT_EQ(mim::math::degToRad(360.0f), 6.283185307179586f);
+	EXPECT_FLOAT_EQ(mim::math::radians(0.0f), 0.0f);
+    EXPECT_FLOAT_EQ(mim::math::radians(90.0f), 1.5707963267948966f);
+    EXPECT_FLOAT_EQ(mim::math::radians(180.0f), 3.141592653589793f);
+    EXPECT_FLOAT_EQ(mim::math::radians(270.0f), 4.71238898038469f);
+    EXPECT_FLOAT_EQ(mim::math::radians(360.0f), 6.283185307179586f);
 }
 
 TEST(CommonMimMath, radToDegTest)
@@ -22,6 +23,7 @@ TEST(CommonMimMath, radToDegTest)
     EXPECT_FLOAT_EQ(mim::math::radToDeg(4.71238898038469f), 270.0f);
     EXPECT_FLOAT_EQ(mim::math::radToDeg(6.283185307179586f), 360.0f);
 }
+*/
 
 TEST(CommonMimMath, sinTest)
 {

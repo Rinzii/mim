@@ -51,8 +51,20 @@ namespace mim
 #endif
 		}
 
-		constexpr Quaternion() = default;
-		constexpr Quaternion(Quaternion const&) = default;
+		constexpr T const& at(size_type i) const
+        {
+            if (i > this->size()) throw std::out_of_range("Quaternion::at");
+			{
+			#if MIM_FORCE_QUATERNION_XYZW
+                return (&x)[i];
+            #else
+				return (&w)[i];
+			#endif
+			}
+		}
+
+		constexpr Quaternion();
+		constexpr Quaternion(Quaternion const&);
 		template <qualifier P>
 		constexpr explicit Quaternion(Quaternion<T, P> const& q);
 
@@ -98,6 +110,25 @@ namespace mim
 
 		template <typename U>
 		constexpr Quaternion<T, Q>& operator/=(U const& scalar);
+
+
+		friend std::ostream& operator<<(std::ostream& os, VectorT<4, T, Q> const& v)
+		{
+#ifdef MIM_FORCE_QUATERNION_XYZW
+            return os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+#else
+			return os << "(" << v.w << ", " << v.x << ", " << v.y << ", " << v.z << ")";
+#endif
+		}
+
+		MIM_NODISCARD bool isfinite() const;
+		T length() const;
+		void normalize();
+		Quaternion<T, Q> normalized() const;
+		MIM_NODISCARD bool is_normalized() const;
+		Quaternion<T, Q> inverse() const;
+
+		//VectorT<3, T, Q> get_euler() const;
 	};
 
 	template <typename T, qualifier Q>
@@ -145,3 +176,4 @@ namespace mim
 } // namespace mim
 
 #include "mim/detail/type/type_quaternion.inl"
+#include "mim/detail/func/func_quaternion.inl"

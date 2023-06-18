@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "mim/detail/qualifier.hpp"
-#include "mim/mimMathDefs.hpp"
 #include "mim/detail/compute/compute_functors.hpp"
+#include "mim/detail/qualifier.hpp"
+#include "mim/mimConstants.hpp"
 
-#include <climits>
+#include <limits>
 #include <cmath>
 #include <bit>
 
@@ -21,18 +21,21 @@
 
 namespace mim::math
 {
-
 	template <typename T>
-	static T degToRad(const T& deg)
-	{
-		return (deg * (MIM_PI<T>) / T{180});
-	}
+	static constexpr T radians(const T& deg)
+    {
+		static_assert(std::numeric_limits<T>::is_iec559, "radians only accept floating-point inputs");
+        return deg * static_cast<T>(0.01745329251994329576923690768489);
+    }
 
-	template <typename T>
-	static T radToDeg(T rad)
-	{
-		return (rad * T{180}) / MIM_PI<T>;
-	}
+    template <typename T>
+	static constexpr T degrees(const T& rad)
+    {
+		static_assert(std::numeric_limits<T>::is_iec559, "degrees only accept floating-point inputs");
+        return rad * static_cast<T>(57.295779513082320876798154814105);
+    }
+
+	// TODO: Add trig specializations to take advantage of faster algorithms that sacrifice some accuracy for speed.
 
 	template <typename T>
 	static T sin(const T& val)
@@ -203,6 +206,15 @@ namespace mim::math
 		return detail::functor1<VectorT, S, T, T, Q>::compute(cosh, val);
 	}
 
+	// Maybe implement this? WIll have to experiment with some algorithms.
+	template <typename T>
+	static constexpr T sinhFast(const T& val)
+    {
+		
+
+        return 0;
+    }
+
 	template <typename T>
 	static T sinh(const T& val)
 	{
@@ -329,7 +341,7 @@ namespace mim::math
 	static int roundEvenFast(float const& f)
 	{
 #if defined(_MSC_VER) || defined(__clang__)
-		MIM_DISABLE_CLANG_WARNING(-Wshorten-64-to-32)
+		MIM_DISABLE_CLANG_WARNING(-Wnarrowing)
 		return lrintf(f);
 		MIM_RESTORE_CLANG_WARNING()
 #elif defined(__GNUC__)
@@ -457,6 +469,7 @@ namespace mim::math
 		return ::std::isinf(val);
 	}
 
+	// TODO: Replace bit_cast with something that works with C++17
 	static constexpr int floatBitsToInt(const float& val)
     {
 		return std::bit_cast<int>(val);
@@ -491,6 +504,8 @@ namespace mim::math
     {
         return std::ldexp(val, exp);
     }
+
+	// TODO: Ideally if possible i'd be best to completely replace std pow with a constexpr version that is faster.
 
 	// std::pow is relatively slow when working with floats instead of doubles. This is due to pow having to convert from double to float.
 	// So we will use a custom implementation of pow for floats.

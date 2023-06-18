@@ -9,6 +9,37 @@
 
 namespace mim
 {
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q>::Quaternion()
+	{
+#if MIM_FORCE_QUATERNION_XYZW
+        x = static_cast<T>(0);
+		y = static_cast<T>(0);
+		z = static_cast<T>(0);
+		w = static_cast<T>(1);
+#else
+        w = static_cast<T>(1);
+        x = static_cast<T>(0);
+        y = static_cast<T>(0);
+        z = static_cast<T>(0);
+#endif
+	}
+
+	template <typename T, qualifier Q>
+	constexpr Quaternion<T, Q>::Quaternion(Quaternion const& q)
+	{
+#if MIM_FORCE_QUATERNION_XYZW
+        x = q.x;
+        y = q.y;
+        z = q.z;
+        w = q.w;
+#else
+		w = q.w;
+        x = q.x;
+        y = q.y;
+        z = q.z;
+#endif
+	}
 
 	template <typename T, qualifier Q>
 	template <qualifier P>
@@ -121,10 +152,10 @@ namespace mim
 	template <typename U>
 	constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator+=(const Quaternion<U, Q>& q)
 	{
-		this->x += static_cast<T>(q.w);
-		this->y += static_cast<T>(q.x);
-		this->z += static_cast<T>(q.y);
-		this->w += static_cast<T>(q.z);
+		this->w += static_cast<T>(q.w);
+		this->x += static_cast<T>(q.x);
+		this->y += static_cast<T>(q.y);
+		this->z += static_cast<T>(q.z);
 		return *this;
 	}
 
@@ -132,10 +163,10 @@ namespace mim
 	template <typename U>
 	constexpr Quaternion<T, Q>& Quaternion<T, Q>::operator-=(const Quaternion<U, Q>& q)
 	{
-		this->x -= static_cast<T>(q.w);
-		this->y -= static_cast<T>(q.x);
-		this->z -= static_cast<T>(q.y);
-		this->w -= static_cast<T>(q.z);
+		this->w -= static_cast<T>(q.w);
+		this->x -= static_cast<T>(q.x);
+		this->y -= static_cast<T>(q.y);
+		this->z -= static_cast<T>(q.z);
 		return *this;
 	}
 
