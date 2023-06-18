@@ -54,10 +54,10 @@ target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
-# Only supported compilers currently are MSVC, GNU and Clang
+# Only supported compilers currently are MSVC, GCC and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          /W4 /permissive /analyze /std:c++20
+          /W4 /WX /analyze /std:c++20
           )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(${PROJECT_NAME} PRIVATE
