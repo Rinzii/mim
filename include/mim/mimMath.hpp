@@ -207,6 +207,7 @@ namespace mim::math
 		return detail::functor1<VectorT, S, T, T, Q>::compute(cosh, val);
 	}
 
+	/*
 	// Maybe implement this? WIll have to experiment with some algorithms.
 	template <typename T>
 	static constexpr T sinhFast(const T& val)
@@ -215,6 +216,7 @@ namespace mim::math
 
         return 0;
     }
+    */
 
 	template <typename T>
 	static T sinh(const T& val)
