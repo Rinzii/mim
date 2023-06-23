@@ -1,5 +1,7 @@
 # Mim
-### A modern math framework for real-time graphics.
+### A modern math framework for real time graphics.
+[![build Status](https://github.com/Rinzii/mim/actions/workflows/ci.yml/badge.svg)](https://github.com/Rinzii/mim/actions/workflow/ci.yml)
+
 
 
 ## Features
@@ -9,12 +11,6 @@
 - Using modern C++20 features with plans to maintain backward compatibility with C++20.
 
 > Mim is still in development and not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
-
-
-## Contributing
-Contributions are welcome!
-
-If you would like to contribute to Mim, open a PR, and feel free to add any features or bug fixes you would like. If you are unsure, just open an issue, and we can discuss it there!
 
 
 ### Supported Compilers
@@ -32,3 +28,10 @@ If you would like to contribute to Mim, open a PR, and feel free to add any feat
 - Doxygen (planned)
 - Cppcheck
 - Google Test (for unit testing)
+
+
+## Contributing
+Contributions are welcome!
+
+If you would like to contribute to Mim, open a PR, and feel free to add any features or bug fixes you would like. If you are unsure, just open an issue, and we can discuss it there!
+
