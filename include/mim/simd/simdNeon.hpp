@@ -5,6 +5,6 @@
 #include "mim/internal/setup.hpp"
 
 #if RIOT_SIMD_NEON
-#include <arm_neon.h>
+	#include <arm_neon.h>
 
 #endif

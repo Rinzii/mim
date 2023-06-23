@@ -31,11 +31,11 @@ endif()
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
 option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
+option(MIM_USE_SIMD "Use SIMD instructions" OFF)
 
 
 # include the global configuration file
 include(cmake/GlobalConfig.cmake)
-
 
 add_library(${PROJECT_NAME})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
@@ -53,14 +53,14 @@ target_sources(${PROJECT_NAME} PRIVATE
         src/random.cpp
         )
 
-# Only supported compilers currently are MSVC, GNU and Clang
+# Only supported compilers currently are MSVC, GCC and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          /W4 /WX /permissive-
+          /W4 /WX /std:c++20
           )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          -Wall -Wextra -Wconversion -Werror=return-type -Wno-pedantic -Wno-unused-function
+          -Wall -Wno-pedantic -Wno-unused-function
           )
 endif()
 
@@ -71,6 +71,11 @@ if (MIM_BUILD_TEST)
   add_subdirectory(ext)
   add_subdirectory(test)
 endif()
+
+if (MIM_USE_SIMD)
+  # TODO: Add a better way to handle enabling simd internally.
+  #add_compile_definitions(INTERNAL_ENABLE_CHECK_FOR_SIMD)
+endif ()
 
 
 if(MIM_INSTALL)

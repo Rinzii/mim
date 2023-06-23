@@ -2,10 +2,15 @@
 
 #pragma once
 
-#include "mim/detail/qualifier.hpp"
 #include "mim/half.hpp"
-#include "mim/internal/setup.hpp"
 
 #include "mim/detail/type/type_quaternion.hpp"
 
-namespace mim {}
+namespace mim
+{
+	template <typename T = float, qualifier Q = defaultp>
+	using quat = Quaternion<T, Q>;
+
+	using quatf = Quaternion<float, defaultp>;
+	using quatd = Quaternion<double, defaultp>;
+}

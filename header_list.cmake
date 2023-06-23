@@ -27,13 +27,9 @@ set(mim_detail_func_headers
         include/mim/detail/func/func_quaternion_simd.inl
 
         include/mim/detail/func/func_vector1.inl
-        include/mim/detail/func/func_vector1_simd.inl
         include/mim/detail/func/func_vector2.inl
-        include/mim/detail/func/func_vector2_simd.inl
         include/mim/detail/func/func_vector3.inl
-        include/mim/detail/func/func_vector3_simd.inl
         include/mim/detail/func/func_vector4.inl
-        include/mim/detail/func/func_vector4_simd.inl
         )
 
 set(mim_detail_type_headers
@@ -127,7 +123,7 @@ set(mim_headers
         include/mim/mat4.hpp
         include/mim/mathUtils.hpp
         include/mim/mimMath.hpp
-        include/mim/mimMathDefs.hpp
+        include/mim/mimConstants.hpp
         include/mim/quat.hpp
         include/mim/random.hpp
         include/mim/vec.hpp

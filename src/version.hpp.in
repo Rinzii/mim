@@ -1,6 +1,7 @@
 #pragma once
 #include <string_view>
 
-namespace mim {
-inline constexpr std::string_view version_v{"@PROJECT_VERSION@"};
+namespace mim
+{
+    inline constexpr std::string_view version_v{"@PROJECT_VERSION@"};
 }

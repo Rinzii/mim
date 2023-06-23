@@ -5,28 +5,28 @@
 #include "mim/internal/setup.hpp"
 
 #if MIM_SIMD_AVX512F
-#include <immintrin.h>
+	#include <immintrin.h>
 #elif MIM_SIMD_AVX2
-#include <immintrin.h>
+	#include <immintrin.h>
 #elif MIM_SIMD_AVX
-#include <immintrin.h>
+	#include <immintrin.h>
 #elif MIM_SIMD_SSE4_2
-#if MIM_COMPILER_CLANG
-#include <popcntintrin.h>
-#endif
-#include <nmmintrin.h>
+	#if MIM_COMPILER_CLANG
+		#include <popcntintrin.h>
+	#endif
+	#include <nmmintrin.h>
 #elif MIM_SIMD_SSE4_1
-#include <smmintrin.h>
+	#include <smmintrin.h>
 #elif MIM_SIMD_SSSE3
-#include <tmmintrin.h>
+	#include <tmmintrin.h>
 #elif MIM_SIMD_SSE3
-#include <pmmintrin.h>
+	#include <pmmintrin.h>
 #elif MIM_SIMD_SSE2
-#include <emmintrin.h>
+	#include <emmintrin.h>
 #elif MIM_SIMD_SSE
-#include <xmmintrin.h>
+	#include <xmmintrin.h>
 #elif MIM_SIMD_NEON
-#include "neon.h"
+	#include "neon.h"
 #endif
 
 #if MIM_SIMD_SSE2

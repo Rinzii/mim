@@ -81,10 +81,3 @@ else()
   message(FATAL_ERROR "Unsupported architecture")
   return()
 endif()
-
-
-
-
-# TODO: Maybe define macros internally here so that we don't have to define them with preprocessor macros later.
-
-
