@@ -195,14 +195,6 @@ namespace mim
 
 		/// Function Declarations
 
-		MIM_NODISCARD constexpr bool isfinite() const;
-        constexpr VectorT<1, T, Q> sign() const;
-		constexpr VectorT<1, T, Q> floor() const;
-		constexpr VectorT<1, T, Q> ceil() const;
-		constexpr VectorT<1, T, Q> round() const;
-		constexpr VectorT<1, T, Q> min(const VectorT<1, T, Q>& v) const;
-		constexpr VectorT<1, T, Q> max(const VectorT<1, T, Q>& v) const;
-
 		constexpr T length() const;
 
 		constexpr T length_squared() const;

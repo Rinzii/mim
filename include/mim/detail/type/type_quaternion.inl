@@ -3,7 +3,6 @@
 #pragma once
 
 #include "mim/detail/compute/compute_quaternion.hpp"
-#include "mim/mimMath.hpp"
 
 #include <limits>
 
