@@ -1,54 +1,14 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #include "mim/detail/qualifier.hpp"
-#include "mim/mimMath.hpp"
 #include "mim/detail/compute/compute_vector.hpp"
 #include "mim/detail/compute/compute_functors.hpp"
 
+#include "mim/mimConstants.hpp"
+#include "mim/cmath.hpp"
+
 namespace mim
 {
-	template <typename T, qualifier Q>
-	constexpr bool VectorT<3, T, Q>::isfinite() const
-    {
-		using mim::math::isfinite;
-		return isfinite(x) && isfinite(y) && isfinite(z);
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::sign() const
-    {
-        return VectorT<3, T, Q>(mim::math::sign(x), mim::math::sign(y), mim::math::sign(z));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::floor() const
-    {
-        return VectorT<3, T, Q>(mim::math::floor(x), mim::math::floor(y), mim::math::floor(z));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::ceil() const
-    {
-        return VectorT<3, T, Q>(mim::math::ceil(x), mim::math::ceil(y), mim::math::ceil(z));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::round() const
-    {
-        return VectorT<3, T, Q>(mim::math::round(x), mim::math::round(y), mim::math::round(z));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::min(const VectorT<3, T, Q>& v) const
-    {
-        return VectorT<3, T, Q>(mim::math::min(x, v.x), mim::math::min(y, v.y), mim::math::min(z, v.z));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> VectorT<3, T, Q>::max(const VectorT<3, T, Q>& v) const
-    {
-        return VectorT<3, T, Q>(mim::math::max(x, v.x), mim::math::max(y, v.y), mim::math::max(z, v.z));
-    }
 
 	template <typename T, qualifier Q>
 	constexpr T VectorT<3, T, Q>::length() const

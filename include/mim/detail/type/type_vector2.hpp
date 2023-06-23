@@ -192,14 +192,6 @@ namespace mim
 
 		/// Generic Function Declarations
 
-		MIM_NODISCARD constexpr bool isfinite() const;
-		constexpr VectorT<2, T, Q> sign() const;
-		constexpr VectorT<2, T, Q> floor() const;
-		constexpr VectorT<2, T, Q> ceil() const;
-		constexpr VectorT<2, T, Q> round() const;
-		constexpr VectorT<2, T, Q> min(const VectorT<2, T, Q>& v) const;
-		constexpr VectorT<2, T, Q> max(const VectorT<2, T, Q>& v) const;
-
 		constexpr T length() const;
 
 		constexpr T length_squared() const;
@@ -221,7 +213,7 @@ namespace mim
 
 		constexpr T cross(const VectorT<2, T, Q>& v) const;
 
-		constexpr VectorT<2, T, Q> rotated(T angle) const;
+		VectorT<2, T, Q> rotated(T angle) const;
 
 		constexpr VectorT<2, T, Q> clamp(const VectorT<2, T, Q>& min, const VectorT<2, T, Q>& max) const;
 
@@ -229,7 +221,7 @@ namespace mim
 
 		constexpr VectorT<2, T, Q> refract(const VectorT<2, T, Q>& normal, T eta) const;
 
-		constexpr VectorT<2, T, Q> project(const VectorT<2, T, Q>& normal) const;
+		constexpr VectorT<2, T, Q> project(const VectorT<2, T, Q>& to) const;
 	};
 
 	/// Unary Operators

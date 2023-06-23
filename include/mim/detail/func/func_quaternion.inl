@@ -1,18 +1,12 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #include <cmath>
-#include "mim/mimMath.hpp"
+#include "mim/cmath.hpp"
+#include "mim/mimConstants.hpp"
 
 
 namespace mim
 {
-
-	template <typename T, qualifier Q>
-	constexpr bool Quaternion<T, Q>::isfinite() const
-    {
-		using mim::math::isfinite;
-        return isfinite(w) && isfinite(x) && isfinite(y) && isfinite(z);
-    }
 
 	template <typename T, qualifier Q>
 	constexpr T Quaternion<T, Q>::length() const

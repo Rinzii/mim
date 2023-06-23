@@ -1,6 +1,20 @@
 
 
 
+set(mim_cmath_detail_headers
+        include/mim/cmath/detail/impl_isinf.hpp
+        )
+
+
+set(mim_cmath_headers
+        ${mim_cmath_detail_headers}
+        include/mim/cmath/abs.hpp
+        include/mim/cmath/isfinite.hpp
+        include/mim/cmath/isinf.hpp
+        include/mim/cmath/isnan.hpp
+        )
+
+
 
 
 
@@ -109,6 +123,7 @@ set(mim_simd_headers
 
 
 set(mim_headers
+        ${mim_cmath_headers}
         ${mim_detail_headers}
         ${mim_internal_headers}
         ${mim_simd_headers}

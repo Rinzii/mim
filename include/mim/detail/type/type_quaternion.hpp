@@ -86,7 +86,6 @@ namespace mim
 		template <typename U>
 		constexpr Quaternion<T, Q>& operator/=(U const& scalar);
 
-		MIM_NODISCARD constexpr bool isfinite() const;
 		constexpr T length() const;
 		constexpr void normalize();
 		constexpr Quaternion<T, Q> normalized() const;
