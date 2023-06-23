@@ -9,8 +9,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T& VectorT<4, T, Q>::operator[](size_type i)
 	{
-		if (i >= this->length()) { throw std::out_of_range("VectorT<4, T, Q>::operator[]"); }
-
 		switch (i) {
 		default:
 		case 0: return x;
@@ -23,8 +21,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T const& VectorT<4, T, Q>::operator[](size_type i) const
 	{
-		if (i >= this->length()) { throw std::out_of_range("VectorT<4, T, Q>::operator[]"); }
-
 		switch (i) {
 		default:
 		case 0: return x;

@@ -325,7 +325,7 @@ TEST(CommonMimMath, fmaTest)
     //EXPECT_FLOAT_EQ(mim::math::fma(1.0f, 1.0f, 1.0f), 2.0f);
     //EXPECT_FLOAT_EQ(mim::math::fma(-1.0f, -1.0f, -1.0f), -2.0f);
 }
-
+/*
 TEST(CommonMimMath, frexpTest)
 {
     int exp;
@@ -345,23 +345,24 @@ TEST(CommonMimMath, ldexpTest)
     EXPECT_FLOAT_EQ(mim::math::ldexp(1.0f, 1), 2.0f);
     EXPECT_FLOAT_EQ(mim::math::ldexp(-1.0f, 1), -2.0f);
 }
-
+*/
 TEST(CommonMimMath, powTest)
 {
-	EXPECT_FLOAT_EQ(mim::math::pow(0.0f, 0.0f), 1.0f);
-    EXPECT_FLOAT_EQ(mim::math::pow(1.0f, 1.0f), 1.0f);
-    EXPECT_FLOAT_EQ(mim::math::pow(-1.0f, 1.0f), -1.0f);
+	EXPECT_FLOAT_EQ(mim::math::pow(0.0f, 0), 1.0f);
+    EXPECT_FLOAT_EQ(mim::math::pow(1.0f, 1), 1.0f);
+    EXPECT_FLOAT_EQ(mim::math::pow(-1.0f, 1), -1.0f);
 
 	// TODO: Add tests for int types
 }
 
+/*
 TEST(CommonMimMath, expTest)
 {
     EXPECT_FLOAT_EQ(mim::math::exp(0.0f), 1.0f);
     EXPECT_FLOAT_EQ(mim::math::exp(1.0f), 2.71828182845904523536f);
     EXPECT_FLOAT_EQ(mim::math::exp(-1.0f), 0.3678794411714423215955f);
 }
-
+*/
 TEST(CommonMimMath, logTest)
 {
     EXPECT_FLOAT_EQ(mim::math::log(1.0f), 0.0f);

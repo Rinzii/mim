@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include <iostream>
-
 #include "mim/detail/qualifier.hpp"
 
 // I've decided a vec1 should be treated like a scalar as this appears to be a common
@@ -194,34 +192,30 @@ namespace mim
 		template <typename U>
 		constexpr VectorT<1, T, Q>& operator>>=(VectorT<1, U, Q> const& v);
 
-		/// Stream Implementation
-
-		friend std::ostream& operator<<(std::ostream& os, VectorT<1, T, Q> const& v) { return os << "(" << v.x << ")"; }
-
 
 		/// Function Declarations
 
-		MIM_NODISCARD bool isfinite() const;
-        VectorT<1, T, Q> sign() const;
-		VectorT<1, T, Q> floor() const;
-		VectorT<1, T, Q> ceil() const;
-		VectorT<1, T, Q> round() const;
-		VectorT<1, T, Q> min(const VectorT<1, T, Q>& v) const;
-		VectorT<1, T, Q> max(const VectorT<1, T, Q>& v) const;
+		MIM_NODISCARD constexpr bool isfinite() const;
+        constexpr VectorT<1, T, Q> sign() const;
+		constexpr VectorT<1, T, Q> floor() const;
+		constexpr VectorT<1, T, Q> ceil() const;
+		constexpr VectorT<1, T, Q> round() const;
+		constexpr VectorT<1, T, Q> min(const VectorT<1, T, Q>& v) const;
+		constexpr VectorT<1, T, Q> max(const VectorT<1, T, Q>& v) const;
 
-		T length() const;
+		constexpr T length() const;
 
-		T length_squared() const;
+		constexpr T length_squared() const;
 
-		void normalize();
+		constexpr void normalize();
 
-		VectorT<1, T, Q> normalized() const;
+		constexpr VectorT<1, T, Q> normalized() const;
 
-		MIM_NODISCARD bool is_normalized() const;
+		MIM_NODISCARD constexpr bool is_normalized() const;
 
-		T distance(const VectorT<1, T, Q>& v) const;
+		constexpr T distance(const VectorT<1, T, Q>& v) const;
 
-		T distance_squared(const VectorT<1, T, Q>& v) const;
+		constexpr T distance_squared(const VectorT<1, T, Q>& v) const;
 
 
 

@@ -5,9 +5,6 @@
 #include "mim/detail/qualifier.hpp"
 #include "mim/detail/compute/compute_quaternion.hpp"
 
-#include <stdexcept>
-#include <iostream>
-
 namespace mim
 {
 	template <typename T, qualifier Q>
@@ -18,45 +15,30 @@ namespace mim
 
 		static constexpr auto sizeV = 4;
 
-#ifdef MIM_FORCE_QUATERNION_XYZW
-		T x, y, z, w;
-#else
 		T w, x, y, z;
-#endif
 
 		static constexpr auto size() { return sizeV; }
 
 		constexpr T& operator[](size_type i)
 		{
-			if (i > this->size()) throw std::out_of_range("Quaternion::operator[]");
+			static_assert(i < size(), "Out of range: Quaternion::operator[]");
 
-#if MIM_FORCE_QUATERNION_XYZW
-			return (&x)[i];
-#else
 			return (&w)[i];
-#endif
 		}
+
 		constexpr T const& operator[](size_type i) const
 		{
-			if (i > this->size()) throw std::out_of_range("Quaternion::operator[]");
+			static_assert(i < size(), "Out of range: Quaternion::operator[]");
 
-#if MIM_FORCE_QUATERNION_XYZW
-			return (&x)[i];
-#else
 			return (&w)[i];
-#endif
 		}
 
 		constexpr T const& at(size_type i) const
         {
-            if (i > this->size()) throw std::out_of_range("Quaternion::at");
-			{
-			#if MIM_FORCE_QUATERNION_XYZW
-                return (&x)[i];
-            #else
-				return (&w)[i];
-			#endif
-			}
+			static_assert(i < size(), "Out of range: Quaternion::at");
+
+			return (&w)[i];
+
 		}
 
 		constexpr Quaternion();
@@ -66,11 +48,8 @@ namespace mim
 
 		constexpr Quaternion(T const& s, VectorT<3, T, Q> const& v);
 
-#ifdef MIM_FORCE_QUATERNION_XYZW
-		constexpr Quaternion(T const& x, T const& y, T const& z, T const& w);
-#else
+
 		constexpr Quaternion(T const& w, T const& x, T const& y, T const& z);
-#endif
 
 		template <typename U, qualifier P>
 		constexpr explicit Quaternion(Quaternion<U, P> const& q);
@@ -107,22 +86,12 @@ namespace mim
 		template <typename U>
 		constexpr Quaternion<T, Q>& operator/=(U const& scalar);
 
-
-		friend std::ostream& operator<<(std::ostream& os, VectorT<4, T, Q> const& v)
-		{
-#ifdef MIM_FORCE_QUATERNION_XYZW
-            return os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
-#else
-			return os << "(" << v.w << ", " << v.x << ", " << v.y << ", " << v.z << ")";
-#endif
-		}
-
-		MIM_NODISCARD bool isfinite() const;
-		T length() const;
-		void normalize();
-		Quaternion<T, Q> normalized() const;
-		MIM_NODISCARD bool is_normalized() const;
-		Quaternion<T, Q> inverse() const;
+		MIM_NODISCARD constexpr bool isfinite() const;
+		constexpr T length() const;
+		constexpr void normalize();
+		constexpr Quaternion<T, Q> normalized() const;
+		MIM_NODISCARD constexpr bool is_normalized() const;
+		constexpr Quaternion<T, Q> inverse() const;
 
 		//VectorT<3, T, Q> get_euler() const;
 	};

@@ -17,6 +17,7 @@
 
 // TODO: Decide if Vector variants should be implemented here.
 // TODO: Go over all of this functions and figure out what can and cannot be constexpr.
+// TODO: Implement constexpr versions of all trig functions.
 
 // I may move more common functions such as abs for vectors to here
 // instead of implementing them directly in the vector classes.
@@ -146,7 +147,7 @@ namespace mim::math
 	template <typename T>
 	static T asin_s(const T& val)
 	{
-		if (std::abs(val) >= T{1}) {
+		if (abs(val) >= T{1}) {
 			auto temp = (val > T{0}) ? MIM_PI<T> / T{2} : -MIM_PI<T> / T{2};
 			return temp;
 		}
@@ -158,7 +159,7 @@ namespace mim::math
 	template <>
 	float asin_s(const float& val)
 	{
-		if (std::abs(val) >= 1.0f) {
+		if (abs(val) >= 1.0f) {
 			auto temp = (val > 0.0f) ? 0.5f * MIM_PI<float> : -0.5f * MIM_PI<float>;
 			return temp;
 		}
@@ -279,62 +280,238 @@ namespace mim::math
 		return detail::functor1<VectorT, S, T, T, Q>::compute(atanh, val);
 	}
 
-	template <typename T>
-	static T abs(const T& val)
+	// TODO: Validate there is no problems with isinf<double>
+
+	namespace
 	{
-		return ::std::abs(val);
+		namespace impl
+		{
+			template <class T>
+			inline bool(isinf)(const T& val) noexcept
+			{
+				return std::isinf(val);
+			}
+		}
+	}
+
+	template <typename T>
+	constexpr bool isinf(const T& val) noexcept
+    {
+        if (std::is_constant_evaluated())
+		{
+			MIM_IF_CONSTEXPR(std::numeric_limits<T>::is_signed)
+            {
+                return (val == std::numeric_limits<T>::infinity() || -val == std::numeric_limits<T>::infinity());
+            }
+            else
+            {
+                return val == std::numeric_limits<T>::infinity();
+            }
+		} else
+		{
+			MIM_IF_CONSTEXPR(!std::is_integral_v<T>)
+            {
+                return (impl::isinf)(val);
+            }
+            else
+            {
+                return (impl::isinf)(static_cast<double>(val));
+            }
+		}
+    }
+
+	namespace
+	{
+		namespace impl
+		{
+			template <class T>
+			inline bool(isnan)(const T& val) noexcept
+			{
+				return std::isnan(val);
+			}
+		}
+	}
+
+	template <typename T>
+	inline constexpr bool isnan(const T& val) noexcept
+    {
+        if (std::is_constant_evaluated())
+        {
+			// In C++ this will evaluate to true if val is NaN.
+            return val != val; // NOLINT
+        } else
+        {
+            MIM_IF_CONSTEXPR(!std::is_integral_v<T>)
+            {
+                return (impl::isnan)(val);
+            }
+            else
+            {
+                return (impl::isnan)(static_cast<double>(val));
+            }
+        }
+    }
+
+	template <typename T>
+	inline constexpr bool isfinite(const T& val) noexcept
+    {
+		if (std::is_constant_evaluated()) {
+			MIM_IF_CONSTEXPR(!std::is_integral_v<T>)
+			{
+				return !(isinf(static_cast<double>(val)) && !isnan(static_cast<double>(val)));
+			}
+			else
+			{
+				return !(isinf(val) && !isnan(val));
+			}
+		} else
+		{
+			using std::isfinite;
+
+			MIM_IF_CONSTEXPR(!std::is_integral_v<T>)
+            {
+                return isfinite(val);
+            }
+            else
+            {
+                return isfinite(static_cast<double>(val));
+            }
+		}
+    }
+
+	// TODO: Look into possibly improving abs to be more robust.
+	template <typename T>
+	constexpr T abs(const T& val)
+	{
+		return (val >= T{0}) ? val : -val;
 	}
 
 	// I've noticed slight improvements in performance with this method when handling integers.
 	template <>
-	int abs<int>(const int& val)
+	constexpr int abs<int>(const int& val)
 	{
 		int const mask = val >> (sizeof(int) * CHAR_BIT - 1);
 		return (val ^ mask) - mask;
 	}
 
 	template <typename T>
-	static T sign(const T& val)
+	inline constexpr T sign(const T& val)
 	{
 		// Specifically not using copysign as it tends to be slow when handling integer types.
 		return (T{0} < val) - (val < T{0});
 	}
 
 	template <typename T>
-	static T floor(const T& val)
+	inline constexpr bool isClose(const T& a, const T& b, const T& tolerance = 1e-6)
 	{
-		return ::std::floor(val);
+		return abs(a - b) <= tolerance;
 	}
 
-	template <>
-	float floor<float>(const float& val)
+
+
+
+	namespace {
+		template <typename T>
+		inline constexpr T floor_impl_pos(T val) noexcept
+        {
+			T result = 1;
+			if (result < val)
+			{
+				while (result < val)
+				{
+					result *= 2;
+				}
+
+				while (result > val)
+                {
+                    --result;
+                }
+
+				return result;
+			} else {
+				return T{0};
+			}
+        }
+
+		template <typename T>
+		inline constexpr T floor_impl_neg(T val) noexcept
+        {
+            T result = -1;
+            if (result > val)
+            {
+                while (result > val)
+                {
+                    result *= 2;
+                }
+
+                while (result < val)
+                {
+                    ++result;
+                }
+
+                if (result != val)
+                {
+                    --result;
+                }
+            }
+
+			return result;
+        }
+
+        template <typename T>
+        inline constexpr T floor_impl(T val) noexcept
+        {
+            return (val > 0) ? floor_impl_pos(val) : floor_impl_neg(val);
+        }
+	}
+
+	template <typename R, std::enable_if_t<!std::is_integral_v<R>, bool> = true>
+	inline constexpr R floor(const R& val) noexcept
 	{
-		return floorf(val);
+        if (std::is_constant_evaluated())
+		{
+			return abs(val) == R{0} ? val :
+				isinf(val) ? val :
+                isnan(val) ? val :
+                floor_impl(val);
+
+		} else
+        {
+			using std::floor;
+            return floor(val);
+        }
+	}
+
+	template <typename R, std::enable_if_t<std::is_integral_v<R>, bool> = true>
+	inline constexpr double floor(const R& val) noexcept
+    {
+        return floor(static_cast<double>(val));
+    }
+
+	inline constexpr float floorf(const float& val) noexcept
+    {
+        return floor(val);
+    }
+
+	template <typename T>
+	inline constexpr T trunc(const T& val)
+	{
+		return static_cast<T>(int(val));
 	}
 
 	template <typename T>
-	static T trunc(const T& val)
-	{
-		return ::std::trunc(val);
-	}
-
-	template <>
-	float trunc<float>(const float& val)
-	{
-		return ::std::truncf(val);
-	}
+	inline constexpr auto ceil(const T& val)
+    {
+        return (int(val) == val) ? int(val) : (val >= 0.0) ? int(val) + 1 : int(val);
+    }
 
 	template <typename T>
-	static T round(const T& val)
+	constexpr auto round(const T& val)
 	{
-		return ::std::round(val);
+		return (val >= 0.0) ? int(val + 0.5) : int(val - 0.5);
 	}
 
-	template <>
-	float round<float>(const float& val)
-	{
-		return ::std::roundf(val);
-	}
+
 
 	template <typename T>
 	static T roundEven(const T& val)
@@ -379,109 +556,96 @@ namespace mim::math
 	}
 
 	template <typename T>
-	static T ceil(const T& val)
-	{
-		return ::std::ceil(val);
-	}
-
-	template <>
-	float ceil<float>(const float& val)
-	{
-		return ceilf(val);
-	}
-
-	template <typename T>
-	static constexpr T fract(const T& val)
+	constexpr T fract(const T& val)
 	{
 		return val - floor(val);
 	}
 
 	template <typename T>
-	static constexpr T mod(const T& val, const T& mod)
+	inline constexpr T mod(const T& val, const T& mod)
     {
         return val - mod * floor(val / mod);
     }
 
-	static float modf(const float& val, float* intpart)
-    {
-        return ::std::modf(val, intpart);
-    }
+	namespace {
+		template <typename T>
+        constexpr T modf_intpart(const T& val)
+        {
+            return (val >= 0) ? floor(val) : -floor(-val);
+        }
 
-	static double modf(const double& val, double* intpart)
-	{
-		return ::std::modf(val, intpart);
+		template <typename T>
+		constexpr T modf_fracpart(const T& val)
+        {
+            return val - modf_intpart(val);
+        }
 	}
 
 	template <typename T>
-	static constexpr T min(const T& a, const T& b)
+	constexpr T modf(const T& val, T* intpart)
+    {
+		*intpart = modf_intpart(val);
+        return modf_fracpart(val);
+    }
+
+	template <typename T>
+	constexpr T min(const T& a, const T& b)
 	{
 		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
 		return (b < a) ? b : a;
 	}
 
 	template <typename T, typename... Args>
-	static constexpr T min(const T& a, const T& b, const Args&... args)
+	constexpr T min(const T& a, const T& b, const Args&... args)
 	{
 		return min(min(a, b), std::forward<Args>(args)...);
 	}
 
 	template <typename T>
-	static constexpr T max(const T& a, const T& b)
+	constexpr T max(const T& a, const T& b)
 	{
 		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
 		return (a < b) ? b : a;
 	}
 
 	template <typename T, typename... Args>
-	static constexpr T max(const T& a, const T& b, const Args&... args)
+	constexpr T max(const T& a, const T& b, const Args&... args)
 	{
 		return max(max(a, b), std::forward<Args>(args)...);
 	}
 
 	template <typename T>
-	static constexpr T clamp(const T& val, const T& min, const T& max)
+	constexpr T clamp(const T& val, const T& min, const T& max)
 	{
 		return min(max(val, min), max);
 	}
 
 	template <typename T>
-	static constexpr T mix(const T& a, const T& b, const T& t)
+	constexpr T mix(const T& a, const T& b, const T& t)
     {
         return a * (T{1} - t) + b * t;
     }
 
 	template <typename T>
-	static constexpr T step(const T& edge, const T& val)
+	constexpr T step(const T& edge, const T& val)
     {
         return (val < edge) ? T{0} : T{1};
     }
 
 	template <typename T>
-	static constexpr T smoothstep(const T& edge0, const T& edge1, const T& val)
+	constexpr T smoothstep(const T& edge0, const T& edge1, const T& val)
     {
 		const T t = clamp((val - edge0) / (edge1 - edge0), T{0}, T{1});
         return t * t * (T{3} - T{2} * t);
     }
 
-	template <typename T>
-	static constexpr bool isnan(const T& val)
-	{
-		return ::std::isnan(val);
-	}
-
-	template <typename T>
-	static constexpr bool isinf(const T& val)
-	{
-		return ::std::isinf(val);
-	}
-
 	// bit_cast has issues in Apple Clang, so we will instead just use memcpy
 
 	static inline int floatBitsToInt(const float& val)
     {
-		int result = 0;
-		std::memcpy(&result, &val, sizeof(float));
-		return result;
+        int result = 0;
+        std::memcpy(&result, &val, sizeof(float));
+        return result;
     }
 
 	static inline unsigned int floatBitsToUint(const float& val)
@@ -505,100 +669,26 @@ namespace mim::math
 		return result;
     }
 
-	static constexpr float fma(const float& x, const float& y, const float& z)
+	namespace {
+		template <typename T, typename Unsigned>
+		constexpr auto pow_helper(T val, Unsigned exp) -> T
+        {
+			// This is using exponentiation by squaring
+            return
+				exp == 0 ? 1 :
+				(exp % 2 == 0) ? pow_helper(val * val, exp / 2) :
+							   val * pow_helper(val * val, (exp - 1) / 2);
+        }
+	}
+
+	template <typename Base, typename Exponent>
+	constexpr auto pow(const Base& base, const Exponent& exponent) -> std::common_type_t<Base, Exponent>
     {
-        return std::fma(x, y, z);
+        static_assert(std::is_integral<Exponent>::value, "Exponent of pow must be an integer type.");
+
+		return (exponent == 0) ? 1 : (exponent > 0) ? pow_helper(base, exponent) : 1 / pow_helper(base, -exponent);
     }
 
-	static inline float frexp(const float& val, int* exp)
-    {
-        return std::frexp(val, exp);
-    }
-
-	static constexpr float ldexp(const float& val, const int& exp)
-    {
-        return std::ldexp(val, exp);
-    }
-
-	// TODO: Ideally if possible i'd be best to completely replace std pow with a constexpr version that is faster.
-
-	// std::pow is relatively slow when working with floats instead of doubles. This is due to pow having to convert from double to float.
-	// So we will use a custom implementation of pow for floats.
-	// https://baptiste-wicht.com/posts/2017/09/cpp11-performance-tip-when-to-use-std-pow.html
-	template <typename T, typename Q>
-	static T pow(T base, Q power)
-	{
-		return ::std::pow<T>(base, power);
-	}
-
-	// This custom implementation is significantly faster than std::pow for integers.
-	template <>
-	detail::i32 pow<detail::i32, detail::i32>(detail::i32 base, detail::i32 power)
-	{
-		// TODO: Validate this implementation for correctness.
-		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
-		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-		if (power < 0) {
-			base /= 1;
-			power = -power;
-		}
-
-		if (power == 0) { return 1; }
-
-		int result = base;
-		while (power > 1) {
-			if (power & 1) { result *= base; }
-			base *= base;
-			power >>= 1;
-		}
-
-		return result;
-	}
-
-	// This custom implementation is significantly faster than std::pow for integers.
-	template <>
-	detail::u32 pow<detail::u32, detail::u32>(detail::u32 base, detail::u32 power)
-	{
-		// TODO: Validate this implementation for correctness.
-		// Iterative implementation of pow using exponentiation by squaring with bounded auxiliary space.
-		// https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-
-		if (power == 0) { return 1; }
-
-		detail::u32 result = base;
-		while (power > 1) {
-			if (power & 1) { result *= base; }
-			base *= base;
-			power >>= 1;
-		}
-
-		return result;
-	}
-
-	// TODO: Find a faster implementation of pow for floats.
-	template <>
-	float pow<float, float>(float base, float power)
-	{
-		return powf(base, power);
-	}
-
-	template <std::size_t S, typename T, qualifier Q>
-	static VectorT<S, T, Q> pow(const VectorT<S, T, Q>& base, const VectorT<S, T, Q>& power)
-	{
-		return detail::functor2<VectorT, S, T, T, Q>::compute(pow, base, power);
-	}
-
-	template <typename T>
-	static T exp(const T& val)
-	{
-		return ::std::exp(val);
-	}
-
-	template <>
-	float exp<float>(const float& val)
-	{
-		return expf(val);
-	}
 
 	template <typename T>
 	static T log(const T& val)
@@ -636,16 +726,18 @@ namespace mim::math
         return log2f(val);
     }
 
-	template <typename T>
-	static T sqrt(const T& val)
-	{
-		return ::std::sqrt(val);
+	namespace {
+		template <typename T>
+		constexpr T sqrt_helper(T x, T y)
+		{
+			return isClose(x, y * y) ? y : sqrt_helper(x, (y + (x / y)) / 2);
+		}
 	}
 
-	template <>
-	float sqrt<float>(const float& val)
+	template <typename T>
+	constexpr T sqrt(const T& val)
 	{
-		return sqrtf(val);
+		return static_cast<T>(sqrt_helper(val, val));
 	}
 
 	// IanP: May not allow constexpr

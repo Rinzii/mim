@@ -9,7 +9,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T& VectorT<3, T, Q>::operator[](size_type i)
 	{
-		if (i >= this->length()) { throw std::out_of_range("VectorT<3, T, Q>::operator[]"); }
+		static_assert(i < this->length(), "Out of range: VectorT<3, T, Q>::operator[]");
 
 		switch (i) {
 		default:
@@ -22,7 +22,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T const& VectorT<3, T, Q>::operator[](size_type i) const
 	{
-		if (i >= this->length()) { throw std::out_of_range("VectorT<3, T, Q>::operator[]"); }
+		static_assert(i < this->length(), "Out of range: VectorT<3, T, Q>::operator[]");
 
 		switch (i) {
 		default:

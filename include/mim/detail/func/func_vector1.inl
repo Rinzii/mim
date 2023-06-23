@@ -9,62 +9,63 @@ namespace mim
 {
 
 	template <typename T, qualifier Q>
-	bool VectorT<1, T, Q>::isfinite() const
+	constexpr bool VectorT<1, T, Q>::isfinite() const
 	{
-		return std::isfinite(x);
+		using mim::math::isfinite;
+		return isfinite(x);
 	}
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::sign() const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::sign() const
 	{
 		return VectorT<1, T, Q>(mim::math::sign(x));
 	}
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::floor() const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::floor() const
 	{
 		return VectorT<1, T, Q>(mim::math::floor(x));
 	}
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::ceil() const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::ceil() const
     {
         return VectorT<1, T, Q>(mim::math::ceil(x));
     }
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::round() const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::round() const
     {
         return VectorT<1, T, Q>(mim::math::round(x));
     }
 
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::min(const VectorT<1, T, Q>& v) const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::min(const VectorT<1, T, Q>& v) const
 	{
 		return VectorT<1, T, Q>(mim::math::min(x, v.x));
 	}
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::max(const VectorT<1, T, Q>& v) const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::max(const VectorT<1, T, Q>& v) const
 	{
 		return VectorT<1, T, Q>(mim::math::max(x, v.x));
 	}
 
 	template <typename T, qualifier Q>
-	T VectorT<1, T, Q>::length() const
+	constexpr T VectorT<1, T, Q>::length() const
     {
         return sqrt(x * x);
     }
 
 	template <typename T, qualifier Q>
-	T VectorT<1, T, Q>::length_squared() const
+	constexpr T VectorT<1, T, Q>::length_squared() const
     {
         return x * x;
     }
 
 	template <typename T, qualifier Q>
-	void VectorT<1, T, Q>::normalize()
+	constexpr void VectorT<1, T, Q>::normalize()
 	{
 		static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
 
@@ -77,7 +78,7 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	VectorT<1, T, Q> VectorT<1, T, Q>::normalized() const
+	constexpr VectorT<1, T, Q> VectorT<1, T, Q>::normalized() const
 	{
 		static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
 
@@ -87,7 +88,7 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	bool VectorT<1, T, Q>::is_normalized() const
+	constexpr bool VectorT<1, T, Q>::is_normalized() const
     {
         static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
 
@@ -95,13 +96,13 @@ namespace mim
     }
 
 	template <typename T, qualifier Q>
-	T VectorT<1, T, Q>::distance(const VectorT<1, T, Q>& v) const
+	constexpr T VectorT<1, T, Q>::distance(const VectorT<1, T, Q>& v) const
     {
         return mim::math::sqrt(x - v.x);
     }
 
 	template <typename T, qualifier Q>
-	T VectorT<1, T, Q>::distance_squared(const VectorT<1, T, Q>& v) const
+	constexpr T VectorT<1, T, Q>::distance_squared(const VectorT<1, T, Q>& v) const
     {
         return (x - v.x) * (x - v.x);
     }

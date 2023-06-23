@@ -4,8 +4,6 @@
 
 #include "mim/detail/qualifier.hpp"
 
-#include <iostream>
-
 namespace mim
 {
 	template <typename T, qualifier Q>
@@ -259,46 +257,41 @@ namespace mim
 		template <typename U>
 		constexpr VectorT<4, T, Q>& operator>>=(VectorT<4, U, Q> const& v);
 
-		friend std::ostream& operator<<(std::ostream& os, VectorT<4, T, Q> const& v)
-		{
-			return os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
-		}
-
 
 		/// Generic Function Declarations
 
-		MIM_NODISCARD bool isfinite() const;
-		VectorT<4, T, Q> sign() const;
-		VectorT<4, T, Q> floor() const;
-		VectorT<4, T, Q> ceil() const;
-		VectorT<4, T, Q> round() const;
-		VectorT<4, T, Q> min(const VectorT<4, T, Q>& v) const;
-		VectorT<4, T, Q> max(const VectorT<4, T, Q>& v) const;
+		MIM_NODISCARD constexpr bool isfinite() const;
+		constexpr VectorT<4, T, Q> sign() const;
+		constexpr VectorT<4, T, Q> floor() const;
+		constexpr VectorT<4, T, Q> ceil() const;
+		constexpr VectorT<4, T, Q> round() const;
+		constexpr VectorT<4, T, Q> min(const VectorT<4, T, Q>& v) const;
+		constexpr VectorT<4, T, Q> max(const VectorT<4, T, Q>& v) const;
 
-		T length() const;
+		constexpr T length() const;
 
-		T length_squared() const;
+		constexpr T length_squared() const;
 
-		void normalize();
+		constexpr void normalize();
 
-		VectorT<4, T, Q> normalized() const;
+		constexpr VectorT<4, T, Q> normalized() const;
 
-		MIM_NODISCARD bool is_normalized() const;
+		MIM_NODISCARD constexpr bool is_normalized() const;
 
-		T distance(const VectorT<4, T, Q>& v) const;
+		constexpr T distance(const VectorT<4, T, Q>& v) const;
 
-		T distance_squared(const VectorT<4, T, Q>& v) const;
+		constexpr T distance_squared(const VectorT<4, T, Q>& v) const;
 
 
 		/// Function Declarations
 
-		T dot(const VectorT<4, T, Q>& v) const;
-		T cross(const VectorT<4, T, Q>& v) const;
-		VectorT<4, T, Q> rotated(T angle) const;
-		VectorT<4, T, Q> clamp(const VectorT<4, T, Q>& min, const VectorT<4, T, Q>& max) const;
-		VectorT<4, T, Q> reflect(const VectorT<4, T, Q>& normal) const;
-		VectorT<4, T, Q> refract(const VectorT<4, T, Q>& normal, T eta) const;
-		VectorT<4, T, Q> project(const VectorT<4, T, Q>& normal) const;
+		constexpr T dot(const VectorT<4, T, Q>& v) const;
+		constexpr T cross(const VectorT<4, T, Q>& v) const;
+		constexpr VectorT<4, T, Q> rotated(T angle) const;
+		constexpr VectorT<4, T, Q> clamp(const VectorT<4, T, Q>& min, const VectorT<4, T, Q>& max) const;
+		constexpr VectorT<4, T, Q> reflect(const VectorT<4, T, Q>& normal) const;
+		constexpr VectorT<4, T, Q> refract(const VectorT<4, T, Q>& normal, T eta) const;
+		constexpr VectorT<4, T, Q> project(const VectorT<4, T, Q>& normal) const;
 	};
 
 	/// Unary Operators

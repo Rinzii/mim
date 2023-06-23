@@ -55,9 +55,9 @@
 
 /// MIM_COMPILER_CPP20_ENABLED
 #if !defined(MIM_COMPILER_CPP20_ENABLED) && defined(__cplusplus)
-	#if (__cplusplus >= 202003L)
+	#if (__cplusplus >= 202002L)
 		#define MIM_COMPILER_CPP20_ENABLED 1
-	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202003L) // C++20+
+	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202002L) // C++20+
 		#define MIM_COMPILER_CPP20_ENABLED 1
 	#endif
 #endif

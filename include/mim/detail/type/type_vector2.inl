@@ -11,7 +11,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T& VectorT<2, T, Q>::operator[](size_type i)
 	{
-		if (i >= this->size()) { throw std::out_of_range("VectorT<2, T, Q>::operator[]"); }
 		switch (i) {
 		default:
 		case 0: return x;
@@ -22,7 +21,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T const& VectorT<2, T, Q>::operator[](size_type i) const
 	{
-		if (i >= this->size()) { throw std::out_of_range("VectorT<2, T, Q>::operator[]"); }
 
 		switch (i) {
 		default:
@@ -34,7 +32,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	T& VectorT<2, T, Q>::at(std::size_t i)
 	{
-		if (i >= this->size()) { throw std::out_of_range("VectorT<2, T, Q>::at"); }
 
 		switch (i) {
 		default:
@@ -46,7 +43,6 @@ namespace mim
 	template <typename T, qualifier Q>
 	const T& VectorT<2, T, Q>::at(std::size_t i) const
 	{
-		if (i >= this->size()) { throw std::out_of_range("VectorT<2, T, Q>::at"); }
 
 		switch (i) {
 		default:

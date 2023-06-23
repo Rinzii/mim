@@ -23,7 +23,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i)
 	{
-		if (i >= size()) throw std::out_of_range("VectorT<1, T, Q>::at() : Index out of range.");
+		static_assert(i < size(), "VectorT<1, T, Q>::at() : Index out of range.");
 
 		return x;
 	}
@@ -31,7 +31,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	const T& VectorT<1, T, Q>::at(typename VectorT<1, T, Q>::size_type i) const
 	{
-		if (i >= size()) throw std::out_of_range("VectorT<1, T, Q>::at() : Index out of range.");
+		static_assert(i < size(), "VectorT<1, T, Q>::at() : Index out of range.");
 
 		return x;
 	}
@@ -265,9 +265,6 @@ namespace mim
 	template <typename U>
 	constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(U scalar)
 	{
-		// TODO: Check the performance difference between checking for division by zero and not
-		if (scalar == 0) throw std::overflow_error("Division by zero exception");
-
 		this->x /= static_cast<T>(scalar);
 		return *this;
 	}
@@ -276,9 +273,6 @@ namespace mim
 	template <typename U>
 	constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<1, U, Q> const& v)
 	{
-		// TODO: Check the performance difference between checking for division by zero and not
-		if (v.x == 0) throw std::overflow_error("Division by zero exception");
-
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
@@ -287,9 +281,6 @@ namespace mim
 	template <typename U>
 	constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<2, U, Q> const& v)
 	{
-		// TODO: Check the performance difference between checking for division by zero and not
-		if (v.x == 0) throw std::overflow_error("Division by zero exception");
-
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
@@ -298,9 +289,6 @@ namespace mim
 	template <typename U>
 	constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<3, U, Q> const& v)
 	{
-		// TODO: Check the performance difference between checking for division by zero and not
-		if (v.x == 0) throw std::overflow_error("Division by zero exception");
-
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
@@ -309,8 +297,6 @@ namespace mim
 	template <typename U>
 	constexpr VectorT<1, T, Q>& VectorT<1, T, Q>::operator/=(VectorT<4, U, Q> const& v)
 	{
-		// TODO: Check the performance difference between checking for division by zero and not
-		if (v.x == 0) throw std::overflow_error("Division by zero exception");
 
 		this->x /= static_cast<T>(v.x);
 		return *this;

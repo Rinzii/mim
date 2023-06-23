@@ -37,6 +37,20 @@
 	#endif
 #endif
 
+#ifndef MIM_NO_UNIQUE_ADDRESS
+    #if defined(MIM_COMPILER_CPP20_ENABLED)
+        #if defined(MIM_COMPILER_MSVC)
+            #define MIM_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
+        #elif defined(MIM_COMPILER_GCC) && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 1001) || defined(MIM_COMPILER_CLANG)
+            #define MIM_NO_UNIQUE_ADDRESS [[no_unique_address]]
+        #else
+            #define MIM_NO_UNIQUE_ADDRESS
+        #endif
+    #else
+        #define MIM_NO_UNIQUE_ADDRESS
+    #endif
+#endif
+
 #ifndef MIM_ALIGNED_TYPEDEF
 	#if MIM_COMPILER_MSVC
 		#define MIM_ALIGNED_TYPEDEF(type, name, alignment) typedef __declspec(align(alignment)) type name
