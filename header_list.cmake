@@ -1,23 +1,5 @@
 
 
-
-set(mim_cmath_detail_headers
-        include/mim/cmath/detail/impl_isinf.hpp
-        )
-
-
-set(mim_cmath_headers
-        ${mim_cmath_detail_headers}
-        include/mim/cmath/abs.hpp
-        include/mim/cmath/isfinite.hpp
-        include/mim/cmath/isinf.hpp
-        include/mim/cmath/isnan.hpp
-        )
-
-
-
-
-
 set(mim_detail_compute_headers
         include/mim/detail/compute/compute_functors.hpp
         include/mim/detail/compute/compute_matrix.hpp
@@ -123,7 +105,6 @@ set(mim_simd_headers
 
 
 set(mim_headers
-        ${mim_cmath_headers}
         ${mim_detail_headers}
         ${mim_internal_headers}
         ${mim_simd_headers}
@@ -137,7 +118,7 @@ set(mim_headers
         include/mim/mat3.hpp
         include/mim/mat4.hpp
         include/mim/mathUtils.hpp
-        include/mim/mimMath.hpp
+        include/mim/cmath.hpp
         include/mim/mimConstants.hpp
         include/mim/quat.hpp
         include/mim/random.hpp
