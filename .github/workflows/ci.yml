@@ -45,7 +45,7 @@ jobs:
       - name: init
         run: brew install ninja gcc@11
       - name: update xcode
-        run: sudo softwareupdate --install -a
+        run: sudo softwareupdate --list
       - name: configure gcc
         run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
       - name: configure clang
