@@ -42,14 +42,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: install homebrew formulae
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: update clang
-        run: $(brew --prefix llvm@15)/bin/clang
       - name: install ninja and gcc
         run: brew install ninja gcc@11
       - name: configure gcc
         run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
       - name: configure clang
-        run: cmake -S . --preset=ninja-clang -B clang -DCMAKE_CXX_COMPILER=clang++15
+        run: cmake -S . --preset=ninja-clang -B clang -DCMAKE_CXX_COMPILER=$(brew --prefix llvm@15)/bin/clang
       - name: build gcc
         run: cmake --build build --config=Release
       - name: build clang
