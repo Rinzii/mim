@@ -47,7 +47,7 @@ jobs:
       - name: configure gcc
         run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
       - name: configure clang
-        run: cmake -S . --preset=ninja-clang -B clang -DCMAKE_CXX_COMPILER=$(brew --prefix llvm@15)/bin/clang
+        run: cmake -S . --preset=ninja-clang -B clang
       - name: build gcc
         run: cmake --build build --config=Release
       - name: build clang
