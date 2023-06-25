@@ -1,6 +1,6 @@
 # Mim
 ### A modern math framework for real time graphics.
-[![build Status](https://github.com/Rinzii/mim/actions/workflows/ci.yml/badge.svg)](https://github.com/Rinzii/mim/actions/workflow/ci.yml)
+[![build Status](https://github.com/Rinzii/mim/actions/workflows/build.yml/badge.svg)](https://github.com/Rinzii/mim/actions/workflow/build.yml)
 
 
 
