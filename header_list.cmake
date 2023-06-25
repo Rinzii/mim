@@ -1,9 +1,5 @@
 
 
-
-
-
-
 set(mim_detail_compute_headers
         include/mim/detail/compute/compute_functors.hpp
         include/mim/detail/compute/compute_matrix.hpp
@@ -122,7 +118,7 @@ set(mim_headers
         include/mim/mat3.hpp
         include/mim/mat4.hpp
         include/mim/mathUtils.hpp
-        include/mim/mimMath.hpp
+        include/mim/cmath.hpp
         include/mim/mimConstants.hpp
         include/mim/quat.hpp
         include/mim/random.hpp

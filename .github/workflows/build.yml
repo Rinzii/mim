@@ -1,4 +1,4 @@
-name: ci
+name: build
 on:
   push:
     tags-ignore: v*.*
@@ -37,12 +37,12 @@ jobs:
         run: cd build && ctest -C Release
 
   build-macos:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v2
       - name: install homebrew formulae
         run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - name: init
+      - name: install ninja and gcc
         run: brew install ninja gcc@11
       - name: configure gcc
         run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11

@@ -1,56 +1,13 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #include "mim/detail/qualifier.hpp"
-#include "mim/mimMath.hpp"
+#include "mim/cmath.hpp"
+#include "mim/mimConstants.hpp"
 #include "mim/detail/compute/compute_vector.hpp"
 #include "mim/detail/compute/compute_functors.hpp"
 
 namespace mim
 {
-	/// Generic Functions
-
-    template <typename T, qualifier Q>
-	constexpr bool VectorT<2, T, Q>::isfinite() const
-    {
-		using mim::math::isfinite;
-        return isfinite(x) && isfinite(y);
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::sign() const
-	{
-		return VectorT<2, T, Q>(mim::math::sign(x), mim::math::sign(y));
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::floor() const
-    {
-        return VectorT<2, T, Q>(mim::math::floor(x), mim::math::floor(y));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::ceil() const
-    {
-        return VectorT<2, T, Q>(mim::math::ceil(x), mim::math::ceil(y));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::round() const
-    {
-        return VectorT<2, T, Q>(mim::math::round(x), mim::math::round(y));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::min(const VectorT<2, T, Q>& v) const
-    {
-        return VectorT<2, T, Q>(mim::math::min(x, v.x), mim::math::min(y, v.y));
-    }
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::max(const VectorT<2, T, Q>& v) const
-	{
-		return VectorT<2, T, Q>(mim::math::max(x, v.x), mim::math::max(y, v.y));
-	}
 
 	template <typename T, qualifier Q>
 	constexpr T VectorT<2, T, Q>::length() const
@@ -124,11 +81,12 @@ namespace mim
         return x * v.y - y * v.x;
     }
 
+	// TODO: Make this constexpr once sine and cosine are constexpr.
 	template <typename T, qualifier Q>
-	constexpr VectorT<2, T, Q> VectorT<2, T, Q>::rotated(T angle) const
+	VectorT<2, T, Q> VectorT<2, T, Q>::rotated(T angle) const
 	{
-        T sine = mim::math::sin(angle);
-		T cosi = mim::math::cos(angle);
+        T sine = std::sin(angle);
+		T cosi = std::cos(angle);
 
 		return VectorT<2, T, Q>(
 			x * cosi - y * sine,

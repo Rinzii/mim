@@ -1,14 +1,15 @@
 # Mim
 ### A modern math framework for real time graphics.
-[![build Status](https://github.com/Rinzii/mim/actions/workflows/ci.yml/badge.svg)](https://github.com/Rinzii/mim/actions/workflow/ci.yml)
+[![build Status](https://github.com/Rinzii/mim/actions/workflows/build.yml/badge.svg)](https://github.com/Rinzii/mim/actions/workflow/build.yml)
 
 
 
 ## Features
 - (WIP) Robust implementation of common 3D math objects. Including vectors, matrices, quaternions, and more.
+- Nearly completely header only.
 - Various utility functions for common math operations.
 - Lightweight and portable. No external dependencies.
-- Using modern C++20 features with plans to maintain backward compatibility with C++20.
+- Using modern C++20 features.
 
 > Mim is still in development and not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
 
@@ -24,10 +25,10 @@
 
 ### Technology Used
 - C++20
-- Cmake 3.18 (may change)
+- Cmake 3.18 (may reduce)
 - Doxygen (planned)
 - Cppcheck
-- Google Test (for unit testing)
+- Google Test (unit testing)
 
 
 ## Contributing

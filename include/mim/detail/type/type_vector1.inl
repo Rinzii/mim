@@ -1,7 +1,7 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
 #include "mim/detail/compute/compute_vector.hpp"
-#include "mim/mimMath.hpp"
+#include <type_traits>
 
 namespace mim
 {
