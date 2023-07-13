@@ -6,9 +6,9 @@ namespace mim
 {
 
 	template <typename T, qualifier Q>
-	constexpr T& VectorT<3, T, Q>::operator[](size_type i)
+	constexpr T& vec<3, T, Q>::operator[](size_type i)
 	{
-		static_assert(i < this->length(), "Out of range: VectorT<3, T, Q>::operator[]");
+		static_assert(i < this->length(), "Out of range: vec<3, T, Q>::operator[]");
 
 		switch (i) {
 		default:
@@ -19,9 +19,9 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	constexpr T const& VectorT<3, T, Q>::operator[](size_type i) const
+	constexpr T const& vec<3, T, Q>::operator[](size_type i) const
 	{
-		static_assert(i < this->length(), "Out of range: VectorT<3, T, Q>::operator[]");
+		static_assert(i < this->length(), "Out of range: vec<3, T, Q>::operator[]");
 
 		switch (i) {
 		default:
@@ -34,22 +34,22 @@ namespace mim
 	/// Constructors
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>::VectorT() : x(0), y(0), z(0)
+	constexpr vec<3, T, Q>::vec() : x(0), y(0), z(0)
 	{
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>::VectorT(T _x, T _y, T _z) : x(_x), y(_y), z(_z)
+	constexpr vec<3, T, Q>::vec(T _x, T _y, T _z) : x(_x), y(_y), z(_z)
 	{
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<3, T, Q> const& v) : x(v.x), y(v.y), z(v.z)
+	constexpr vec<3, T, Q>::vec(vec<3, T, Q> const& v) : x(v.x), y(v.y), z(v.z)
 	{
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>::VectorT(T scalar) : x(scalar), y(scalar), z(scalar)
+	constexpr vec<3, T, Q>::vec(T scalar) : x(scalar), y(scalar), z(scalar)
 	{
 	}
 
@@ -57,7 +57,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<3, T, P> const& v) : x(v.x), y(v.y), z(v.z)
+	constexpr vec<3, T, Q>::vec(vec<3, T, P> const& v) : x(v.x), y(v.y), z(v.z)
 	{
 	}
 
@@ -67,13 +67,13 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, U, P> const& scalar) : x(static_cast<T>(scalar.x)), y(static_cast<T>(scalar.x)), z(static_cast<T>(scalar.x))
+	constexpr vec<3, T, Q>::vec(vec<1, U, P> const& scalar) : x(static_cast<T>(scalar.x)), y(static_cast<T>(scalar.x)), z(static_cast<T>(scalar.x))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename U, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<3, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z))
+	constexpr vec<3, T, Q>::vec(vec<3, U, P> const& v) : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)), z(static_cast<T>(v.z))
 	{
 	}
 
@@ -81,52 +81,52 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(X _x, Y _y, Z _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y)), z(static_cast<T>(_z))
+	constexpr vec<3, T, Q>::vec(X _x, Y _y, Z _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y)), z(static_cast<T>(_z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, X, Q> const& _x, Y _y, Z _z) : x(static_cast<T>(_x.x)), y(static_cast<T>(_y)), z(static_cast<T>(_z))
+	constexpr vec<3, T, Q>::vec(vec<1, X, Q> const& _x, Y _y, Z _z) : x(static_cast<T>(_x.x)), y(static_cast<T>(_y)), z(static_cast<T>(_z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(X _x, VectorT<1, Y, Q> const& _y, Z _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z))
+	constexpr vec<3, T, Q>::vec(X _x, vec<1, Y, Q> const& _y, Z _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(X _x, Y _y, VectorT<1, Z, Q> const& _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y)), z(static_cast<T>(_z.z))
+	constexpr vec<3, T, Q>::vec(X _x, Y _y, vec<1, Z, Q> const& _z) : x(static_cast<T>(_x)), y(static_cast<T>(_y)), z(static_cast<T>(_z.z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, X, Q> const& _x, VectorT<1, Y, Q> const& _y, Z _z)
+	constexpr vec<3, T, Q>::vec(vec<1, X, Q> const& _x, vec<1, Y, Q> const& _y, Z _z)
 		: x(static_cast<T>(_x.x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, X, Q> const& _x, Y _y, VectorT<1, Z, Q> const& _z)
+	constexpr vec<3, T, Q>::vec(vec<1, X, Q> const& _x, Y _y, vec<1, Z, Q> const& _z)
 		: x(static_cast<T>(_x.x)), y(static_cast<T>(_y)), z(static_cast<T>(_z.z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(X _x, VectorT<1, Y, Q> const& _y, VectorT<1, Z, Q> const& _z)
+	constexpr vec<3, T, Q>::vec(X _x, vec<1, Y, Q> const& _y, vec<1, Z, Q> const& _z)
 		: x(static_cast<T>(_x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z.z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename X, typename Y, typename Z>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, X, Q> const& _x, VectorT<1, Y, Q> const& _y, VectorT<1, Z, Q> const& _z)
+	constexpr vec<3, T, Q>::vec(vec<1, X, Q> const& _x, vec<1, Y, Q> const& _y, vec<1, Z, Q> const& _z)
 		: x(static_cast<T>(_x.x)), y(static_cast<T>(_y.y)), z(static_cast<T>(_z.z))
 	{
 	}
@@ -135,26 +135,26 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename A, typename B, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<2, A, P> const& _xy, B _z) : x(static_cast<T>(_xy.x)), y(static_cast<T>(_xy.y)), z(static_cast<T>(_z))
+	constexpr vec<3, T, Q>::vec(vec<2, A, P> const& _xy, B _z) : x(static_cast<T>(_xy.x)), y(static_cast<T>(_xy.y)), z(static_cast<T>(_z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename A, typename B, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<2, A, P> const& _xy, VectorT<1, B, P> const& _z)
+	constexpr vec<3, T, Q>::vec(vec<2, A, P> const& _xy, vec<1, B, P> const& _z)
 		: x(static_cast<T>(_xy.x)), y(static_cast<T>(_xy.y)), z(static_cast<T>(_z.z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename A, typename B, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(A _x, VectorT<2, B, P> const& _yz) : x(static_cast<T>(_x)), y(static_cast<T>(_yz.y)), z(static_cast<T>(_yz.z))
+	constexpr vec<3, T, Q>::vec(A _x, vec<2, B, P> const& _yz) : x(static_cast<T>(_x)), y(static_cast<T>(_yz.y)), z(static_cast<T>(_yz.z))
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename A, typename B, qualifier P>
-	constexpr VectorT<3, T, Q>::VectorT(VectorT<1, A, P> const& _x, VectorT<2, B, P> const& _yz)
+	constexpr vec<3, T, Q>::vec(vec<1, A, P> const& _x, vec<2, B, P> const& _yz)
 		: x(static_cast<T>(_x.x)), y(static_cast<T>(_yz.y)), z(static_cast<T>(_yz.z))
 	{
 	}
@@ -162,7 +162,7 @@ namespace mim
 	/// Assignment Operators
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(T scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator=(T scalar)
 	{
 		x = scalar;
 		y = scalar;
@@ -171,7 +171,7 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator=(vec<3, T, Q> const& v)
 	{
 		x = v.x;
 		y = v.y;
@@ -184,7 +184,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(VectorT<1, U, Q> const& scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator=(vec<1, U, Q> const& scalar)
 	{
 		x = static_cast<T>(scalar.x);
 		y = static_cast<T>(scalar.x);
@@ -194,7 +194,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator=(vec<3, U, Q> const& v)
 	{
 		x = static_cast<T>(v.x);
 		y = static_cast<T>(v.y);
@@ -204,7 +204,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator+=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator+=(U scalar)
 	{
 		x += static_cast<T>(scalar);
 		y += static_cast<T>(scalar);
@@ -217,7 +217,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator+=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator+=(vec<1, U, Q> const& v)
 	{
 		x += static_cast<T>(v.x);
 		y += static_cast<T>(v.x);
@@ -227,7 +227,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator+=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator+=(vec<3, U, Q> const& v)
 	{
 		x += static_cast<T>(v.x);
 		y += static_cast<T>(v.y);
@@ -237,7 +237,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator-=(U scalar)
 	{
 		x -= static_cast<T>(scalar);
 		y -= static_cast<T>(scalar);
@@ -250,7 +250,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(VectorT<1, U, Q> const& scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator-=(vec<1, U, Q> const& scalar)
 	{
 		x -= static_cast<T>(scalar.x);
 		y -= static_cast<T>(scalar.x);
@@ -260,7 +260,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator-=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator-=(vec<3, U, Q> const& v)
 	{
 		x -= static_cast<T>(v.x);
 		y -= static_cast<T>(v.y);
@@ -270,7 +270,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator*=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator*=(U scalar)
 	{
 		x *= static_cast<T>(scalar);
 		y *= static_cast<T>(scalar);
@@ -283,7 +283,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator*=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator*=(vec<1, U, Q> const& v)
 	{
 		x *= static_cast<T>(v.x);
 		y *= static_cast<T>(v.x);
@@ -293,7 +293,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator*=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator*=(vec<3, U, Q> const& v)
 	{
 		x *= static_cast<T>(v.x);
 		y *= static_cast<T>(v.y);
@@ -303,7 +303,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator/=(U scalar)
 	{
 		x /= static_cast<T>(scalar);
 		y /= static_cast<T>(scalar);
@@ -316,7 +316,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator/=(vec<1, U, Q> const& v)
 	{
 		x /= static_cast<T>(v.x);
 		y /= static_cast<T>(v.x);
@@ -326,7 +326,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator/=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator/=(vec<3, U, Q> const& v)
 	{
 		x /= static_cast<T>(v.x);
 		y /= static_cast<T>(v.y);
@@ -337,7 +337,7 @@ namespace mim
 	/// Increment and decrement operators
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator++()
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator++()
 	{
 		++this->x;
 		++this->y;
@@ -346,7 +346,7 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator--()
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator--()
 	{
 		--this->x;
 		--this->y;
@@ -355,17 +355,17 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	constexpr const VectorT<3, T, Q> VectorT<3, T, Q>::operator++(int)
+	constexpr const vec<3, T, Q> vec<3, T, Q>::operator++(int)
 	{
-		VectorT<3, T, Q> result(*this);
+		vec<3, T, Q> result(*this);
 		++*this;
 		return result;
 	}
 
 	template <typename T, qualifier Q>
-	constexpr const VectorT<3, T, Q> VectorT<3, T, Q>::operator--(int)
+	constexpr const vec<3, T, Q> vec<3, T, Q>::operator--(int)
 	{
-		VectorT<3, T, Q> result(*this);
+		vec<3, T, Q> result(*this);
 		--*this;
 		return result;
 	}
@@ -374,7 +374,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator%=(U scalar)
 	{
 		x %= static_cast<T>(scalar);
 		y %= static_cast<T>(scalar);
@@ -387,7 +387,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator%=(vec<1, U, Q> const& v)
 	{
 		x %= static_cast<T>(v.x);
 		y %= static_cast<T>(v.x);
@@ -397,7 +397,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator%=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator%=(vec<3, U, Q> const& v)
 	{
 		x %= static_cast<T>(v.x);
 		y %= static_cast<T>(v.y);
@@ -407,7 +407,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator&=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator&=(U scalar)
 	{
 		x &= static_cast<T>(scalar);
 		y &= static_cast<T>(scalar);
@@ -420,7 +420,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator&=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator&=(vec<1, U, Q> const& v)
 	{
 		x &= static_cast<T>(v.x);
 		y &= static_cast<T>(v.x);
@@ -430,7 +430,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator&=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator&=(vec<3, U, Q> const& v)
 	{
 		x &= static_cast<T>(v.x);
 		y &= static_cast<T>(v.y);
@@ -440,7 +440,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator|=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator|=(U scalar)
 	{
 		x |= static_cast<T>(scalar);
 		y |= static_cast<T>(scalar);
@@ -453,7 +453,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator|=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator|=(vec<1, U, Q> const& v)
 	{
 		x |= static_cast<T>(v.x);
 		y |= static_cast<T>(v.x);
@@ -463,7 +463,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator|=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator|=(vec<3, U, Q> const& v)
 	{
 		x |= static_cast<T>(v.x);
 		y |= static_cast<T>(v.y);
@@ -473,7 +473,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator^=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator^=(U scalar)
 	{
 		x ^= static_cast<T>(scalar);
 		y ^= static_cast<T>(scalar);
@@ -486,7 +486,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator^=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator^=(vec<1, U, Q> const& v)
 	{
 		x ^= static_cast<T>(v.x);
 		y ^= static_cast<T>(v.x);
@@ -496,7 +496,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator^=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator^=(vec<3, U, Q> const& v)
 	{
 		x ^= static_cast<T>(v.x);
 		y ^= static_cast<T>(v.y);
@@ -506,7 +506,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator<<=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator<<=(U scalar)
 	{
 		x <<= static_cast<T>(scalar);
 		y <<= static_cast<T>(scalar);
@@ -519,7 +519,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator<<=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator<<=(vec<1, U, Q> const& v)
 	{
 		x <<= static_cast<T>(v.x);
 		y <<= static_cast<T>(v.x);
@@ -529,7 +529,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator<<=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator<<=(vec<3, U, Q> const& v)
 	{
 		x <<= static_cast<T>(v.x);
 		y <<= static_cast<T>(v.y);
@@ -539,7 +539,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator>>=(U scalar)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator>>=(U scalar)
 	{
 		x >>= static_cast<T>(scalar);
 		y >>= static_cast<T>(scalar);
@@ -552,7 +552,7 @@ namespace mim
 	 */
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator>>=(VectorT<1, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator>>=(vec<1, U, Q> const& v)
 	{
 		x >>= static_cast<T>(v.x);
 		y >>= static_cast<T>(v.x);
@@ -562,7 +562,7 @@ namespace mim
 
 	template <typename T, qualifier Q>
 	template <typename U>
-	constexpr VectorT<3, T, Q>& VectorT<3, T, Q>::operator>>=(VectorT<3, U, Q> const& v)
+	constexpr vec<3, T, Q>& vec<3, T, Q>::operator>>=(vec<3, U, Q> const& v)
 	{
 		x >>= static_cast<T>(v.x);
 		y >>= static_cast<T>(v.y);
@@ -571,403 +571,403 @@ namespace mim
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator+(vec<3, T, Q> const& v)
 	{
 		return v;
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator-(vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(-v.x, -v.y, -v.z);
+		return vec<3, T, Q>(-v.x, -v.y, -v.z);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, T scalar)
+	constexpr vec<3, T, Q> operator+(vec<3, T, Q> const& v, T scalar)
 	{
-		return VectorT<3, T, Q>(v.x + scalar, v.y + scalar, v.z + scalar);
+		return vec<3, T, Q>(v.x + scalar, v.y + scalar, v.z + scalar);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(T scalar, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator+(T scalar, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(scalar + v.x, scalar + v.y, scalar + v.z);
-	}
-
-	/*
-	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
-	 */
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
-	{
-		return VectorT<3, T, Q>(v.x + sv.x, v.y + sv.x, v.z + sv.x);
+		return vec<3, T, Q>(scalar + v.x, scalar + v.y, scalar + v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator+(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x + v.x, sv.x + v.y, sv.x + v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator+(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x - scalar, v.y - scalar, v.z - scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar - v.x, scalar - v.y, scalar - v.z);
+		return vec<3, T, Q>(v.x + sv.x, v.y + sv.x, v.z + sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator+(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x - sv.x, v.y - sv.x, v.z - sv.x);
+		return vec<3, T, Q>(sv.x + v.x, sv.x + v.y, sv.x + v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator+(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator-(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x - scalar, v.y - scalar, v.z - scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator-(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar - v.x, scalar - v.y, scalar - v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator-(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x - v.x, sv.x - v.y, sv.x - v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator-(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x * scalar, v.y * scalar, v.z * scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator*(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar * v.x, scalar * v.y, scalar * v.z);
+		return vec<3, T, Q>(v.x - sv.x, v.y - sv.x, v.z - sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator-(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x * sv.x, v.y * sv.x, v.z * sv.x);
+		return vec<3, T, Q>(sv.x - v.x, sv.x - v.y, sv.x - v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator-(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator*(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x * scalar, v.y * scalar, v.z * scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator*(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar * v.x, scalar * v.y, scalar * v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator*(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator*(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x * v.x, sv.x * v.y, sv.x * v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator*(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x / scalar, v.y / scalar, v.z / scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator/(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar / v.x, scalar / v.y, scalar / v.z);
+		return vec<3, T, Q>(v.x * sv.x, v.y * sv.x, v.z * sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator*(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x / sv.x, v.y / sv.x, v.z / sv.x);
+		return vec<3, T, Q>(sv.x * v.x, sv.x * v.y, sv.x * v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator*(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator/(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x / scalar, v.y / scalar, v.z / scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator/(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar / v.x, scalar / v.y, scalar / v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator/(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator/(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x / v.x, sv.x / v.y, sv.x / v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator/(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x % scalar, v.y % scalar, v.z % scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator%(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar % v.x, scalar % v.y, scalar % v.z);
+		return vec<3, T, Q>(v.x / sv.x, v.y / sv.x, v.z / sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator/(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x % sv.x, v.y % sv.x, v.z % sv.x);
+		return vec<3, T, Q>(sv.x / v.x, sv.x / v.y, sv.x / v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator/(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator%(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x % scalar, v.y % scalar, v.z % scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator%(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar % v.x, scalar % v.y, scalar % v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator%(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator%(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x % v.x, sv.x % v.y, sv.x % v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator%(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x % v2.x, v1.y % v2.y, v1.z % v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x & scalar, v.y & scalar, v.z & scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator&(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar & v.x, scalar & v.y, scalar & v.z);
+		return vec<3, T, Q>(v.x % sv.x, v.y % sv.x, v.z % sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator%(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x & sv.x, v.y & sv.x, v.z & sv.x);
+		return vec<3, T, Q>(sv.x % v.x, sv.x % v.y, sv.x % v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator%(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x % v2.x, v1.y % v2.y, v1.z % v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator&(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x & scalar, v.y & scalar, v.z & scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator&(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar & v.x, scalar & v.y, scalar & v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator&(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator&(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x & v.x, sv.x & v.y, sv.x & v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator&(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x & v2.x, v1.y & v2.y, v1.z & v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x | scalar, v.y | scalar, v.z | scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator|(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar | v.x, scalar | v.y, scalar | v.z);
+		return vec<3, T, Q>(v.x & sv.x, v.y & sv.x, v.z & sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator&(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x | sv.x, v.y | sv.x, v.z | sv.x);
+		return vec<3, T, Q>(sv.x & v.x, sv.x & v.y, sv.x & v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator&(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x & v2.x, v1.y & v2.y, v1.z & v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator|(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x | scalar, v.y | scalar, v.z | scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator|(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar | v.x, scalar | v.y, scalar | v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator|(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator|(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x | v.x, sv.x | v.y, sv.x | v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator|(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x | v2.x, v1.y | v2.y, v1.z | v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x ^ scalar, v.y ^ scalar, v.z ^ scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator^(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar ^ v.x, scalar ^ v.y, scalar ^ v.z);
+		return vec<3, T, Q>(v.x | sv.x, v.y | sv.x, v.z | sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator|(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x ^ sv.x, v.y ^ sv.x, v.z ^ sv.x);
+		return vec<3, T, Q>(sv.x | v.x, sv.x | v.y, sv.x | v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator|(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x | v2.x, v1.y | v2.y, v1.z | v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator^(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x ^ scalar, v.y ^ scalar, v.z ^ scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator^(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar ^ v.x, scalar ^ v.y, scalar ^ v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator^(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator^(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x ^ v.x, sv.x ^ v.y, sv.x ^ v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator^(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x ^ v2.x, v1.y ^ v2.y, v1.z ^ v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x << scalar, v.y << scalar, v.z << scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator<<(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar << v.x, scalar << v.y, scalar << v.z);
+		return vec<3, T, Q>(v.x ^ sv.x, v.y ^ sv.x, v.z ^ sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator^(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x << sv.x, v.y << sv.x, v.z << sv.x);
+		return vec<3, T, Q>(sv.x ^ v.x, sv.x ^ v.y, sv.x ^ v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator^(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x ^ v2.x, v1.y ^ v2.y, v1.z ^ v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator<<(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x << scalar, v.y << scalar, v.z << scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator<<(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar << v.x, scalar << v.y, scalar << v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator<<(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator<<(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x << v.x, sv.x << v.y, sv.x << v.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator<<(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
-	{
-		return VectorT<3, T, Q>(v1.x << v2.x, v1.y << v2.y, v1.z << v2.z);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, T scalar)
-	{
-		return VectorT<3, T, Q>(v.x >> scalar, v.y >> scalar, v.z >> scalar);
-	}
-
-	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator>>(T scalar, VectorT<3, T, Q> const& v)
-	{
-		return VectorT<3, T, Q>(scalar >> v.x, scalar >> v.y, scalar >> v.z);
+		return vec<3, T, Q>(v.x << sv.x, v.y << sv.x, v.z << sv.x);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v, VectorT<1, T, Q> const& sv)
+	constexpr vec<3, T, Q> operator<<(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(v.x >> sv.x, v.y >> sv.x, v.z >> sv.x);
+		return vec<3, T, Q>(sv.x << v.x, sv.x << v.y, sv.x << v.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator<<(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
+	{
+		return vec<3, T, Q>(v1.x << v2.x, v1.y << v2.y, v1.z << v2.z);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator>>(vec<3, T, Q> const& v, T scalar)
+	{
+		return vec<3, T, Q>(v.x >> scalar, v.y >> scalar, v.z >> scalar);
+	}
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator>>(T scalar, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(scalar >> v.x, scalar >> v.y, scalar >> v.z);
 	}
 
 	/*
 	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
 	 */
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator>>(VectorT<1, T, Q> const& sv, VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator>>(vec<3, T, Q> const& v, vec<1, T, Q> const& sv)
 	{
-		return VectorT<3, T, Q>(sv.x >> v.x, sv.x >> v.y, sv.x >> v.z);
+		return vec<3, T, Q>(v.x >> sv.x, v.y >> sv.x, v.z >> sv.x);
+	}
+
+	/*
+	 * \note Vec1 is deliberately treated like a scalar to mimic shader languages.
+	 */
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> operator>>(vec<1, T, Q> const& sv, vec<3, T, Q> const& v)
+	{
+		return vec<3, T, Q>(sv.x >> v.x, sv.x >> v.y, sv.x >> v.z);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator>>(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
+	constexpr vec<3, T, Q> operator>>(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
 	{
-		return VectorT<3, T, Q>(v1.x >> v2.x, v1.y >> v2.y, v1.z >> v2.z);
+		return vec<3, T, Q>(v1.x >> v2.x, v1.y >> v2.y, v1.z >> v2.z);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, T, Q> operator~(VectorT<3, T, Q> const& v)
+	constexpr vec<3, T, Q> operator~(vec<3, T, Q> const& v)
 	{
-		return VectorT<3, T, Q>(~v.x, ~v.y, ~v.z);
+		return vec<3, T, Q>(~v.x, ~v.y, ~v.z);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr bool operator==(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
+	constexpr bool operator==(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
 	{
 		return detail::Equal<T, Q, std::numeric_limits<T>::is_iec559, sizeof(T) * 6, detail::IsAligned<Q>::value>::compute(v1, v2);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr bool operator!=(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
+	constexpr bool operator!=(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
 	{
 		return !(v1 == v2);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, bool, Q> operator&&(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
+	constexpr vec<3, bool, Q> operator&&(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
 	{
 		return (v1.x && v2.x, v1.y && v2.y, v1.z && v2.z);
 	}
 
 	template <typename T, qualifier Q>
-	constexpr VectorT<3, bool, Q> operator||(VectorT<3, T, Q> const& v1, VectorT<3, T, Q> const& v2)
+	constexpr vec<3, bool, Q> operator||(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2)
 	{
 		return (v1.x || v2.x, v1.y || v2.y, v1.z || v2.z);
 	}
