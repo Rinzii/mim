@@ -37,11 +37,11 @@ namespace mim
 	using precision = qualifier;
 
 	template <std::size_t S, typename T, qualifier Q = defaultp>
-	struct VectorT;
+	struct vec;
 	template <std::size_t C, std::size_t R, typename T, qualifier Q = defaultp>
-	struct MatrixT;
+	struct mat;
 	template <typename T, qualifier Q = defaultp>
-	struct Quaternion;
+	struct quat;
 
 	// TODO: Decide what to do with this
 	// Currently I'm planning to move away from this more complex implementation
