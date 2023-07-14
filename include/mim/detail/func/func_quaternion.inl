@@ -9,13 +9,13 @@ namespace mim
 {
 
 	template <typename T, qualifier Q>
-	constexpr T Quaternion<T, Q>::length() const
+	constexpr T quat<T, Q>::length() const
     {
         return math::sqrt(w * w + x * x + y * y + z * z);
     }
 
 	template <typename T, qualifier Q>
-	constexpr void Quaternion<T, Q>::normalize()
+	constexpr void quat<T, Q>::normalize()
     {
         T len = length();
         if (len > 0)
@@ -29,32 +29,32 @@ namespace mim
     }
 
 	template <typename T, qualifier Q>
-	constexpr Quaternion<T, Q> Quaternion<T, Q>::normalized() const
+	constexpr quat<T, Q> quat<T, Q>::normalized() const
     {
         T len = length();
         if (len > 0)
         {
             T invLen = 1 / len;
-            return Quaternion<T, Q>(w * invLen, x * invLen, y * invLen, z * invLen);
+            return quat<T, Q>(w * invLen, x * invLen, y * invLen, z * invLen);
         }
-        return Quaternion<T, Q>(0, 0, 0, 0);
+        return quat<T, Q>(0, 0, 0, 0);
     }
 
 	template <typename T, qualifier Q>
-	constexpr bool Quaternion<T, Q>::is_normalized() const
+	constexpr bool quat<T, Q>::is_normalized() const
     {
         return mim::math::abs(length() - 1) < MIM_UNIT_EPSILON<T>;
     }
 
 	template <typename T, qualifier Q>
-	constexpr Quaternion<T, Q> Quaternion<T, Q>::inverse() const
+	constexpr quat<T, Q> quat<T, Q>::inverse() const
 	{
 		T len = length();
         if (len > 0)
         {
             T invLen = 1 / len;
-            return Quaternion<T, Q>(w * invLen, -x * invLen, -y * invLen, -z * invLen);
+            return quat<T, Q>(w * invLen, -x * invLen, -y * invLen, -z * invLen);
         }
-        return Quaternion<T, Q>(0, 0, 0, 0);
+        return quat<T, Q>(0, 0, 0, 0);
 	}
 }
