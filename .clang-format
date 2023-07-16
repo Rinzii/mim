@@ -1,26 +1,44 @@
 ---
 Language: Cpp
-BasedOnStyle: LLVM
-AlwaysBreakTemplateDeclarations: Yes
-BreakBeforeBraces: Linux
-ColumnLimit: 160
-SpaceAfterTemplateKeyword: true
-Standard: c++20
-TabWidth: 4
-IndentWidth: 4
-UseTab: Always
-NamespaceIndentation: All
-FixNamespaceComments: true
-CompactNamespaces: true
+BasedOnStyle: Microsoft
+AccessModifierOffset: -4
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Right
+AlignTrailingComments: Always
 AllowShortEnumsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: InlineOnly
 AllowShortLambdasOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
-AllowShortIfStatementsOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortLoopsOnASingleLine: true
-AccessModifierOffset: -4
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+    AfterCaseLabel: true
+    AfterClass: true
+    AfterControlStatement: Always
+    AfterEnum: true
+    AfterFunction: true
+    AfterNamespace: true
+    AfterStruct: true
+    AfterUnion: true
+    AfterExternBlock: false
+    BeforeCatch: false
+    BeforeElse: false
+    BeforeLambdaBody: false
+    BeforeWhile: false
+    IndentBraces: true
+    SplitEmptyFunction: true
+    SplitEmptyRecord: true
+    SplitEmptyNamespace: true
+BreakAfterAttributes: Never
+BreakBeforeBraces: Allman
+ColumnLimit: 160
+CompactNamespaces: false
+FixNamespaceComments: true
 IndentPPDirectives: BeforeHash
+IndentWidth: 4
 IncludeCategories:
     # Headers in <> with .h extension.
     - Regex: '<([A-Za-z0-9\/-_])+\.h>'
@@ -31,22 +49,12 @@ IncludeCategories:
     # Headers in <> without extension.
     - Regex: '<([A-Za-z0-9\/-_])+>'
       Priority: 30
-PointerAlignment: Left
-BraceWrapping:
-    AfterCaseLabel: false
-    AfterClass: false
-    AfterEnum: false
-    AfterFunction: false
-    AfterNamespace: true
-    AfterObjCDeclaration: false
-    AfterStruct: false
-    AfterUnion: false
-    AfterExternBlock: false
-    BeforeCatch: false
-    BeforeElse: false
-    IndentBraces: false
-    SplitEmptyFunction: false
-    SplitEmptyRecord: false
-    SplitEmptyNamespace: false
-    BeforeLambdaBody: false
-    BeforeWhile: false
+NamespaceIndentation: All
+PointerAlignment: Middle
+SpaceAfterTemplateKeyword: true
+Standard: c++20
+TabWidth: 4
+UseTab: Always
+
+
+
