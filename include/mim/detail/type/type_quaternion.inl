@@ -5,6 +5,7 @@
 #include "mim/detail/compute/compute_quaternion.hpp"
 
 #include <limits>
+#include <cmath>
 
 namespace mim
 {
@@ -115,8 +116,8 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q>::quat(const vec<3, T, Q>& euler)
 	{
-		vec<3, T, Q> c = cos(euler * static_cast<T>(0.5));
-		vec<3, T, Q> s = sin(euler * static_cast<T>(0.5));
+		vec<3, T, Q> c = ::std::cos(euler * static_cast<T>(0.5));
+		vec<3, T, Q> s = ::std::sin(euler * static_cast<T>(0.5));
 
 		w = c.x * c.y * c.z + s.x * s.y * s.z;
 		x = s.x * c.y * c.z - c.x * s.y * s.z;
