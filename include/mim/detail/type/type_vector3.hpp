@@ -412,6 +412,18 @@ namespace mim
 	constexpr bool operator||(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2);
 
 
+	// Free functions
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> dot(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2);
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> cross(vec<3, T, Q> const& v1, vec<3, T, Q> const& v2);
+
+	template <typename T, qualifier Q>
+	constexpr vec<3, T, Q> inverse(vec<3, T, Q> const& v, T epsilon = 0.001f);
+
+
 } // namespace mim
 
 #include "mim/detail/type/type_vector3.inl"

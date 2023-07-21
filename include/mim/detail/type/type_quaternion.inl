@@ -3,6 +3,9 @@
 #pragma once
 
 #include "mim/detail/compute/compute_quaternion.hpp"
+#include "mim/detail/type/type_vector3.hpp"
+
+#include "mim/cmath.hpp"
 
 #include <limits>
 #include <cmath>
@@ -12,73 +15,43 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q>::quat()
 	{
-#if MIM_FORCE_QUATERNION_XYZW
-        x = static_cast<T>(0);
-		y = static_cast<T>(0);
-		z = static_cast<T>(0);
-		w = static_cast<T>(1);
-#else
         w = static_cast<T>(1);
         x = static_cast<T>(0);
         y = static_cast<T>(0);
         z = static_cast<T>(0);
-#endif
 	}
 
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q>::quat(quat const& q)
 	{
-#if MIM_FORCE_QUATERNION_XYZW
-        x = q.x;
-        y = q.y;
-        z = q.z;
-        w = q.w;
-#else
 		w = q.w;
         x = q.x;
         y = q.y;
         z = q.z;
-#endif
 	}
 
 	template <typename T, qualifier Q>
 	template <qualifier P>
 	constexpr quat<T, Q>::quat(quat<T, P> const& q)
-#if MIM_FORCE_QUATERNION_XYZW
-		: x(q.x), y(q.y), z(q.z), w(q.w)
-#else
 		: w(q.w), x(q.x), y(q.y), z(q.z)
-#endif
 	{
 	}
 
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q>::quat(const T& s, const vec<3, T, Q>& v)
-#if MIM_FORCE_QUATERNION_XYZW
-		: x(v.x), y(v.y), z(v.z), w(s)
-#else
 		: w(s), x(v.x), y(v.y), z(v.z)
-#endif
 	{
 	}
 
 	template <typename T, qualifier Q>
-#if MIM_FORCE_QUATERNION_XYZW
-	constexpr quat<T, Q>::quat(const T& x_, const T& y_, const T& z_, const T& w_) : x(x_), y(y_), z(z_), w(w_)
-#else
 	constexpr quat<T, Q>::quat(const T& w_, const T& x_, const T& y_, const T& z_) : w(w_), x(x_), y(y_), z(z_)
-#endif
 	{
 	}
 
 	template <typename T, qualifier Q>
 	template <typename U, qualifier P>
 	constexpr quat<T, Q>::quat(quat<U, P> const& q)
-#if MIM_FORCE_QUATERNION_XYZW
-		: x(static_cast<T>(q.x)), y(static_cast<T>(q.y)), z(static_cast<T>(q.z)), w(static_cast<T>(q.w))
-#else
 		: w(static_cast<T>(q.w)), x(static_cast<T>(q.x)), y(static_cast<T>(q.y)), z(static_cast<T>(q.z))
-#endif
 	{
 	}
 
@@ -97,21 +70,23 @@ namespace mim
 	template <typename T, qualifier Q>
 	quat<T, Q>::quat(const vec<3, T, Q>& a1, const vec<3, T, Q>& a2)
 	{
-		T normalizeAxis = sqrt(dot(a1, a1) * dot(a2, a2));
-		T real = normalizeAxis + dot(a1, a2);
+		T normalizeAxis = ::mim::math::sqrt(::mim::dot(a1, a1) * ::mim::dot(a2, a2));
+		T real = normalizeAxis + ::mim::dot(a1, a2);
 		vec<3, T, Q> tmp;
 
 		if (real < static_cast<T>(1.e-6f) * normalizeAxis) {
 			// If a1 and a2 are exactly opposite, rotate 180 degrees
 			real = static_cast<T>(0);
-			tmp = abs(a1.x) > abs(a1.z) ? vec<3, T, Q>(-a1.y, a1.x, static_cast<T>(0)) : vec<3, T, Q>(static_cast<T>(0), -a1.z, a1.y);
+			tmp = ::mim::math::abs(a1.x) > ::mim::math::abs(a1.z) ? vec<3, T, Q>(-a1.y, a1.x, static_cast<T>(0)) : vec<3, T, Q>(static_cast<T>(0), -a1.z, a1.y);
 		} else {
 			// Else, build normal quaternion
-			tmp = cross(a1, a2);
+			tmp = ::mim::cross(a1, a2);
 		}
 
-		*this = normalize(quat(real, tmp));
+		*this = ::mim::normalize(quat<T, Q>(real, tmp));
 	}
+
+	// TODO: This may not work as constexpr due to using std::cos and std::sin.
 
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q>::quat(const vec<3, T, Q>& euler)
@@ -145,7 +120,7 @@ namespace mim
 		this->y = static_cast<T>(q.x);
 		this->z = static_cast<T>(q.y);
 		this->w = static_cast<T>(q.z);
-		return *this;
+		return (*this);
 	}
 
 	template <typename T, qualifier Q>
@@ -156,7 +131,7 @@ namespace mim
 		this->x += static_cast<T>(q.x);
 		this->y += static_cast<T>(q.y);
 		this->z += static_cast<T>(q.z);
-		return *this;
+		return (*this);
 	}
 
 	template <typename T, qualifier Q>
@@ -167,7 +142,7 @@ namespace mim
 		this->x -= static_cast<T>(q.x);
 		this->y -= static_cast<T>(q.y);
 		this->z -= static_cast<T>(q.z);
-		return *this;
+		return (*);
 	}
 
 	template <typename T, qualifier Q>
@@ -181,14 +156,14 @@ namespace mim
 		this->x = p.w * q.x + p.x * q.w + p.y * q.z - p.z * q.y;
 		this->y = p.w * q.y + p.y * q.w + p.z * q.x - p.x * q.z;
 		this->z = p.w * q.z + p.z * q.w + p.x * q.y - p.y * q.x;
-		return *this;
+		return (*this);
 	}
 
 	template <typename T, qualifier Q>
 	template <typename U>
 	constexpr quat<T, Q>& quat<T, Q>::operator/=(const U& scalar)
 	{
-		return *this *= static_cast<T>(1) / scalar;
+		return (*this) *= static_cast<T>(1) / scalar;
 	}
 
 	template <typename T, qualifier Q>
@@ -199,7 +174,7 @@ namespace mim
 		this->y *= scalar;
 		this->z *= scalar;
 		this->w *= scalar;
-		return *this;
+		return (*this);
 	}
 
 	template <typename T, qualifier Q>
@@ -236,8 +211,8 @@ namespace mim
 	constexpr quat<T, Q> operator*(quat<T, Q> const& q, vec<3, T, Q> const& v)
 	{
 		vec<3, T, Q> const QuatVector(q.x, q.y, q.z);
-		vec<3, T, Q> const uv(cross(QuatVector, v));
-		vec<3, T, Q> const uuv(cross(QuatVector, uv));
+		vec<3, T, Q> const uv(::mim::cross(QuatVector, v));
+		vec<3, T, Q> const uuv(::mim::cross(QuatVector, uv));
 
 		return v + ((uv * q.w) + uuv) * static_cast<T>(2);
 	}
@@ -245,7 +220,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr quat<T, Q> operator*(vec<3, T, Q> const& v, quat<T, Q> const& q)
 	{
-		inverse(q) * v;
+		::mim::inverse(q) * v;
 	}
 
 	template <typename T, qualifier Q>

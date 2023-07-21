@@ -1,5 +1,13 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
+/**
+ * @file cmath.hpp
+ * @brief mim cmath provides a set of math functions from the standard cmath library implemented in constexpr.
+ *
+ * This is not a comprehensive implementation of the cmath library, but rather a set of functions that are
+ * useful for mim that are needed to be constexpr.
+ */
+
 #pragma once
 
 #include <limits>
@@ -72,6 +80,8 @@ namespace mim::math
     {
         return detail::is_close(a, b, epsilon);
     }
+
+
 
 	// TODO: Implement sine and cosine functions as constexpr.
 

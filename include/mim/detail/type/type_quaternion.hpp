@@ -137,6 +137,13 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr bool operator!=(quat<T, Q> const& q1, quat<T, Q> const& p);
 
+
+	/// Free functions
+
+	template <typename T, qualifier Q>
+	constexpr quat<T, Q> normalize(quat<T, Q> const& q);
+
+
 } // namespace mim
 
 #include "mim/detail/type/type_quaternion.inl"
