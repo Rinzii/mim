@@ -148,8 +148,6 @@ TEST(Vector1Defaults, Vector3Constructor)
     EXPECT_EQ(v1b.x, true);
 }
 
-/* TODO: This test is causing a crash. Fix it at some point.
-// Likely because of missing declarations
 TEST(Vector1Defaults, Vector4Constructor)
 {
 	mim::vec4f v4f(1.0f, 2.0f, 3.0f, 4.0f);
@@ -168,8 +166,6 @@ TEST(Vector1Defaults, Vector4Constructor)
     EXPECT_EQ(v1u.x, 1u);
     EXPECT_EQ(v1b.x, true);
 }
-*/
-
 
 // Assignment operators
 
@@ -654,15 +650,13 @@ TEST(Vector1Defaults, BitwiseRightShiftVector)
     EXPECT_EQ(v2.x, 5);
 }
 
-/*
+
 TEST(Vector1Defaults, BitwiseNot)
 {
 	mim::vec1i v1(5);
     mim::vec1i v2 = ~v1;
     EXPECT_EQ(v2.x, -6);
 }
-
-*/
 
 TEST(Vector1Defaults, Equality)
 {
@@ -695,4 +689,103 @@ TEST(Vector1Defaults, LogicalOr)
     EXPECT_EQ((v1 || v2), true);
 }
 
+TEST(Vector1Defaults, length)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+	mim::vec1i v3(3);
+	mim::vec1u v4(3);
+	mim::vec1b v5(true);
 
+	EXPECT_EQ(v1.length(), 3);
+	EXPECT_EQ(v2.length(), 3);
+	EXPECT_EQ(v3.length(), 3);
+	EXPECT_EQ(v4.length(), 3);
+	EXPECT_EQ(v5.length(), true);
+}
+
+TEST(Vector1Defaults, length_squared)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+	mim::vec1i v3(3);
+	mim::vec1u v4(3);
+	mim::vec1b v5(true);
+
+	EXPECT_EQ(v1.length_squared(), 9);
+	EXPECT_EQ(v2.length_squared(), 9);
+	EXPECT_EQ(v3.length_squared(), 9);
+	EXPECT_EQ(v4.length_squared(), 9);
+	EXPECT_EQ(v5.length_squared(), true);
+}
+
+TEST(Vector1Defaults, normalize)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+
+	v1.normalize();
+	v2.normalize();
+
+	EXPECT_TRUE(v1.x == 1);
+	EXPECT_TRUE(v2.x == 1);
+}
+
+TEST(Vector1Defaults, normalized)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+
+	EXPECT_EQ(v1.normalized(), mim::vec1f(1));
+	EXPECT_EQ(v2.normalized(), mim::vec1d(1));
+}
+
+// function nearlyEquals doesnt exist
+//TEST(Vector1Defaults, is_normalized)
+//{
+//	mim::vec1f v1(3.0f);
+//	mim::vec1d v2(3.0);
+//	mim::vec1f v3(1.0f);
+//	mim::vec1d v4(1.0);
+//
+//	EXPECT_EQ(v1.is_normalized(), false);
+//	EXPECT_EQ(v2.is_normalized(), false);
+//	EXPECT_EQ(v3.is_normalized(), true);
+//	EXPECT_EQ(v4.is_normalized(), true);
+//}
+
+TEST(Vector1Defaults, distance)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+	mim::vec1i v3(3);
+	mim::vec1u v4(3);
+
+	mim::vec1f v6(1.0f);
+	mim::vec1d v7(1.0);
+	mim::vec1i v8(1);
+	mim::vec1u v9(1);
+
+	EXPECT_EQ(v1.distance(v6), 2);
+	EXPECT_EQ(v2.distance(v7), 2);
+	EXPECT_EQ(v3.distance(v8), 2);
+	EXPECT_EQ(v4.distance(v9), 2);
+}
+
+TEST(Vector1Defaults, distance_squared)
+{
+	mim::vec1f v1(3.0f);
+	mim::vec1d v2(3.0);
+	mim::vec1i v3(3);
+	mim::vec1u v4(3);
+
+	mim::vec1f v6(1.0f);
+	mim::vec1d v7(1.0);
+	mim::vec1i v8(1);
+	mim::vec1u v9(1);
+
+	EXPECT_EQ(v1.distance_squared(v6), 4);
+	EXPECT_EQ(v2.distance_squared(v7), 4);
+	EXPECT_EQ(v3.distance_squared(v8), 4);
+	EXPECT_EQ(v4.distance_squared(v9), 4);
+}
