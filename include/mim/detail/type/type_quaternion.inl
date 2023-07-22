@@ -142,7 +142,7 @@ namespace mim
 		this->x -= static_cast<T>(q.x);
 		this->y -= static_cast<T>(q.y);
 		this->z -= static_cast<T>(q.z);
-		return (*);
+		return (*this);
 	}
 
 	template <typename T, qualifier Q>

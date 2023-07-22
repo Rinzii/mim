@@ -50,7 +50,7 @@ namespace mim
         static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
 
         // We want to use length_squared() over length() to avoid the use of sqrt.
-        return mim::math::is_close(length_squared(), T{ 1 }, MIM_UNIT_EPSILON<T>);
+        return mim::math::isclose(length_squared(), T{ 1 }, MIM_UNIT_EPSILON<T>);
     }
 
     template <typename T, qualifier Q>
