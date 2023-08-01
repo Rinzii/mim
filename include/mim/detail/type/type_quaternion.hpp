@@ -19,25 +19,40 @@ namespace mim
 
 		static constexpr auto size() { return sizeV; }
 
-		constexpr T& operator[](size_type i)
+		constexpr T& operator[](const size_type i)
 		{
-			static_assert(i < size(), "Out of range: quat::operator[]");
-
-			return (&w)[i];
+			switch (i)
+			{
+			default: // TODO: Should we make this throw an exception as the default case?
+			    case 0: return w;
+				case 1: return x;
+                case 2: return y;
+				case 3: return z;
+			}
 		}
 
-		constexpr T const& operator[](size_type i) const
+		constexpr T const& operator[](const size_type i) const
 		{
-			static_assert(i < size(), "Out of range: quat::operator[]");
-
-			return (&w)[i];
+			switch (i)
+			{
+			default: // TODO: Should we make this throw an exception as the default case?
+			case 0: return w;
+			case 1: return x;
+			case 2: return y;
+			case 3: return z;
+			}
 		}
 
-		constexpr T const& at(size_type i) const
+		constexpr T const& at(const size_type i) const
         {
-			static_assert(i < size(), "Out of range: quat::at");
-
-			return (&w)[i];
+			switch (i)
+			{
+			default: // TODO: Should we make this throw an exception as the default case?
+			case 0: return w;
+			case 1: return x;
+			case 2: return y;
+			case 3: return z;
+			}
 
 		}
 

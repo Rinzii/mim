@@ -19,18 +19,20 @@ namespace mim
 	 * Mathematical constants
 	 */
 
-	template <typename T = float> inline constexpr T MIM_PI = static_cast<T>(3.14159265358979323846);      //!< pi
-	template <typename T = float> inline constexpr T MIM_2PI = static_cast<T>(6.28318530717958647693);     //!< 2 * pi
-	template <typename T = float> inline constexpr T MIM_4PI = static_cast<T>(12.5663706143591729539);     //!< 4 * pi
-	template <typename T = float> inline constexpr T MIM_PI_2 = static_cast<T>(1.57079632679489661923);    //!< pi / 2
-	template <typename T = float> inline constexpr T MIM_PI_4 = static_cast<T>(0.785398163397448309616);   //!< pi / 4
-	template <typename T = float> inline constexpr T MIM_TAU = static_cast<T>(6.28318530717958647693);     //!< tau
-	template <typename T = float> inline constexpr T MIM_E = static_cast<T>(2.71828182845904523536);       //!< e
+	template <typename T = float> inline constexpr T MIM_PI = static_cast<T>(3.1415926535897932384626433832795028841972L);      //!< pi
+	template <typename T = float> inline constexpr T MIM_2PI = static_cast<T>(6.2831853071795864769252867665590057683943L);     //!< 2 * pi
+	template <typename T = float> inline constexpr T MIM_4PI = static_cast<T>(12.566370614359172953850573533118011536789L);     //!< 4 * pi
+	template <typename T = float> inline constexpr T MIM_HALF_PI = static_cast<T>(1.5707963267948966192313216916397514420986L);    //!< pi / 2
+	template <typename T = float> inline constexpr T MIM_QUARTER_PI = static_cast<T>(0.78539816339744830961566084581987572104929L);   //!< pi / 4
+	template <typename T = float> inline constexpr T MIM_TAU = static_cast<T>(6.2831853071795864769252867665590057683943L);     //!< tau
+	template <typename T = float> inline constexpr T MIM_E = static_cast<T>(2.7182818284590452353602874713526624977572L);       //!< e
     template <typename T = float> inline constexpr T MIM_SQRT2 = static_cast<T>(1.41421356237309504880);   //!< sqrt(2)
     template <typename T = float> inline constexpr T MIM_LOG2E = static_cast<T>(1.44269504088896340736);   //!< 1 / log(2)
     template <typename T = float> inline constexpr T MIM_LOG10E = static_cast<T>(0.434294481903251827651); //!< 1 / log(10)
-	template <typename T = float> inline constexpr T MIM_LOG210 = static_cast<T>(3.321928094887362347808); //!< log2(10)
-	template <typename T = float> inline constexpr T MIM_LN2 = static_cast<T>(0.693147180559945309417);    //!< log(2)
+	template <typename T = float> inline constexpr T MIM_LOG2_10 = static_cast<T>(3.321928094887362347808); //!< log2(10)
+	template <typename T = float> inline constexpr T MIM_LOG2 = static_cast<T>(0.693147180559945309417);    //!< log(2)
+	template <typename T = float> inline constexpr T MIM_NLOG10 = static_cast<T>(2.3025850929940456840179914546843642076011L);    //!< ln(10)
+
 
 	template <typename T = float> inline constexpr T MIM_SMALLEST_NORMAL = static_cast<T>(2.2250738585072014E-308);    //!< smallest normal number
 	template <> inline constexpr double MIM_SMALLEST_NORMAL<double> = 2.2250738585072014E-308;                  //!< smallest normal number, double

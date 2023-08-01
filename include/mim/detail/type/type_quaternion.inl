@@ -67,6 +67,7 @@ namespace mim
 		return mat<4, 4, T, Q>();
 	}
 
+	// TODO: This is currently broken.
 	template <typename T, qualifier Q>
 	quat<T, Q>::quat(const vec<3, T, Q>& a1, const vec<3, T, Q>& a2)
 	{

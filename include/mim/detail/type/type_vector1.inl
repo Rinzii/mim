@@ -23,7 +23,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	T& vec<1, T, Q>::at(typename vec<1, T, Q>::size_type i)
 	{
-		static_assert(i < size(), "vec<1, T, Q>::at() : Index out of range.");
+		static_assert(i < this->size(), "vec<1, T, Q>::at() : Index out of range.");
 
 		return x;
 	}

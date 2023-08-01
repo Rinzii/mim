@@ -14,8 +14,13 @@
 #include <type_traits>
 #include <cmath>
 
+#include "mim/mimConstants.hpp"
+
 namespace mim::math
 {
+
+
+
 	template <typename T>
 	[[nodiscard]] constexpr bool isnan(const T& val) noexcept
 	{
@@ -25,12 +30,11 @@ namespace mim::math
 	template <typename T>
 	[[nodiscard]] constexpr T abs(const T& val) noexcept
 	{
-		return (val >= 0) ? val : -val;
+		return val == 0 ? 0 : (val < 0 ? -val : val);
 	}
 
 	template <typename T, typename... Args>
 	[[nodiscard]] constexpr auto min(const T&& a, const T&& b, const Args&&... args) noexcept
-		-> std::enable_if_t<std::is_arithmetic_v<T>, T>
     {
         if constexpr (sizeof...(args) == 0) {
             return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
@@ -41,7 +45,6 @@ namespace mim::math
 
 	template <typename T, typename... Args>
 	[[nodiscard]] constexpr auto min(T&& a, T&& b, Args&&... args) noexcept
-		-> std::enable_if_t<std::is_arithmetic_v<T>, T>
     {
         if constexpr (sizeof...(args) == 0) {
             return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
@@ -52,7 +55,6 @@ namespace mim::math
 
 	template <typename T, typename... Args>
 	[[nodiscard]] constexpr auto max(const T&& a, const T&& b, const Args&&... args) noexcept
-		-> std::enable_if_t<std::is_arithmetic_v<T>, T>
 	{
 		if constexpr (sizeof...(args) == 0) {
 			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
@@ -64,7 +66,6 @@ namespace mim::math
 
 	template <typename T, typename... Args>
 	[[nodiscard]] constexpr auto max(T&& a, T&& b, Args&&... args) noexcept
-		-> std::enable_if_t<std::is_arithmetic_v<T>, T>
     {
 		if constexpr (sizeof...(args) == 0) {
 			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
@@ -90,7 +91,6 @@ namespace mim::math
 
 	template <typename T>
 	[[nodiscard]] constexpr auto clamp(const T& val, const T& lo, const T& hi) noexcept
-		-> std::enable_if_t<std::is_arithmetic_v<T>, T>
 	{
 		return ::mim::math::min(::mim::math::max(val, lo), hi);
 	}
@@ -106,6 +106,23 @@ namespace mim::math
     {
         return ::mim::math::detail::isclose(a, b, epsilon);
     }
+
+	namespace detail
+	{
+		template <typename T>
+		[[nodiscard]] constexpr T compute_sine(const T x) noexcept
+		{
+			T{2} * x / (T{1} + x * x);
+		}
+
+		template <typename T>
+		[[nodiscard]] constexpr T sin_impl(const T x) noexcept
+		{
+			return
+				::mim::math::isnan(x) ?
+										 std::numeric_limits<T>::quiet_NaN() : std::numeric_limits<T>::min()
+		}
+	}
 
 	// TODO: Implement sine and cosine functions as constexpr.
 
