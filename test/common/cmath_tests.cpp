@@ -61,7 +61,7 @@ TEST(cmathDefaultTests, max)
 	EXPECT_EQ(mim::math::max(1, 0, 2), 2);
 	EXPECT_EQ(mim::math::max(2, 1, 0, 5, 8, 19), 19);
 }
-/*
+
 TEST(cmathDefaultTests, clamp)
 {
 	EXPECT_EQ(mim::math::clamp(0, 1, 2), 1);
@@ -77,4 +77,4 @@ TEST(cmathDefaultTests, clamp)
     EXPECT_EQ(mim::math::clamp(1.0l, 0.0l, 2.0l), 1.0l);
     EXPECT_EQ(mim::math::clamp(2.0l, 0.0l, 1.0l), 1.0l);
 }
-*/
+
