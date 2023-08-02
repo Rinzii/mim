@@ -15,7 +15,7 @@ jobs:
       - name: install g++11 and ninja
         run: sudo apt install -yqq ninja-build g++-11
       - name: update to clang 16
-        run: sudo wget https://apt.llvm.org/llvm.sh && sudo chmod +x llvm.sh && sudo ./llvm.sh 16
+        run: sudo apt --purge remove python3-lldb-14 && sudo wget https://apt.llvm.org/llvm.sh && sudo chmod +x llvm.sh && sudo ./llvm.sh 16
       - name: configure gcc
         run: cmake -S . --preset=default -B build -DCMAKE_CXX_COMPILER=g++-11
       - name: configure clang
