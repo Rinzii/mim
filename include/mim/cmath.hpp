@@ -119,8 +119,7 @@ namespace mim::math
 		[[nodiscard]] constexpr T sin_impl(const T x) noexcept
 		{
 			return
-				::mim::math::isnan(x) ?
-										 std::numeric_limits<T>::quiet_NaN() : std::numeric_limits<T>::min()
+				::mim::math::isnan(x) ? std::numeric_limits<T>::quiet_NaN() : std::numeric_limits<T>::min();
 		}
 	}
 
