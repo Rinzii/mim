@@ -55,7 +55,7 @@ namespace mim
 	template <typename T, qualifier Q>
 	constexpr T VectorT<1, T, Q>::distance(const VectorT<1, T, Q>& v) const
     {
-        return mim::math::sqrt((x - v.x) * (x - v.x));
+        return mim::math::abs(x - v.x);
     }
 
 	template <typename T, qualifier Q>
