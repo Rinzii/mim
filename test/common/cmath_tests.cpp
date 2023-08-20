@@ -3,8 +3,7 @@
 #include <gtest/gtest.h>
 #include <mim/cmath.hpp>
 #include <limits>
-#include <cmath>
-#include <cfloat>
+
 
 
 TEST(cmathDefaultTests, isnan)
@@ -29,38 +28,6 @@ TEST(cmathDefaultTests, abs)
     EXPECT_EQ(mim::math::abs(-1.0l), 1.0l);
 }
 
-TEST(cmathDefaultTests, min)
-{
-    EXPECT_EQ(mim::math::min(0, 1), 0);
-    EXPECT_EQ(mim::math::min(1, 0), 0);
-    EXPECT_EQ(mim::math::min(0.0f, 1.0f), 0.0f);
-    EXPECT_EQ(mim::math::min(1.0f, 0.0f), 0.0f);
-    EXPECT_EQ(mim::math::min(0.0, 1.0), 0.0);
-    EXPECT_EQ(mim::math::min(1.0, 0.0), 0.0);
-    EXPECT_EQ(mim::math::min(0.0l, 1.0l), 0.0l);
-    EXPECT_EQ(mim::math::min(1.0l, 0.0l), 0.0l);
-
-	EXPECT_EQ(mim::math::min(0, 1, 2), 0);
-	EXPECT_EQ(mim::math::min(1, 0, 2), 0);
-	EXPECT_EQ(mim::math::min(2, 1, 0, 5, 8, 19), 0);
-
-}
-
-TEST(cmathDefaultTests, max)
-{
-    EXPECT_EQ(mim::math::max(0, 1), 1);
-    EXPECT_EQ(mim::math::max(1, 0), 1);
-    EXPECT_EQ(mim::math::max(0.0f, 1.0f), 1.0f);
-    EXPECT_EQ(mim::math::max(1.0f, 0.0f), 1.0f);
-    EXPECT_EQ(mim::math::max(0.0, 1.0), 1.0);
-    EXPECT_EQ(mim::math::max(1.0, 0.0), 1.0);
-    EXPECT_EQ(mim::math::max(0.0l, 1.0l), 1.0l);
-    EXPECT_EQ(mim::math::max(1.0l, 0.0l), 1.0l);
-
-	EXPECT_EQ(mim::math::max(0, 1, 2), 2);
-	EXPECT_EQ(mim::math::max(1, 0, 2), 2);
-	EXPECT_EQ(mim::math::max(2, 1, 0, 5, 8, 19), 19);
-}
 
 TEST(cmathDefaultTests, clamp)
 {

@@ -13,13 +13,12 @@
 #include <limits>
 #include <type_traits>
 #include <cmath>
+#include <algorithm>
 
 #include "mim/mimConstants.hpp"
 
 namespace mim::math
 {
-
-
 
 	template <typename T>
 	[[nodiscard]] constexpr bool isnan(const T& val) noexcept
@@ -28,58 +27,29 @@ namespace mim::math
 	}
 
 	template <typename T>
+	[[nodiscard]] constexpr bool isnan(T& val) noexcept
+	{
+		return val != val;
+	}
+
+	template <typename T>
 	[[nodiscard]] constexpr T abs(const T& val) noexcept
 	{
 		return val == 0 ? 0 : (val < 0 ? -val : val);
 	}
 
-	template <typename T, typename... Args>
-	[[nodiscard]] constexpr auto min(const T&& a, const T&& b, const Args&&... args) noexcept
-    {
-        if constexpr (sizeof...(args) == 0) {
-            return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
-        } else {
-            return ::mim::math::min(::mim::math::min(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
-        }
-    }
-
-	template <typename T, typename... Args>
-	[[nodiscard]] constexpr auto min(T&& a, T&& b, Args&&... args) noexcept
-    {
-        if constexpr (sizeof...(args) == 0) {
-            return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
-        } else {
-            return ::mim::math::min(::mim::math::min(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
-        }
-    }
-
-	template <typename T, typename... Args>
-	[[nodiscard]] constexpr auto max(const T&& a, const T&& b, const Args&&... args) noexcept
+	template <typename T>
+	[[nodiscard]] constexpr T abs(T& val) noexcept
 	{
-		if constexpr (sizeof...(args) == 0) {
-			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
-		} else {
-			return ::mim::math::max(::mim::math::max(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
-		}
-
+		return val == 0 ? 0 : (val < 0 ? -val : val);
 	}
-
-	template <typename T, typename... Args>
-	[[nodiscard]] constexpr auto max(T&& a, T&& b, Args&&... args) noexcept
-    {
-		if constexpr (sizeof...(args) == 0) {
-			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
-		} else {
-			return ::mim::math::max(::mim::math::max(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
-		}
-    }
 
 	namespace detail
 	{
 		template <typename T>
 		[[nodiscard]] constexpr bool isclose(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
 		{
-			return ::mim::math::abs(a - b) <= epsilon * ::mim::math::max(::mim::math::abs(a), ::mim::math::abs(b));
+			return ::mim::math::abs(a - b) <= epsilon * std::max(::mim::math::abs(a), ::mim::math::abs(b));
 		}
 
         template <typename T>
@@ -92,7 +62,7 @@ namespace mim::math
 	template <typename T>
 	[[nodiscard]] constexpr auto clamp(const T& val, const T& lo, const T& hi) noexcept
 	{
-		return ::mim::math::min(::mim::math::max(val, lo), hi);
+		return std::min(std::max(val, lo), hi);
 	}
 
 	template <typename T>
