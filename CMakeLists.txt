@@ -15,7 +15,7 @@ endif()
 
 # We will hit 1.0.0 when we have a stable API
 # We will hit 0.1.0 when we have finished the basic API
-set(build_version 0.0.3)
+set(build_version 0.0.4)
 
 include(CheckPIESupported)
 check_pie_supported()
@@ -30,7 +30,6 @@ endif()
 # TO THE IMPLEMENTOR: If MIM_BUILD_TEST is set to OFF then googletest can be deleted from the ext folder.
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
-option(MIM_NO_CMAKE_WARNINGS "Suppress mim warnings outputted through cmake" OFF)
 option(MIM_USE_SIMD "Use SIMD instructions" OFF)
 
 
@@ -74,7 +73,7 @@ endif()
 
 if (MIM_USE_SIMD)
   # TODO: Add a better way to handle enabling simd internally.
-  #add_compile_definitions(INTERNAL_ENABLE_CHECK_FOR_SIMD)
+  add_compile_definitions(INTERNAL_ENABLE_CHECK_FOR_SIMD)
 endif ()
 
 

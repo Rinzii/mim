@@ -1,77 +1,127 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
+/**
+ * @file cmath.hpp
+ * @brief mim cmath provides a set of math functions from the standard cmath library implemented in constexpr.
+ *
+ * This is not a comprehensive implementation of the cmath library, but rather a set of functions that are
+ * useful for mim that are needed to be constexpr.
+ */
+
 #pragma once
 
 #include <limits>
+#include <type_traits>
 #include <cmath>
+
+#include "mim/mimConstants.hpp"
 
 namespace mim::math
 {
+
+
+
 	template <typename T>
-	constexpr T abs(const T& val)
+	[[nodiscard]] constexpr bool isnan(const T& val) noexcept
 	{
-		return (val >= 0) ? val : -val;
+        return val != val;
 	}
 
 	template <typename T>
-	constexpr T min(const T& a, const T& b)
+	[[nodiscard]] constexpr T abs(const T& val) noexcept
 	{
-		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
-		return (b < a) ? b : a;
+		return val == 0 ? 0 : (val < 0 ? -val : val);
 	}
 
 	template <typename T, typename... Args>
-	constexpr T min(const T& a, const T& b, const Args&... args)
-	{
-		return min(min(a, b), std::forward<Args>(args)...);
-	}
+	[[nodiscard]] constexpr auto min(const T&& a, const T&& b, const Args&&... args) noexcept
+    {
+        if constexpr (sizeof...(args) == 0) {
+            return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
+        } else {
+            return ::mim::math::min(::mim::math::min(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
+        }
+    }
 
-	template <typename T>
-	constexpr T max(const T& a, const T& b)
+	template <typename T, typename... Args>
+	[[nodiscard]] constexpr auto min(T&& a, T&& b, Args&&... args) noexcept
+    {
+        if constexpr (sizeof...(args) == 0) {
+            return (a < b) ? std::forward<T>(a) : std::forward<T>(b);
+        } else {
+            return ::mim::math::min(::mim::math::min(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
+        }
+    }
+
+	template <typename T, typename... Args>
+	[[nodiscard]] constexpr auto max(const T&& a, const T&& b, const Args&&... args) noexcept
 	{
-		static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type.");
-		return (a < b) ? b : a;
+		if constexpr (sizeof...(args) == 0) {
+			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
+		} else {
+			return ::mim::math::max(::mim::math::max(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
+		}
+
 	}
 
 	template <typename T, typename... Args>
-	constexpr T max(const T& a, const T& b, const Args&... args)
-	{
-		return max(max(a, b), std::forward<Args>(args)...);
-	}
+	[[nodiscard]] constexpr auto max(T&& a, T&& b, Args&&... args) noexcept
+    {
+		if constexpr (sizeof...(args) == 0) {
+			return (a < b) ? std::forward<T>(b) : std::forward<T>(a);
+		} else {
+			return ::mim::math::max(::mim::math::max(std::forward<T>(a), std::forward<T>(b)), std::forward<Args>(args)...);
+		}
+    }
 
 	namespace detail
 	{
 		template <typename T>
-		constexpr bool is_close(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
+		[[nodiscard]] constexpr bool isclose(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
 		{
-			return mim::math::abs(a - b) <= epsilon * mim::math::max(mim::math::abs(a), mim::math::abs(b));
+			return ::mim::math::abs(a - b) <= epsilon * ::mim::math::max(::mim::math::abs(a), ::mim::math::abs(b));
 		}
 
         template <typename T>
-        constexpr T sqrt_helper(T x, T y) noexcept
+		[[nodiscard]] constexpr T sqrt_helper(T x, T y) noexcept
         {
-            return is_close(x, y*y) ? y : sqrt_helper(x, (y + x/y) / 2);
+            return ::mim::math::detail::isclose(x, y*y) ? y : sqrt_helper(x, (y + x/y) / 2);
         }
 	}
 
-
 	template <typename T>
-	constexpr T clamp(const T& val, const T& min, const T& max)
+	[[nodiscard]] constexpr auto clamp(const T& val, const T& lo, const T& hi) noexcept
 	{
-		return min(max(val, min), max);
+		return ::mim::math::min(::mim::math::max(val, lo), hi);
 	}
 
 	template <typename T>
-	constexpr T sqrt(T x) noexcept
+	[[nodiscard]] constexpr T sqrt(T x) noexcept
     {
-        return detail::sqrt_helper(x, x);
+        return ::mim::math::detail::sqrt_helper(x, x);
     }
 
 	template <typename T>
-	constexpr bool is_close(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
+	[[nodiscard]] constexpr bool isclose(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
     {
-        return detail::is_close(a, b, epsilon);
+        return ::mim::math::detail::isclose(a, b, epsilon);
     }
+
+	namespace detail
+	{
+		template <typename T>
+		[[nodiscard]] constexpr T compute_sine(const T x) noexcept
+		{
+			T{2} * x / (T{1} + x * x);
+		}
+
+		template <typename T>
+		[[nodiscard]] constexpr T sin_impl(const T x) noexcept
+		{
+			return
+				::mim::math::isnan(x) ? std::numeric_limits<T>::quiet_NaN() : std::numeric_limits<T>::min();
+		}
+	}
 
 	// TODO: Implement sine and cosine functions as constexpr.
 

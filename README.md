@@ -9,7 +9,7 @@
 - Nearly completely header only.
 - Various utility functions for common math operations.
 - Lightweight and portable. No external dependencies.
-- Using modern C++20 features.
+- Using modern C++ with support for C++17 and C++20.
 
 > Mim is still in development and not ready for production use. Expect many bugs and missing features. Along with constant API change till we reach a stable release!
 
@@ -24,7 +24,7 @@
 
 
 ### Technology Used
-- C++20
+- C++17 & C++20
 - Cmake 3.18 (may reduce)
 - Doxygen (planned)
 - Cppcheck

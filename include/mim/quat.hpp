@@ -8,9 +8,7 @@
 
 namespace mim
 {
-	template <typename T = float, qualifier Q = defaultp>
-	using quat = Quaternion<T, Q>;
 
-	using quatf = Quaternion<float, defaultp>;
-	using quatd = Quaternion<double, defaultp>;
+	using quatf = quat<float, defaultp>;
+	using quatd = quat<double, defaultp>;
 }

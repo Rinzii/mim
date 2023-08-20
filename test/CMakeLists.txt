@@ -20,7 +20,7 @@ target_sources(mim-test PRIVATE
 
 add_executable(mim-test-common)
 target_sources(mim-test-common PRIVATE
-        common/mimMath_tests.cpp
+        common/cmath_tests.cpp
         common/random_tests.cpp
         )
 target_link_libraries(mim-test-common PRIVATE
