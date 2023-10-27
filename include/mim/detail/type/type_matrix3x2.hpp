@@ -3,7 +3,8 @@
 #pragma once
 
 #include <array>
-#include "mim/detail/defines.hpp"
+//#include "mim/detail/defines.hpp"
+#include "mim/detail/type/type_vector2.hpp"
 
 namespace mim
 {

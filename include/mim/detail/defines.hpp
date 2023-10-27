@@ -9,15 +9,9 @@
 
 namespace mim
 {
-
-
-
-	template <std::size_t S, typename T>
-	struct vec;
-	template <std::size_t C, std::size_t R, typename T>
-	struct mat;
-	template <typename T>
-	struct quat;
+	template <std::size_t S, typename T> struct vec;
+	template <std::size_t C, std::size_t R, typename T> struct mat;
+	template <typename T> struct quat;
 
 	// TODO: Decide what to do with this
 	// Currently I'm planning to move away from this more complex implementation

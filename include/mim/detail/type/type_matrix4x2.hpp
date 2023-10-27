@@ -17,13 +17,12 @@ namespace mim
 		using size_type = std::size_t;
 		static constexpr std::size_t column_size_v = 4;
 		static constexpr std::size_t row_size_v = 2;
-		static constexpr T size_v = vec<2, std::size_t>(column_size_v, row_size_v);
 
 	private:
 		using data = std::array<column_type, column_size_v>;
 
 	public:
-		static constexpr size_type size() { return size_v; }
+		static constexpr size_type size() { return 4; }
 		static constexpr size_type row_size() { return row_size_v; }
 		static constexpr size_type column_size() { return column_size_v; }
 
