@@ -12,8 +12,8 @@
 
 namespace mim
 {
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat()
+	template <typename T>
+	constexpr quat<T>::quat()
 	{
         w = static_cast<T>(1);
         x = static_cast<T>(0);
@@ -21,8 +21,8 @@ namespace mim
         z = static_cast<T>(0);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(quat const& q)
+	template <typename T>
+	constexpr quat<T>::quat(quat const& q)
 	{
 		w = q.w;
         x = q.x;
@@ -30,70 +30,63 @@ namespace mim
         z = q.z;
 	}
 
-	template <typename T, qualifier Q>
-	template <qualifier P>
-	constexpr quat<T, Q>::quat(quat<T, P> const& q)
-		: w(q.w), x(q.x), y(q.y), z(q.z)
-	{
-	}
-
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(const T& s, const vec<3, T, Q>& v)
+	template <typename T>
+	constexpr quat<T>::quat(const T& s, const vec<3, T>& v)
 		: w(s), x(v.x), y(v.y), z(v.z)
 	{
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(const T& w_, const T& x_, const T& y_, const T& z_) : w(w_), x(x_), y(y_), z(z_)
+	template <typename T>
+	constexpr quat<T>::quat(const T& w_, const T& x_, const T& y_, const T& z_) : w(w_), x(x_), y(y_), z(z_)
 	{
 	}
 
-	template <typename T, qualifier Q>
-	template <typename U, qualifier P>
-	constexpr quat<T, Q>::quat(quat<U, P> const& q)
+	template <typename T>
+	template <typename U>
+	constexpr quat<T>::quat(quat<U> const& q)
 		: w(static_cast<T>(q.w)), x(static_cast<T>(q.x)), y(static_cast<T>(q.y)), z(static_cast<T>(q.z))
 	{
 	}
 
-	template <typename T, qualifier Q>
-	quat<T, Q>::operator mat<3, 3, T, Q>() const
+	template <typename T>
+	quat<T>::operator mat<3, 3, T>() const
 	{
-		return mat<3, 3, T, Q>();
+		return mat<3, 3, T>();
 	}
 
-	template <typename T, qualifier Q>
-	quat<T, Q>::operator mat<4, 4, T, Q>() const
+	template <typename T>
+	quat<T>::operator mat<4, 4, T>() const
 	{
-		return mat<4, 4, T, Q>();
+		return mat<4, 4, T>();
 	}
 
 	// TODO: This is currently broken.
-	template <typename T, qualifier Q>
-	quat<T, Q>::quat(const vec<3, T, Q>& a1, const vec<3, T, Q>& a2)
+	template <typename T>
+	quat<T>::quat(const vec<3, T>& a1, const vec<3, T>& a2)
 	{
 		T normalizeAxis = ::mim::math::sqrt(::mim::dot(a1, a1) * ::mim::dot(a2, a2));
 		T real = normalizeAxis + ::mim::dot(a1, a2);
-		vec<3, T, Q> tmp;
+		vec<3, T> tmp;
 
 		if (real < static_cast<T>(1.e-6f) * normalizeAxis) {
 			// If a1 and a2 are exactly opposite, rotate 180 degrees
 			real = static_cast<T>(0);
-			tmp = ::mim::math::abs(a1.x) > ::mim::math::abs(a1.z) ? vec<3, T, Q>(-a1.y, a1.x, static_cast<T>(0)) : vec<3, T, Q>(static_cast<T>(0), -a1.z, a1.y);
+			tmp = ::mim::math::abs(a1.x) > ::mim::math::abs(a1.z) ? vec<3, T>(-a1.y, a1.x, static_cast<T>(0)) : vec<3, T>(static_cast<T>(0), -a1.z, a1.y);
 		} else {
 			// Else, build normal quaternion
 			tmp = ::mim::cross(a1, a2);
 		}
 
-		*this = ::mim::normalize(quat<T, Q>(real, tmp));
+		*this = ::mim::normalize(quat<T>(real, tmp));
 	}
 
 	// TODO: This may not work as constexpr due to using std::cos and std::sin.
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(const vec<3, T, Q>& euler)
+	template <typename T>
+	constexpr quat<T>::quat(const vec<3, T>& euler)
 	{
-		vec<3, T, Q> c = ::std::cos(euler * static_cast<T>(0.5));
-		vec<3, T, Q> s = ::std::sin(euler * static_cast<T>(0.5));
+		vec<3, T> c = ::std::cos(euler * static_cast<T>(0.5));
+		vec<3, T> s = ::std::sin(euler * static_cast<T>(0.5));
 
 		w = c.x * c.y * c.z + s.x * s.y * s.z;
 		x = s.x * c.y * c.z - c.x * s.y * s.z;
@@ -102,20 +95,20 @@ namespace mim
 	}
 
 	/* TODO: Once matrix is implemented bring this back in.
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(const mat<3, 3, T, Q>& m) {
+	template <typename T>
+	constexpr quat<T>::quat(const mat<3, 3, T>& m) {
 
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q>::quat(const mat<4, 4, T, Q>& m) {
+	template <typename T>
+	constexpr quat<T>::quat(const mat<4, 4, T>& m) {
 
 	}
 	*/
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator=(const quat<U, Q>& q)
+	constexpr quat<T>& quat<T>::operator=(const quat<U>& q)
 	{
 		this->x = static_cast<T>(q.w);
 		this->y = static_cast<T>(q.x);
@@ -124,9 +117,9 @@ namespace mim
 		return (*this);
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator+=(const quat<U, Q>& q)
+	constexpr quat<T>& quat<T>::operator+=(const quat<U>& q)
 	{
 		this->w += static_cast<T>(q.w);
 		this->x += static_cast<T>(q.x);
@@ -135,9 +128,9 @@ namespace mim
 		return (*this);
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator-=(const quat<U, Q>& q)
+	constexpr quat<T>& quat<T>::operator-=(const quat<U>& q)
 	{
 		this->w -= static_cast<T>(q.w);
 		this->x -= static_cast<T>(q.x);
@@ -146,12 +139,12 @@ namespace mim
 		return (*this);
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator*=(const quat<U, Q>& r)
+	constexpr quat<T>& quat<T>::operator*=(const quat<U>& r)
 	{
-		quat<T, Q> p(*this);
-		quat<T, Q> q(r);
+		quat<T> p(*this);
+		quat<T> q(r);
 
 		this->w = p.w * q.w - p.x * q.x - p.y * q.y - p.z * q.z;
 		this->x = p.w * q.x + p.x * q.w + p.y * q.z - p.z * q.y;
@@ -160,16 +153,16 @@ namespace mim
 		return (*this);
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator/=(const U& scalar)
+	constexpr quat<T>& quat<T>::operator/=(const U& scalar)
 	{
 		return (*this) *= static_cast<T>(1) / scalar;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr quat<T, Q>& quat<T, Q>::operator*=(const U& scalar)
+	constexpr quat<T>& quat<T>::operator*=(const U& scalar)
 	{
 		this->x *= scalar;
 		this->y *= scalar;
@@ -178,78 +171,78 @@ namespace mim
 		return (*this);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator+(const quat<T, Q>& q)
+	template <typename T>
+	constexpr quat<T> operator+(const quat<T>& q)
 	{
 		return q;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator-(quat<T, Q> const& q)
+	template <typename T>
+	constexpr quat<T> operator-(quat<T> const& q)
 	{
-		return quat<T, Q>(-q.w, -q.x, -q.y, -q.z);
+		return quat<T>(-q.w, -q.x, -q.y, -q.z);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator+(quat<T, Q> const& q, quat<T, Q> const& p)
+	template <typename T>
+	constexpr quat<T> operator+(quat<T> const& q, quat<T> const& p)
 	{
-		return quat<T, Q>(q) += p;
+		return quat<T>(q) += p;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator-(quat<T, Q> const& q, quat<T, Q> const& p)
+	template <typename T>
+	constexpr quat<T> operator-(quat<T> const& q, quat<T> const& p)
 	{
-		return quat<T, Q>(q) -= p;
+		return quat<T>(q) -= p;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, quat<T, Q> const& p)
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, quat<T> const& p)
 	{
-		return quat<T, Q>(q) *= p;
+		return quat<T>(q) *= p;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, vec<3, T, Q> const& v)
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, vec<3, T> const& v)
 	{
-		vec<3, T, Q> const QuatVector(q.x, q.y, q.z);
-		vec<3, T, Q> const uv(::mim::cross(QuatVector, v));
-		vec<3, T, Q> const uuv(::mim::cross(QuatVector, uv));
+		vec<3, T> const QuatVector(q.x, q.y, q.z);
+		vec<3, T> const uv(::mim::cross(QuatVector, v));
+		vec<3, T> const uuv(::mim::cross(QuatVector, uv));
 
 		return v + ((uv * q.w) + uuv) * static_cast<T>(2);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(vec<3, T, Q> const& v, quat<T, Q> const& q)
+	template <typename T>
+	constexpr quat<T> operator*(vec<3, T> const& v, quat<T> const& q)
 	{
 		::mim::inverse(q) * v;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, T const& scalar)
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, T const& scalar)
 	{
-		return quat<T, Q>(q.w * scalar, q.x * scalar, q.y * scalar, q.z * scalar);
+		return quat<T>(q.w * scalar, q.x * scalar, q.y * scalar, q.z * scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(T const& scalar, quat<T, Q> const& q)
+	template <typename T>
+	constexpr quat<T> operator*(T const& scalar, quat<T> const& q)
 	{
 		return q * scalar;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator/(quat<T, Q> const& q, T const& scalar)
+	template <typename T>
+	constexpr quat<T> operator/(quat<T> const& q, T const& scalar)
 	{
-		return quat<T, Q>(q.w / scalar, q.x / scalar, q.y / scalar, q.z / scalar);
+		return quat<T>(q.w / scalar, q.x / scalar, q.y / scalar, q.z / scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr bool operator==(quat<T, Q> const& q, quat<T, Q> const& p)
+	template <typename T>
+	constexpr bool operator==(quat<T> const& q, quat<T> const& p)
 	{
 		return q.w == p.w && q.x == p.x && q.y == p.y && q.z == p.z;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr bool operator!=(quat<T, Q> const& q, quat<T, Q> const& p)
+	template <typename T>
+	constexpr bool operator!=(quat<T> const& q, quat<T> const& p)
 	{
 		return !(q == p);
 	}

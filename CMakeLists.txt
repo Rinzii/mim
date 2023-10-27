@@ -5,7 +5,7 @@ enable_language(CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_DEBUG_POSTFIX "-d")
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -15,7 +15,7 @@ endif()
 
 # We will hit 1.0.0 when we have a stable API
 # We will hit 0.1.0 when we have finished the basic API
-set(build_version 0.0.4)
+set(build_version 0.0.5)
 
 include(CheckPIESupported)
 check_pie_supported()

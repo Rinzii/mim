@@ -3,21 +3,21 @@
 #pragma once
 
 #include <array>
-#include "mim/detail/qualifier.hpp"
+#include "mim/detail/defines.hpp"
 
 namespace mim
 {
-	template <typename T, qualifier Q>
-	struct mat<4, 3, T, Q> {
-		using type = mat<4, 3, T, Q>;
-		using row_type = vec<4, T, Q>;
-		using column_type = vec<3, T, Q>;
-		using transpose_type = mat<4, 3, T, Q>;
+	template <typename T>
+	struct mat<4, 3, T> {
+		using type = mat<4, 3, T>;
+		using row_type = vec<4, T>;
+		using column_type = vec<3, T>;
+		using transpose_type = mat<4, 3, T>;
 		using value_type = T;
 		using size_type = std::size_t;
 		static constexpr std::size_t column_size_v = 4;
 		static constexpr std::size_t row_size_v = 3;
-		static constexpr T size_v = vec<2, std::size_t, Q>(column_size_v, row_size_v);
+		static constexpr T size_v = vec<2, std::size_t>(column_size_v, row_size_v);
 
 	private:
 		using data = std::array<column_type, column_size_v>;
@@ -47,9 +47,6 @@ namespace mim
 			column_type const& v2,
 			column_type const& v3);
 
-		template <qualifier P>
-		constexpr mat(mat<4, 3, T, P> const& m) noexcept;
-
 		/// General conversions
 
 
@@ -66,88 +63,88 @@ namespace mim
 
 		template <typename V1, typename V2, typename V3, typename V4>
 		constexpr mat(
-            vec<3, V1, Q> const& v1,
-            vec<3, V2, Q> const& v2,
-            vec<3, V3, Q> const& v3,
-            vec<3, V4, Q> const& v4);
+            vec<3, V1> const& v1,
+            vec<3, V2> const& v2,
+            vec<3, V3> const& v3,
+            vec<3, V4> const& v4);
 
 
 		/// Matrix conversions
 
-		explicit constexpr mat(mat<2, 2, T, Q> const& m);
-        explicit constexpr mat(mat<3, 3, T, Q> const& m);
-		explicit constexpr mat(mat<4, 4, T, Q> const& m);
-		explicit constexpr mat(mat<2, 3, T, Q> const& m);
-		explicit constexpr mat(mat<3, 2, T, Q> const& m);
-		explicit constexpr mat(mat<2, 4, T, Q> const& m);
-		explicit constexpr mat(mat<4, 2, T, Q> const& m);
-		explicit constexpr mat(mat<3, 4, T, Q> const& m);
+		explicit constexpr mat(mat<2, 2, T> const& m);
+        explicit constexpr mat(mat<3, 3, T> const& m);
+		explicit constexpr mat(mat<4, 4, T> const& m);
+		explicit constexpr mat(mat<2, 3, T> const& m);
+		explicit constexpr mat(mat<3, 2, T> const& m);
+		explicit constexpr mat(mat<2, 4, T> const& m);
+		explicit constexpr mat(mat<4, 2, T> const& m);
+		explicit constexpr mat(mat<3, 4, T> const& m);
 
-		template <typename U, qualifier P>
-		explicit constexpr mat(mat<4, 3, U, P> const& m);
+		template <typename U>
+		explicit constexpr mat(mat<4, 3, U> const& m);
 
 
 		/// Arithmetic operators
 
 		template <typename U>
-		mat<4, 3, T, Q> & operator = (mat<4, 3, U, Q> const& m);
+		mat<4, 3, T> & operator = (mat<4, 3, U> const& m);
 		template <typename U>
-		mat<4, 3, T, Q> & operator += (U const& s);
+		mat<4, 3, T> & operator += (U const& s);
 		template <typename U>
-		mat<4, 3, T, Q> & operator += (mat<4, 3, U, Q> const& m);
+		mat<4, 3, T> & operator += (mat<4, 3, U> const& m);
 		template <typename U>
-		mat<4, 3, T, Q> & operator -= (U const& s);
+		mat<4, 3, T> & operator -= (U const& s);
 		template <typename U>
-		mat<4, 3, T, Q> & operator -= (mat<4, 3, U, Q> const& m);
+		mat<4, 3, T> & operator -= (mat<4, 3, U> const& m);
 		template <typename U>
-		mat<4, 3, T, Q> & operator *= (U const& s);
+		mat<4, 3, T> & operator *= (U const& s);
 		template <typename U>
-		mat<4, 3, T, Q> & operator /= (U const& s);
+		mat<4, 3, T> & operator /= (U const& s);
 
 
 		/// Increment and decrement operators
 
-		mat<4, 3, T, Q> & operator ++ ();
-		mat<4, 3, T, Q> & operator -- ();
-		mat<4, 3, T, Q> operator ++ (int);
-		mat<4, 3, T, Q> operator -- (int);
+		mat<4, 3, T> & operator ++ ();
+		mat<4, 3, T> & operator -- ();
+		mat<4, 3, T> operator ++ (int);
+		mat<4, 3, T> operator -- (int);
 
 	};
 
 	/// Unary operators
 
-    template <typename T, qualifier Q>
-    mat<4, 3, T, Q> operator + (mat<4, 3, T, Q> const& m);
+    template <typename T>
+    mat<4, 3, T> operator + (mat<4, 3, T> const& m);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator - (mat<4, 3, T, Q> const& m);
+	template <typename T>
+	mat<4, 3, T> operator - (mat<4, 3, T> const& m);
 
 
 	/// Binary operators
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator + (mat<4, 3, T, Q> const& m, T const& s);
+	template <typename T>
+	mat<4, 3, T> operator + (mat<4, 3, T> const& m, T const& s);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator + (mat<4, 3, T, Q> const& m1, mat<4, 3, T, Q> const& m2);
+	template <typename T>
+	mat<4, 3, T> operator + (mat<4, 3, T> const& m1, mat<4, 3, T> const& m2);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator - (mat<4, 3, T, Q> const& m, T const& s);
+	template <typename T>
+	mat<4, 3, T> operator - (mat<4, 3, T> const& m, T const& s);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator - (mat<4, 3, T, Q> const& m1, mat<4, 3, T, Q> const& m2);
+	template <typename T>
+	mat<4, 3, T> operator - (mat<4, 3, T> const& m1, mat<4, 3, T> const& m2);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator * (mat<4, 3, T, Q> const& m, T const& s);
+	template <typename T>
+	mat<4, 3, T> operator * (mat<4, 3, T> const& m, T const& s);
 
-	template <typename T, qualifier Q>
-	mat<4, 3, T, Q> operator * (T const& s, mat<4, 3, T, Q> const& m);
+	template <typename T>
+	mat<4, 3, T> operator * (T const& s, mat<4, 3, T> const& m);
 
-	template <typename T, qualifier Q>
-	typename mat<4, 3, T, Q>::col_type operator * (mat<4, 3, T, Q> const& m, typename mat<4, 3, T, Q>::row_type const& v);
+	template <typename T>
+	typename mat<4, 3, T>::col_type operator * (mat<4, 3, T> const& m, typename mat<4, 3, T>::row_type const& v);
 
-	template <typename T, qualifier Q>
-	typename mat<4, 3, T, Q>::row_type operator * (typename mat<4, 3, T, Q>::col_type const& v, mat<4, 3, T, Q> const& m);
+	template <typename T>
+	typename mat<4, 3, T>::row_type operator * (typename mat<4, 3, T>::col_type const& v, mat<4, 3, T> const& m);
 
 
 

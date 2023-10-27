@@ -3,21 +3,21 @@
 #pragma once
 
 #include <array>
-#include "mim/detail/qualifier.hpp"
+#include "mim/detail/defines.hpp"
 
 namespace mim
 {
-	template <typename T, qualifier Q>
-	struct mat<2, 2, T, Q> {
-		using type = mat<2, 2, T, Q>;
-		using row_type = vec<2, T, Q>;
-		using column_type = vec<2, T, Q>;
-		using transpose_type = mat<2, 2, T, Q>;
+	template <typename T>
+	struct mat<2, 2, T> {
+		using type = mat<2, 2, T>;
+		using row_type = vec<2, T>;
+		using column_type = vec<2, T>;
+		using transpose_type = mat<2, 2, T>;
 		using value_type = T;
 		using size_type = std::size_t;
 		static constexpr std::size_t column_size_v = 2;
 		static constexpr std::size_t row_size_v = 2;
-		static constexpr T size_v = vec<2, std::size_t, Q>(column_size_v, row_size_v);
+		static constexpr T size_v = vec<2, std::size_t>(column_size_v, row_size_v);
 
 	private:
 		using data = std::array<column_type, column_size_v>;

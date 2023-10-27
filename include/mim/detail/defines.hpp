@@ -10,37 +10,13 @@
 namespace mim
 {
 
-	enum qualifier {
-		packed_highp,
-		packed_mediump,
-		packed_lowp,
 
-#if defined(MIM_SIMD)
-		aligned_highp,
-		aligned_mediump,
-		aligned_lowp,
-		aligned = aligned_highp,
-#endif
 
-		highp = packed_highp,
-		mediump = packed_mediump,
-		lowp = packed_lowp,
-		packed = packed_highp,
-
-#if MIM_SIMD
-		defaultp = aligned_highp,
-#else
-		defaultp = packed_highp,
-#endif
-	};
-
-	using precision = qualifier;
-
-	template <std::size_t S, typename T, qualifier Q = defaultp>
+	template <std::size_t S, typename T>
 	struct vec;
-	template <std::size_t C, std::size_t R, typename T, qualifier Q = defaultp>
+	template <std::size_t C, std::size_t R, typename T>
 	struct mat;
-	template <typename T, qualifier Q = defaultp>
+	template <typename T>
 	struct quat;
 
 	// TODO: Decide what to do with this
@@ -51,26 +27,20 @@ namespace mim
 	namespace detail
 	{
 
-		template <qualifier P>
+
+
+#if MIM_SIMD
+		struct IsAligned {
+			static const bool value = true;
+		};
+
+#else
+
 		struct IsAligned {
 			static const bool value = false;
 		};
-#if MIM_SIMD
-		template <>
-		struct IsAligned<aligned_highp> {
-			static const bool value = true;
-		};
-
-		template <>
-		struct IsAligned<aligned_mediump> {
-			static const bool value = true;
-		};
-
-		template <>
-		struct IsAligned<aligned_lowp> {
-			static const bool value = true;
-		};
 #endif
+
 
 		/*
 		template <size_t S, typename T, bool is_aligned>

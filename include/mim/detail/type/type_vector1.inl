@@ -8,312 +8,306 @@ namespace mim
 
 	// Element Accessors
 
-	template <typename T, qualifier Q>
-	constexpr T& vec<1, T, Q>::operator[](typename vec<1, T, Q>::size_type)
+	template <typename T>
+	constexpr T& vec<1, T>::operator[](typename vec<1, T>::size_type)
 	{
 		return x;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr const T& vec<1, T, Q>::operator[](typename vec<1, T, Q>::size_type) const
+	template <typename T>
+	constexpr const T& vec<1, T>::operator[](typename vec<1, T>::size_type) const
 	{
 		return x;
 	}
 
-	template <typename T, qualifier Q>
-	T& vec<1, T, Q>::at(typename vec<1, T, Q>::size_type i)
+	template <typename T>
+	T& vec<1, T>::at(typename vec<1, T>::size_type i)
 	{
-		static_assert(i < this->size(), "vec<1, T, Q>::at() : Index out of range.");
+		static_assert(i < this->size(), "vec<1, T>::at() : Index out of range.");
 
 		return x;
 	}
 
-	template <typename T, qualifier Q>
-	const T& vec<1, T, Q>::at(typename vec<1, T, Q>::size_type i) const
+	template <typename T>
+	const T& vec<1, T>::at(typename vec<1, T>::size_type i) const
 	{
-		static_assert(i < size(), "vec<1, T, Q>::at() : Index out of range.");
+		static_assert(i < size(), "vec<1, T>::at() : Index out of range.");
 
 		return x;
 	}
 
 	/// Constructors
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>::vec() : x(0)
+	template <typename T>
+	constexpr vec<1, T>::vec() : x(0)
 	{
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>::vec(vec<1, T, Q> const& v) : x(v.x)
+	template <typename T>
+	constexpr vec<1, T>::vec(vec<1, T> const& v) : x(v.x)
 	{
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>::vec(T scalar) : x(scalar)
+	template <typename T>
+	constexpr vec<1, T>::vec(T scalar) : x(scalar)
 	{
 	}
 
 	/// Template Constructors
 
-	template <typename T, qualifier Q>
-	template <qualifier P>
-	constexpr vec<1, T, Q>::vec(vec<1, T, P> const& v) : x(v.x)
-	{
-	}
-
 	// U Constructors
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>::vec(U scalar) : x(static_cast<T>(scalar))
+	constexpr vec<1, T>::vec(U scalar) : x(static_cast<T>(scalar))
 	{
 	}
 
-	template <typename T, qualifier Q>
-	template <typename U, qualifier P>
-	constexpr vec<1, T, Q>::vec(vec<1, U, P> const& v) : x(static_cast<T>(v.x))
+	template <typename T>
+	template <typename U>
+	constexpr vec<1, T>::vec(vec<1, U> const& v) : x(static_cast<T>(v.x))
 	{
 	}
 
-	template <typename T, qualifier Q>
-	template <typename U, qualifier P>
-	constexpr vec<1, T, Q>::vec(vec<2, U, P> const& v) : x(static_cast<T>(v.x))
+	template <typename T>
+	template <typename U>
+	constexpr vec<1, T>::vec(vec<2, U> const& v) : x(static_cast<T>(v.x))
 	{
 	}
 
-	template <typename T, qualifier Q>
-	template <typename U, qualifier P>
-	constexpr vec<1, T, Q>::vec(vec<3, U, P> const& v) : x(static_cast<T>(v.x))
+	template <typename T>
+	template <typename U>
+	constexpr vec<1, T>::vec(vec<3, U> const& v) : x(static_cast<T>(v.x))
 	{
 	}
 
-	template <typename T, qualifier Q>
-	template <typename U, qualifier P>
-	constexpr vec<1, T, Q>::vec(vec<4, U, P> const& v) : x(static_cast<T>(v.x))
+	template <typename T>
+	template <typename U>
+	constexpr vec<1, T>::vec(vec<4, U> const& v) : x(static_cast<T>(v.x))
 	{
 	}
 
 	// Assignment Operators
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(T scalar)
+	template <typename T>
+	constexpr vec<1, T>& vec<1, T>::operator=(T scalar)
 	{
 		this->x = scalar;
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(vec const& v)
+	template <typename T>
+	constexpr vec<1, T>& vec<1, T>::operator=(vec const& v)
 	{
 		this->x = v.x;
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator=(vec<1, U> const& v)
 	{
 		this->x = static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(vec<2, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator=(vec<2, U> const& v)
 	{
 		this->x = static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(vec<3, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator=(vec<3, U> const& v)
 	{
 		this->x = static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator=(vec<4, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator=(vec<4, U> const& v)
 	{
 		this->x = static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator+=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator+=(U scalar)
 	{
 		this->x += static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator+=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator+=(vec<1, U> const& v)
 	{
 		this->x += static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator+=(vec<2, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator+=(vec<2, U> const& v)
 	{
 		this->x += static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator+=(vec<3, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator+=(vec<3, U> const& v)
 	{
 		this->x += static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator+=(vec<4, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator+=(vec<4, U> const& v)
 	{
 		this->x += static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator-=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator-=(U scalar)
 	{
 		this->x -= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator-=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator-=(vec<1, U> const& v)
 	{
 		this->x -= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator-=(vec<2, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator-=(vec<2, U> const& v)
 	{
 		this->x -= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator-=(vec<3, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator-=(vec<3, U> const& v)
 	{
 		this->x -= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator-=(vec<4, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator-=(vec<4, U> const& v)
 	{
 		this->x -= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator*=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator*=(U scalar)
 	{
 		this->x *= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator*=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator*=(vec<1, U> const& v)
 	{
 		this->x *= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator*=(vec<2, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator*=(vec<2, U> const& v)
 	{
 		this->x *= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator*=(vec<3, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator*=(vec<3, U> const& v)
 	{
 		this->x *= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator*=(vec<4, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator*=(vec<4, U> const& v)
 	{
 		this->x *= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator/=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator/=(U scalar)
 	{
 		this->x /= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator/=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator/=(vec<1, U> const& v)
 	{
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator/=(vec<2, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator/=(vec<2, U> const& v)
 	{
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator/=(vec<3, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator/=(vec<3, U> const& v)
 	{
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator/=(vec<4, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator/=(vec<4, U> const& v)
 	{
 
 		this->x /= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator%=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator%=(U scalar)
 	{
 		static_assert(std::is_integral<T>::value, "Cannot perform modulo operation on non-integral type.");
 		this->x %= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator%=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator%=(vec<1, U> const& v)
 	{
 		static_assert(std::is_integral<T>::value, "Cannot perform modulo operation on non-integral type.");
 		this->x %= static_cast<T>(v.x);
@@ -322,114 +316,114 @@ namespace mim
 
 	/// Increment and Decrement Operators
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator++()
+	template <typename T>
+	constexpr vec<1, T>& vec<1, T>::operator++()
 	{
 		++this->x;
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator--()
+	template <typename T>
+	constexpr vec<1, T>& vec<1, T>::operator--()
 	{
 		--this->x;
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr const vec<1, T, Q> vec<1, T, Q>::operator++(int)
+	template <typename T>
+	constexpr const vec<1, T> vec<1, T>::operator++(int)
 	{
-		vec<1, T, Q> result(*this);
+		vec<1, T> result(*this);
 		++*this;
 		return result;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr const vec<1, T, Q> vec<1, T, Q>::operator--(int)
+	template <typename T>
+	constexpr const vec<1, T> vec<1, T>::operator--(int)
 	{
-		vec<1, T, Q> result(*this);
+		vec<1, T> result(*this);
 		--*this;
 		return result;
 	}
 
 	/// Bitwise Assignment Operators
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator&=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator&=(U scalar)
 	{
 
 		this->x &= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator&=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator&=(vec<1, U> const& v)
 	{
 		this->x &= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator|=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator|=(U scalar)
 	{
 		this->x |= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator|=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator|=(vec<1, U> const& v)
 	{
 		this->x |= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator^=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator^=(U scalar)
 	{
 		this->x ^= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator^=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator^=(vec<1, U> const& v)
 	{
 		this->x ^= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator<<=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator<<=(U scalar)
 	{
 		this->x <<= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator<<=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator<<=(vec<1, U> const& v)
 	{
 		this->x <<= static_cast<T>(v.x);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator>>=(U scalar)
+	constexpr vec<1, T>& vec<1, T>::operator>>=(U scalar)
 	{
 		this->x >>= static_cast<T>(scalar);
 		return *this;
 	}
 
-	template <typename T, qualifier Q>
+	template <typename T>
 	template <typename U>
-	constexpr vec<1, T, Q>& vec<1, T, Q>::operator>>=(vec<1, U, Q> const& v)
+	constexpr vec<1, T>& vec<1, T>::operator>>=(vec<1, U> const& v)
 	{
 		this->x >>= static_cast<T>(v.x);
 		return *this;
@@ -437,236 +431,234 @@ namespace mim
 
 	// Unary Operators
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator+(vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator+(vec<1, T> const& v)
 	{
 		return v;
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator-(vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator-(vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(-v.x);
+		return vec<1, T>(-v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator+(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator+(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x + scalar);
+		return vec<1, T>(v.x + scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator+(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator+(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar + v.x);
+		return vec<1, T>(scalar + v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator+(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator+(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x + v2.x);
+		return vec<1, T>(v1.x + v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator-(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator-(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x - scalar);
+		return vec<1, T>(v.x - scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator-(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator-(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar - v.x);
+		return vec<1, T>(scalar - v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator-(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator-(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x - v2.x);
+		return vec<1, T>(v1.x - v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator*(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator*(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x * scalar);
+		return vec<1, T>(v.x * scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator*(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator*(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar * v.x);
+		return vec<1, T>(scalar * v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator*(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator*(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x * v2.x);
+		return vec<1, T>(v1.x * v2.x);
 	}
 
-	template <qualifier Q>
-	constexpr vec<1, bool, Q> operator*(vec<1, bool, Q> const& v1, vec<1, bool, Q> const& v2)
+	template <>
+	constexpr vec<1, bool> operator*(vec<1, bool> const& v1, vec<1, bool> const& v2)
 	{
-		return vec<1, bool, Q>(v1.x && v2.x);
+		return vec<1, bool>(v1.x && v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator/(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator/(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x / scalar);
+		return vec<1, T>(v.x / scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator/(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator/(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar / v.x);
+		return vec<1, T>(scalar / v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator/(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator/(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x / v2.x);
+		return vec<1, T>(v1.x / v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator%(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator%(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x % scalar);
+		return vec<1, T>(v.x % scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator%(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator%(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar % v.x);
+		return vec<1, T>(scalar % v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator%(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator%(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x % v2.x);
+		return vec<1, T>(v1.x % v2.x);
 	}
 
 	/// Bitwise Binary Operators
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator&(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator&(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x & scalar);
+		return vec<1, T>(v.x & scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator&(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator&(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar & v.x);
+		return vec<1, T>(scalar & v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator&(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator&(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x & v2.x);
+		return vec<1, T>(v1.x & v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator|(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator|(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x | scalar);
+		return vec<1, T>(v.x | scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator|(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator|(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar | v.x);
+		return vec<1, T>(scalar | v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator|(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator|(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x | v2.x);
+		return vec<1, T>(v1.x | v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator^(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator^(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x ^ scalar);
+		return vec<1, T>(v.x ^ scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator^(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator^(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar ^ v.x);
+		return vec<1, T>(scalar ^ v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator^(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator^(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x ^ v2.x);
+		return vec<1, T>(v1.x ^ v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator<<(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator<<(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x << scalar);
+		return vec<1, T>(v.x << scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator<<(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator<<(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar << v.x);
+		return vec<1, T>(scalar << v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator<<(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator<<(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x << v2.x);
+		return vec<1, T>(v1.x << v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator>>(vec<1, T, Q> const& v, T scalar)
+	template <typename T>
+	constexpr vec<1, T> operator>>(vec<1, T> const& v, T scalar)
 	{
-		return vec<1, T, Q>(v.x >> scalar);
+		return vec<1, T>(v.x >> scalar);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator>>(T scalar, vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator>>(T scalar, vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(scalar >> v.x);
+		return vec<1, T>(scalar >> v.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator>>(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr vec<1, T> operator>>(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return vec<1, T, Q>(v1.x >> v2.x);
+		return vec<1, T>(v1.x >> v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr vec<1, T, Q> operator~(vec<1, T, Q> const& v)
+	template <typename T>
+	constexpr vec<1, T> operator~(vec<1, T> const& v)
 	{
-		return vec<1, T, Q>(~v.x);
+		return vec<1, T>(~v.x);
 	}
 
 	/// Comparison Operators
 
-	template <typename T, qualifier Q>
-	constexpr bool operator==(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr bool operator==(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
-		return detail::Equal<T, Q, std::numeric_limits<T>::is_iec559, sizeof(T) * 2, detail::IsAligned<Q>::value>::compute(v1, v2);
+		return (v1.x == v2.x);
 	}
 
-	template <typename T, qualifier Q>
-	constexpr bool operator!=(vec<1, T, Q> const& v1, vec<1, T, Q> const& v2)
+	template <typename T>
+	constexpr bool operator!=(vec<1, T> const& v1, vec<1, T> const& v2)
 	{
 		return !(v1 == v2);
 	}
 
-	template <qualifier Q>
-	constexpr bool operator&&(vec<1, bool, Q> const& v1, vec<1, bool, Q> const& v2)
+	constexpr vec<1, bool> operator&&(vec<1, bool> const& v1, vec<1, bool> const& v2)
 	{
-		return (v1.x && v2.x);
+		return vec<1, bool>(v1.x && v2.x);
 	}
 
-	template <qualifier Q>
-	constexpr bool operator||(vec<1, bool, Q> const& v1, vec<1, bool, Q> const& v2)
+	constexpr vec<1, bool> operator||(vec<1, bool> const& v1, vec<1, bool> const& v2)
 	{
-		return (v1.x || v2.x);
+		return vec<1, bool>(v1.x || v2.x);
 	}
 
 } // namespace mim

@@ -15,12 +15,10 @@ TEST(Vector1Defaults, ElementsAccessor)
 	mim::vec1d v1d(1.0);
 	mim::vec1i v1i(1);
 	mim::vec1u v1u(1u);
-	mim::vec1b v1b(true);
 	EXPECT_EQ(v1f.x, 1.0f);
 	EXPECT_EQ(v1d.x, 1.0);
 	EXPECT_EQ(v1i.x, 1);
 	EXPECT_EQ(v1u.x, 1u);
-	EXPECT_EQ(v1b.x, true);
 }
 
 TEST(Vector1Defaults, Size)
@@ -51,12 +49,10 @@ TEST(Vector1Defaults, DefaultConstructor)
 	mim::vec1d vd;
 	mim::vec1i vi;
 	mim::vec1u vu;
-	mim::vec1b vb;
     EXPECT_EQ(vf.x, 0.0f);
 	EXPECT_EQ(vd.x, 0.0);
 	EXPECT_EQ(vi.x, 0);
 	EXPECT_EQ(vu.x, 0u);
-	EXPECT_EQ(vb.x, false);
 }
 
 TEST(Vector1Defaults, CopyConstructor)
@@ -65,24 +61,14 @@ TEST(Vector1Defaults, CopyConstructor)
 	mim::vec1d v1d(1.0);
 	mim::vec1i v1i(1);
 	mim::vec1u v1u(1u);
-	mim::vec1b v1b(true);
 	mim::vec1f v2f(v1f);
 	mim::vec1d v2d(v1d);
 	mim::vec1i v2i(v1i);
 	mim::vec1u v2u(v1u);
-	mim::vec1b v2b(v1b);
 	EXPECT_EQ(v2f.x, 1.0f);
 	EXPECT_EQ(v2d.x, 1.0);
 	EXPECT_EQ(v2i.x, 1);
 	EXPECT_EQ(v2u.x, 1u);
-	EXPECT_EQ(v2b.x, true);
-}
-
-TEST(Vector1Defaults, CopyConstructorWithQualifier)
-{
-	mim::lowp_vec1 v1(1.0f);
-	mim::vec1f v2(v1);
-	EXPECT_EQ(v2.x, 1.0f);
 }
 
 TEST(Vector1Defaults, ValueConstructor)
@@ -91,23 +77,10 @@ TEST(Vector1Defaults, ValueConstructor)
 	mim::vec1d vd(1.0);
 	mim::vec1i vi(1);
 	mim::vec1u vu(1u);
-	mim::vec1b vb(true);
     EXPECT_EQ(vf.x, 1.0f);
 	EXPECT_EQ(vd.x, 1.0);
 	EXPECT_EQ(vi.x, 1);
 	EXPECT_EQ(vu.x, 1u);
-	EXPECT_EQ(vb.x, true);
-}
-
-TEST(Vector1Defaults, QualifierConstructor)
-{
-    mim::vec1f vf(1.0f);
-    mim::highp_vec1 vhf(vf);
-	mim::mediump_vec1 vmf(vf);
-	mim::lowp_vec1 vlf(vf);
-    EXPECT_EQ(vhf.x, 1.0f);
-	EXPECT_EQ(vmf.x, 1.0f);
-	EXPECT_EQ(vlf.x, 1.0f);
 }
 
 TEST(Vector1Defaults, Vector2Constructor)
@@ -116,17 +89,14 @@ TEST(Vector1Defaults, Vector2Constructor)
     mim::vec2d v2d(1.0, 2.0);
     mim::vec2i v2i(1, 2);
     mim::vec2u v2u(1u, 2u);
-    mim::vec2b v2b(true, false);
     mim::vec1f v1f(v2f);
     mim::vec1d v1d(v2d);
     mim::vec1i v1i(v2i);
     mim::vec1u v1u(v2u);
-    mim::vec1b v1b(v2b);
     EXPECT_EQ(v1f.x, 1.0f);
     EXPECT_EQ(v1d.x, 1.0);
     EXPECT_EQ(v1i.x, 1);
     EXPECT_EQ(v1u.x, 1u);
-    EXPECT_EQ(v1b.x, true);
 }
 
 TEST(Vector1Defaults, Vector3Constructor)
@@ -135,17 +105,14 @@ TEST(Vector1Defaults, Vector3Constructor)
     mim::vec3d v3d(1.0, 2.0, 3.0);
     mim::vec3i v3i(1, 2, 3);
     mim::vec3u v3u(1u, 2u, 3u);
-    mim::vec3b v3b(true, false, true);
     mim::vec1f v1f(v3f);
     mim::vec1d v1d(v3d);
     mim::vec1i v1i(v3i);
     mim::vec1u v1u(v3u);
-    mim::vec1b v1b(v3b);
     EXPECT_EQ(v1f.x, 1.0f);
     EXPECT_EQ(v1d.x, 1.0);
     EXPECT_EQ(v1i.x, 1);
     EXPECT_EQ(v1u.x, 1u);
-    EXPECT_EQ(v1b.x, true);
 }
 
 TEST(Vector1Defaults, Vector4Constructor)
@@ -154,17 +121,14 @@ TEST(Vector1Defaults, Vector4Constructor)
     mim::vec4d v4d(1.0, 2.0, 3.0, 4.0);
     mim::vec4i v4i(1, 2, 3, 4);
     mim::vec4u v4u(1u, 2u, 3u, 4u);
-    mim::vec4b v4b(true, false, true, false);
     mim::vec1f v1f(v4f);
     mim::vec1d v1d(v4d);
     mim::vec1i v1i(v4i);
     mim::vec1u v1u(v4u);
-    mim::vec1b v1b(v4b);
     EXPECT_EQ(v1f.x, 1.0f);
     EXPECT_EQ(v1d.x, 1.0);
     EXPECT_EQ(v1i.x, 1);
     EXPECT_EQ(v1u.x, 1u);
-    EXPECT_EQ(v1b.x, true);
 }
 
 // Assignment operators
@@ -175,17 +139,14 @@ TEST(Vector1Defaults, AssignmentOperator)
     mim::vec1d v1d(1.0);
     mim::vec1i v1i(1);
     mim::vec1u v1u(1u);
-    mim::vec1b v1b(true);
     v1f = 2.0f;
 	v1d = 2.0;
 	v1i = 2;
 	v1u = 2u;
-	v1b = false;
     EXPECT_EQ(v1f.x, 2.0f);
     EXPECT_EQ(v1d.x, 2.0);
     EXPECT_EQ(v1i.x, 2);
     EXPECT_EQ(v1u.x, 2u);
-    EXPECT_EQ(v1b.x, false);
 
 }
 
@@ -195,22 +156,18 @@ TEST(Vector1Defaults, CopyAssignment)
 	mim::vec1d v1d(1.0);
 	mim::vec1i v1i(1);
 	mim::vec1u v1u(1u);
-	mim::vec1b v1b(true);
 	mim::vec1f v2f;
 	mim::vec1d v2d;
 	mim::vec1i v2i;
 	mim::vec1u v2u;
-	mim::vec1b v2b;
 	v2f = v1f;
 	v2d = v1d;
 	v2i = v1i;
 	v2u = v1u;
-	v2b = v1b;
     EXPECT_EQ(v2f.x, 1.0f);
 	EXPECT_EQ(v2d.x, 1.0);
 	EXPECT_EQ(v2i.x, 1);
 	EXPECT_EQ(v2u.x, 1u);
-	EXPECT_EQ(v2b.x, true);
 }
 
 TEST(Vector1Defaults, AdditionAssignment)
@@ -404,22 +361,18 @@ TEST(Vector1Defaults, Addition)
 	mim::vec1d v1d(1.0);
 	mim::vec1i v1i(1);
 	mim::vec1u v1u(1u);
-	mim::vec1b v1b(true);
 	mim::vec1f v2f(2.0f);
 	mim::vec1d v2d(2.0);
 	mim::vec1i v2i(2);
 	mim::vec1u v2u(2u);
-	mim::vec1b v2b(false);
 	mim::vec1f v3f = v1f + v2f;
 	mim::vec1d v3d = v1d + v2d;
 	mim::vec1i v3i = v1i + v2i;
 	mim::vec1u v3u = v1u + v2u;
-	mim::vec1b v3b = v1b + v2b;
     EXPECT_EQ(v3f.x, 3.0f);
 	EXPECT_EQ(v3d.x, 3.0);
 	EXPECT_EQ(v3i.x, 3);
 	EXPECT_EQ(v3u.x, 3u);
-	EXPECT_EQ(v3b.x, true);
 }
 
 TEST(Vector1Defaults, Subtraction)
@@ -428,23 +381,19 @@ TEST(Vector1Defaults, Subtraction)
 	mim::vec1d v1d(1.0);
 	mim::vec1i v1i(1);
 	mim::vec1u v1u(1u);
-	mim::vec1b v1b(true);
 	mim::vec1f v2f(2.0f);
 	mim::vec1d v2d(2.0);
 	mim::vec1i v2i(2);
 	mim::vec1u v2u(2u);
-	mim::vec1b v2b(false);
 	mim::vec1f v3f = v1f - v2f;
 	mim::vec1d v3d = v1d - v2d;
 	mim::vec1i v3i = v1i - v2i;
 	mim::vec1u v3u = v1u - v2u;
-	mim::vec1b v3b = v1b - v2b;
     EXPECT_EQ(v3f.x, -1.0f);
 	EXPECT_EQ(v3d.x, -1.0);
 	EXPECT_EQ(v3i.x, -1);
 	EXPECT_EQ(v3u.x, -1u);
 	EXPECT_EQ(typeid(unsigned int), typeid(v3u.x));
-	EXPECT_EQ(v3b.x, true);
 }
 
 TEST(Vector1Defaults, Multiplication)
@@ -453,22 +402,18 @@ TEST(Vector1Defaults, Multiplication)
 	mim::vec1d v1d(4.0);
 	mim::vec1i v1i(4);
 	mim::vec1u v1u(4u);
-	mim::vec1b v1b(true);
 	mim::vec1f v2f(2.0f);
 	mim::vec1d v2d(2.0);
 	mim::vec1i v2i(2);
 	mim::vec1u v2u(2u);
-	mim::vec1b v2b(false);
 	mim::vec1f v3f = v1f * v2f;
 	mim::vec1d v3d = v1d * v2d;
 	mim::vec1i v3i = v1i * v2i;
 	mim::vec1u v3u = v1u * v2u;
-	mim::vec1b v3b = v1b * v2b;
     EXPECT_EQ(v3f.x, 8.0f);
 	EXPECT_EQ(v3d.x, 8.0);
 	EXPECT_EQ(v3i.x, 8);
 	EXPECT_EQ(v3u.x, 8u);
-	EXPECT_EQ(v3b.x, false);
 }
 
 TEST(Vector1Defaults, Division)
@@ -672,36 +617,17 @@ TEST(Vector1Defaults, Inequality)
 	EXPECT_TRUE(v1 != v2);
 }
 
-TEST(Vector1Defaults, LogicalAnd)
-{
-	mim::vec1b v1(true);
-	mim::vec1b v2(true);
-
-	EXPECT_EQ((v1 && v2), true);
-}
-
-
-TEST(Vector1Defaults, LogicalOr)
-{
-    mim::vec1b v1(true);
-    mim::vec1b v2(false);
-
-    EXPECT_EQ((v1 || v2), true);
-}
-
 TEST(Vector1Defaults, length)
 {
 	mim::vec1f v1(3.0f);
 	mim::vec1d v2(3.0);
 	mim::vec1i v3(3);
 	mim::vec1u v4(3);
-	mim::vec1b v5(true);
 
 	EXPECT_EQ(v1.length(), 3);
 	EXPECT_EQ(v2.length(), 3);
 	EXPECT_EQ(v3.length(), 3);
 	EXPECT_EQ(v4.length(), 3);
-	EXPECT_EQ(v5.length(), true);
 }
 
 TEST(Vector1Defaults, length_squared)
@@ -710,13 +636,11 @@ TEST(Vector1Defaults, length_squared)
 	mim::vec1d v2(3.0);
 	mim::vec1i v3(3);
 	mim::vec1u v4(3);
-	mim::vec1b v5(true);
 
 	EXPECT_EQ(v1.length_squared(), 9);
 	EXPECT_EQ(v2.length_squared(), 9);
 	EXPECT_EQ(v3.length_squared(), 9);
 	EXPECT_EQ(v4.length_squared(), 9);
-	EXPECT_EQ(v5.length_squared(), true);
 }
 
 TEST(Vector1Defaults, normalize)

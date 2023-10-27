@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "mim/detail/qualifier.hpp"
+#include "mim/detail/defines.hpp"
 
 namespace mim
 {
