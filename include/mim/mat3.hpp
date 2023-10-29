@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "mim/detail/qualifier.hpp"
+#include "mim/detail/defines.hpp"
 #include "mim/half.hpp"
 
 #include "mim/detail/type/type_matrix3x2.hpp"

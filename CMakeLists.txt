@@ -15,7 +15,7 @@ endif()
 
 # We will hit 1.0.0 when we have a stable API
 # We will hit 0.1.0 when we have finished the basic API
-set(build_version 0.0.4)
+set(build_version 0.0.5)
 
 include(CheckPIESupported)
 check_pie_supported()

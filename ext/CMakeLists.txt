@@ -1,5 +1,8 @@
 project(mim-ext)
 
+include(FetchContent)
+
+
 
 if (MIM_BUILD_TEST)
   # PThreads are not available on Windows
@@ -13,7 +16,15 @@ if (MIM_BUILD_TEST)
   set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
   set(gtest_build_samples OFF CACHE BOOL "" FORCE)
   set(gtest_build_tests OFF CACHE BOOL "" FORCE)
-  add_subdirectory(googletest)
+
+
+  FetchContent_Declare(
+          googletest
+          GIT_REPOSITORY https://github.com/google/googletest.git
+          GIT_TAG v1.14.0
+  )
+  FetchContent_MakeAvailable(googletest)
+
   add_library(gtest::gtest ALIAS gtest)
 endif()
 

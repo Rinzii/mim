@@ -70,7 +70,7 @@ set(mim_detail_headers
         ${mim_detail_func_headers}
         ${mim_detail_type_headers}
 
-        include/mim/detail/qualifier.hpp
+        include/mim/detail/defines.hpp
         )
 
 set(mim_internal_config_headers

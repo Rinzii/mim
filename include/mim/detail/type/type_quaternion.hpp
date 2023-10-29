@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "mim/detail/qualifier.hpp"
 #include "mim/detail/compute/compute_quaternion.hpp"
+#include "mim/detail/defines.hpp"
 
 namespace mim
 {
-	template <typename T, qualifier Q>
+	template <typename T>
 	struct quat {
 		using value_type = T;
-		using type = quat<T, Q>;
+		using type = quat<T>;
 		using size_type = size_t;
 
 		static constexpr auto sizeV = 4;
@@ -58,105 +58,104 @@ namespace mim
 
 		constexpr quat();
 		constexpr quat(quat const&);
-		template <qualifier P>
-		constexpr explicit quat(quat<T, P> const& q);
+		
 
-		constexpr quat(T const& s, vec<3, T, Q> const& v);
+		constexpr quat(T const& s, vec<3, T> const& v);
 
 
 		constexpr quat(T const& w, T const& x, T const& y, T const& z);
 
-		template <typename U, qualifier P>
-		constexpr explicit quat(quat<U, P> const& q);
+		template <typename U>
+		constexpr explicit quat(quat<U> const& q);
 
-		explicit operator mat<3, 3, T, Q>() const;
-		explicit operator mat<4, 4, T, Q>() const;
+		explicit operator mat<3, 3, T>() const;
+		explicit operator mat<4, 4, T>() const;
 
-		quat(vec<3, T, Q> const& a1, vec<3, T, Q> const& a2);
+		quat(vec<3, T> const& a1, vec<3, T> const& a2);
 
-		constexpr explicit quat(vec<3, T, Q> const& euler);
+		constexpr explicit quat(vec<3, T> const& euler);
 
 		/* TODO: Once matrix is implemented bring this back in.
-		constexpr explicit quat(mat<3, 3, T, Q> const& m);
-		constexpr explicit quat(mat<4, 4, T, Q> const& m);
+		constexpr explicit quat(mat<3, 3, T> const& m);
+		constexpr explicit quat(mat<4, 4, T> const& m);
 		 */
 
-		constexpr quat<T, Q>& operator=(quat<T, Q> const& q) = default;
+		constexpr quat<T>& operator=(quat<T> const& q) = default;
 
 		template <typename U>
-		constexpr quat<T, Q>& operator=(quat<U, Q> const& q);
+		constexpr quat<T>& operator=(quat<U> const& q);
 
 		template <typename U>
-		constexpr quat<T, Q>& operator+=(quat<U, Q> const& q);
+		constexpr quat<T>& operator+=(quat<U> const& q);
 
 		template <typename U>
-		constexpr quat<T, Q>& operator-=(quat<U, Q> const& q);
+		constexpr quat<T>& operator-=(quat<U> const& q);
 
 		template <typename U>
-		constexpr quat<T, Q>& operator*=(quat<U, Q> const& r);
+		constexpr quat<T>& operator*=(quat<U> const& r);
 
 		template <typename U>
-		constexpr quat<T, Q>& operator*=(U const& scalar);
+		constexpr quat<T>& operator*=(U const& scalar);
 
 		template <typename U>
-		constexpr quat<T, Q>& operator/=(U const& scalar);
+		constexpr quat<T>& operator/=(U const& scalar);
 
 		constexpr T length() const;
 		constexpr void normalize();
-		constexpr quat<T, Q> normalized() const;
+		constexpr quat<T> normalized() const;
 		MIM_NODISCARD constexpr bool is_normalized() const;
-		constexpr quat<T, Q> inverse() const;
+		constexpr quat<T> inverse() const;
 
-		//vec<3, T, Q> get_euler() const;
+		//vec<3, T> get_euler() const;
 	};
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator+(quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> operator+(quat<T> const& q);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator-(quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> operator-(quat<T> const& q);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator+(quat<T, Q> const& q1, quat<T, Q> const& p);
+	template <typename T>
+	constexpr quat<T> operator+(quat<T> const& q1, quat<T> const& p);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator-(quat<T, Q> const& q1, quat<T, Q> const& p);
+	template <typename T>
+	constexpr quat<T> operator-(quat<T> const& q1, quat<T> const& p);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q1, quat<T, Q> const& p);
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q1, quat<T> const& p);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, vec<3, T, Q> const& v);
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, vec<3, T> const& v);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(vec<3, T, Q> const& v, quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> operator*(vec<3, T> const& v, quat<T> const& q);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, vec<4, T, Q> const& v);
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, vec<4, T> const& v);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(vec<4, T, Q> const& v, quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> operator*(vec<4, T> const& v, quat<T> const& q);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(quat<T, Q> const& q, T const& scalar);
+	template <typename T>
+	constexpr quat<T> operator*(quat<T> const& q, T const& scalar);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator*(T const& scalar, quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> operator*(T const& scalar, quat<T> const& q);
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> operator/(quat<T, Q> const& q, T const& scalar);
+	template <typename T>
+	constexpr quat<T> operator/(quat<T> const& q, T const& scalar);
 
-	template <typename T, qualifier Q>
-	constexpr bool operator==(quat<T, Q> const& q1, quat<T, Q> const& p);
+	template <typename T>
+	constexpr bool operator==(quat<T> const& q1, quat<T> const& p);
 
-	template <typename T, qualifier Q>
-	constexpr bool operator!=(quat<T, Q> const& q1, quat<T, Q> const& p);
+	template <typename T>
+	constexpr bool operator!=(quat<T> const& q1, quat<T> const& p);
 
 
 	/// Free functions
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> normalize(quat<T, Q> const& q);
+	template <typename T>
+	constexpr quat<T> normalize(quat<T> const& q);
 
 
 } // namespace mim

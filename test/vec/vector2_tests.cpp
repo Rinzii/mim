@@ -55,22 +55,6 @@ TEST(Vector2Defaults, CopyConstructor)
     EXPECT_EQ(v2.y, 2.0f);
 }
 
-TEST(Vector2Defaults, CopyConstructorWithQualifier)
-{
-    mim::lowp_vec2 v1(1.0f, 2.0f);
-    mim::vec2f v2(v1);
-    EXPECT_EQ(v2.x, 1.0f);
-    EXPECT_EQ(v2.y, 2.0f);
-}
-
-TEST(Vector2Defaults, Vector1ConstructorWithQualifier)
-{
-    mim::lowp_vec1 v1(1.0f);
-    mim::vec2f v2(v1);
-    EXPECT_EQ(v2.x, 1.0f);
-    EXPECT_EQ(v2.y, 1.0f);
-}
-
 TEST(Vector2Defaults, ScalarConstructor)
 {
 	mim::vec2f v(1.0f);

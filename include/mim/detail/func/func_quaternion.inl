@@ -10,14 +10,14 @@ namespace mim
 
 	/// Member functions
 
-	template <typename T, qualifier Q>
-	constexpr T quat<T, Q>::length() const
+	template <typename T>
+	constexpr T quat<T>::length() const
     {
         return ::mim::math::sqrt(w * w + x * x + y * y + z * z);
     }
 
-	template <typename T, qualifier Q>
-	constexpr void quat<T, Q>::normalize()
+	template <typename T>
+	constexpr void quat<T>::normalize()
     {
         T len = this->length();
         if (len > 0)
@@ -30,41 +30,41 @@ namespace mim
         }
     }
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> quat<T, Q>::normalized() const
+	template <typename T>
+	constexpr quat<T> quat<T>::normalized() const
     {
         T len = this->length();
         if (len > 0)
         {
             T invLen = 1 / len;
-            return quat<T, Q>(w * invLen, x * invLen, y * invLen, z * invLen);
+            return quat<T>(w * invLen, x * invLen, y * invLen, z * invLen);
         }
-        return quat<T, Q>(0, 0, 0, 0);
+        return quat<T>(0, 0, 0, 0);
     }
 
-	template <typename T, qualifier Q>
-	constexpr bool quat<T, Q>::is_normalized() const
+	template <typename T>
+	constexpr bool quat<T>::is_normalized() const
     {
         return ::mim::math::abs(this->length() - 1) < MIM_UNIT_EPSILON<T>;
     }
 
-	template <typename T, qualifier Q>
-	constexpr quat<T, Q> quat<T, Q>::inverse() const
+	template <typename T>
+	constexpr quat<T> quat<T>::inverse() const
 	{
 		T len = this->length();
         if (len > 0)
         {
             T invLen = 1 / len;
-            return quat<T, Q>(w * invLen, -x * invLen, -y * invLen, -z * invLen);
+            return quat<T>(w * invLen, -x * invLen, -y * invLen, -z * invLen);
         }
-        return quat<T, Q>(0, 0, 0, 0);
+        return quat<T>(0, 0, 0, 0);
 	}
 
 
 	/// Free functions
 
-    template <typename T, qualifier Q>
-    constexpr quat<T, Q> normalize(const quat<T, Q>& q)
+    template <typename T>
+    constexpr quat<T> normalize(const quat<T>& q)
     {
         return q.normalized();
     }

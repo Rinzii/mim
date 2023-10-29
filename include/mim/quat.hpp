@@ -9,6 +9,6 @@
 namespace mim
 {
 
-	using quatf = quat<float, defaultp>;
-	using quatd = quat<double, defaultp>;
+	using quatf = quat<float>;
+	using quatd = quat<double>;
 }

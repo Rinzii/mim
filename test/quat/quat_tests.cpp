@@ -55,16 +55,7 @@ TEST(QuaternionDefaultTests, QuatConstructor)
     EXPECT_EQ(q2.z, 4.0f);
 }
 
-TEST(QuaternionDefaultTests, QuatConstructorWithQualifier)
-{
-	mim::quat<float, mim::defaultp> q1(1.0f, 2.0f, 3.0f, 4.0f);
-    mim::quat<float> q2(q1);
 
-    EXPECT_EQ(q2.w, 1.0f);
-    EXPECT_EQ(q2.x, 2.0f);
-    EXPECT_EQ(q2.y, 3.0f);
-    EXPECT_EQ(q2.z, 4.0f);
-}
 
 TEST(QuaternionDefaultTests, QuatConstructorWithVecAndW)
 {

@@ -14,73 +14,39 @@ namespace mim
 	/**
 	 * \brief Alias for the default 4D vector types.
 	 * \tparam T Type of the vector.
-	 * \tparam Q Qualifier of the vector.
 	 * \addtogroup VectorCore
 	 */
-	template <typename T = float, qualifier Q = qualifier::defaultp>
-	using vec4 = vec<4, T, Q>;
+	template <typename T = float>
+	using vec4 = vec<4, T>;
 
 	/**
 	 * \brief Helper alias for 4D vectors of type float.
 	 * \addtogroup VectorCore
 	 */
-	using vec4f = vec<4, float, qualifier::defaultp>;
+	using vec4f = vec<4, float>;
 
 	/**
 	 * \brief Helper alias for 4D vectors of type double.
 	 * \addtogroup VectorCore
 	 */
-	using vec4d = vec<4, double, qualifier::defaultp>;
+	using vec4d = vec<4, double>;
 
 	/**
 	 * \brief Helper alias for 4D vectors of type int.
 	 * \addtogroup VectorCore
 	 */
-	using vec4i = vec<4, int, qualifier::defaultp>;
+	using vec4i = vec<4, int>;
 
 	/**
 	 * \brief Helper alias for 4D vectors of type unsigned int.
 	 * \addtogroup VectorCore
 	 */
-	using vec4u = vec<4, unsigned int, qualifier::defaultp>;
-
-	/**
-	 * \brief Helper alias for 4D vectors of type bool.
-	 * \addtogroup VectorCore
-	 */
-	using vec4b = vec<4, bool, qualifier::defaultp>;
+	using vec4u = vec<4, unsigned int>;
 
 	/**
 	 * \brief Helper alias for 4D vectors of type half.
 	 * \addtogroup VectorCore
 	 */
-	using vec4h = vec<4, half, qualifier::defaultp>;
-
-	template <typename T = float>
-	using highp_vec4 = vec<4, T, qualifier::highp>;
-	using highp_vec4f = vec<4, float, qualifier::highp>;
-	using highp_vec4d = vec<4, double, qualifier::highp>;
-	using highp_vec4i = vec<4, int, qualifier::highp>;
-	using highp_vec4u = vec<4, unsigned int, qualifier::highp>;
-	using highp_vec4b = vec<4, bool, qualifier::highp>;
-	using highp_vec4h = vec<4, half, qualifier::highp>;
-
-	template <typename T = float>
-	using mediump_vec4 = vec<4, float, qualifier::mediump>;
-	using mediump_vec4f = vec<4, float, qualifier::mediump>;
-	using mediump_vec4d = vec<4, double, qualifier::mediump>;
-	using mediump_vec4i = vec<4, int, qualifier::mediump>;
-	using mediump_vec4u = vec<4, unsigned int, qualifier::mediump>;
-	using mediump_vec4b = vec<4, bool, qualifier::mediump>;
-	using mediump_vec4h = vec<4, half, qualifier::mediump>;
-
-	template <typename T = float>
-	using lowp_vec4 = vec<4, float, qualifier::lowp>;
-	using lowp_vec4f = vec<4, float, qualifier::lowp>;
-	using lowp_vec4d = vec<4, double, qualifier::lowp>;
-	using lowp_vec4i = vec<4, int, qualifier::lowp>;
-	using lowp_vec4u = vec<4, unsigned int, qualifier::lowp>;
-	using lowp_vec4b = vec<4, bool, qualifier::lowp>;
-	using lowp_vec4h = vec<4, half, qualifier::lowp>;
+	using vec4h = vec<4, half>;
 
 } // namespace mim

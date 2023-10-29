@@ -12,5 +12,4 @@
 
 // General functions
 #include "mim/mimConstants.hpp"
-#include "mim/mimMath.hpp"
 #include "mim/random.hpp"
