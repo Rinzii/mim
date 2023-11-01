@@ -14,17 +14,17 @@ namespace mim
 {
 	template <typename T>
 	struct vec<1, T> {
-		/// Aliases
+		// Aliases
 
 		using value_type = T;
 		using type = vec<1, T>;
 		using size_type = size_t;
 		static constexpr auto size_v = 1;
 
-		/// Data
+		// Data
 		T x;
 
-		/// Element Accessors
+		// Element Accessors
 
 		static constexpr std::size_t size() { return size_v; }
 
@@ -37,7 +37,7 @@ namespace mim
 		const T& at(std::size_t i) const;
 
 
-		/// Constructors
+		// Constructors
 
 		constexpr vec();
 
@@ -45,7 +45,7 @@ namespace mim
 
 		constexpr explicit vec(T scalar);
 
-		/// Template Constructors
+		// Template Constructors
 
 		template <typename U>
 		constexpr explicit vec(U scalar);
@@ -62,7 +62,7 @@ namespace mim
 		template <typename U>
 		constexpr explicit vec(vec<4, U> const& v);
 
-		/// Assignment Operators
+		// Assignment Operators
 
 		constexpr vec<1, T>& operator=(T scalar);
 
@@ -146,7 +146,7 @@ namespace mim
 		template <typename U>
 		constexpr vec<1, T>& operator%=(vec<1, U> const& v);
 
-		/// Increment and Decrement Operators
+		// Increment and Decrement Operators
 
 		constexpr vec<1, T>& operator++();
 
@@ -156,7 +156,7 @@ namespace mim
 
 		constexpr const vec<1, T> operator--(int);
 
-		/// Bitwise Assignment Operators
+		// Bitwise Assignment Operators
 
 		template <typename U>
 		constexpr vec<1, T>& operator&=(U scalar);
@@ -189,7 +189,7 @@ namespace mim
 		constexpr vec<1, T>& operator>>=(vec<1, U> const& v);
 
 
-		/// Function Declarations
+		// Function Declarations
 
 		constexpr T length() const;
 
@@ -205,11 +205,15 @@ namespace mim
 
 		constexpr T distance_squared(const vec<1, T>& v) const;
 
+		constexpr vec<1, T> hadamard(const vec<1, T>& v) const;
+
 
 
 	};
 
-	/// Unary Operators
+	/// Free operators
+
+	// Unary Operators
 
 	template <typename T>
 	constexpr vec<1, T> operator+(vec<1, T> const& v);
@@ -217,7 +221,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<1, T> operator-(vec<1, T> const& v);
 
-	/// Binary Operators
+	// Binary Operators
 
 	template <typename T>
 	constexpr vec<1, T> operator+(vec<1, T> const& v, T scalar);
@@ -264,7 +268,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<1, T> operator%(vec<1, T> const& v1, vec<1, T> const& v2);
 
-	/// Bitwise Binary Operators
+	// Bitwise Binary Operators
 
 	template <typename T>
 	constexpr vec<1, T> operator&(vec<1, T> const& v, T scalar);
@@ -314,7 +318,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<1, T> operator~(vec<1, T> const& v);
 
-	/// Comparison Operators
+	// Comparison Operators
 
 	template <typename T>
 	constexpr bool operator==(vec<1, T> const& v1, vec<1, T> const& v2);
@@ -326,6 +330,29 @@ namespace mim
 
 	constexpr vec<1, bool> operator||(vec<1, bool> const& v1, vec<1, bool> const& v2);
 
+
+	/// Free functions
+
+	template <typename T>
+	constexpr T length(vec<1, T> const& v);
+
+	template <typename T>
+	constexpr T length_squared(vec<1, T> const& v);
+
+	template <typename T>
+	constexpr vec<1, T> normalized(vec<1, T> const& v);
+
+	template <typename T>
+	MIM_NODISCARD constexpr bool is_normalized(vec<1, T> const& v);
+
+	template <typename T>
+	constexpr T distance(vec<1, T> const& v1, vec<1, T> const& v2);
+
+	template <typename T>
+	constexpr T distance_squared(vec<1, T> const& v1, vec<1, T> const& v2);
+
+	template <typename T>
+	constexpr vec<1, T> hadamard(vec<1, T> const& v1, vec<1, T> const& v2);
 
 } // namespace mim
 

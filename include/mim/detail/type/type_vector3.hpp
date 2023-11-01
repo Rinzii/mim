@@ -22,9 +22,7 @@ namespace mim
 		constexpr T& operator[](size_type i);
 		constexpr T const& operator[](size_type i) const;
 
-		// Many of these constructors use as reference section 5.4.1 of the GLSL 1.30.08 specification
-
-		/// Constructors
+		// Constructors
 
 		constexpr vec();
 
@@ -34,7 +32,7 @@ namespace mim
 
 		constexpr explicit vec(T scalar);
 
-		/// U Template Constructors
+		// U Template Constructors
 
 		template <typename U>
 		constexpr explicit vec(vec<1, U> const& scalar);
@@ -42,7 +40,7 @@ namespace mim
 		template <typename U>
 		constexpr explicit vec(vec<3, U> const& v);
 
-		/// XYZ Template Constructors
+		// XYZ Template Constructors
 
 		template <typename X, typename Y, typename Z>
 		constexpr vec(X _x, Y _y, Z _z);
@@ -82,7 +80,7 @@ namespace mim
 		template <typename A, typename B>
 		constexpr vec(vec<1, A> const& _x, vec<2, B> const& _yz);
 
-		/// Assignment Operators
+		// Assignment Operators
 
 		constexpr vec<3, T>& operator=(T scalar);
 
@@ -139,7 +137,7 @@ namespace mim
 		template <typename U>
 		constexpr vec<3, T>& operator%=(vec<3, U> const& v);
 
-		/// Increment and Decrement Operators
+		// Increment and Decrement Operators
 
 		constexpr vec<3, T>& operator++();
 
@@ -149,7 +147,7 @@ namespace mim
 
 		constexpr const vec<3, T> operator--(int);
 
-		/// Bitwise Assignment Operators
+		// Bitwise Assignment Operators
 
 		template <typename U>
 		constexpr vec<3, T>& operator&=(U scalar);
@@ -197,7 +195,9 @@ namespace mim
 		constexpr vec<3, T>& operator>>=(vec<3, U> const& v);
 
 
-		/// Generic Function Declarations
+		// Function Declarations
+
+		constexpr vec<3, T> inverse() const;
 
 		constexpr T length() const;
 
@@ -213,21 +213,29 @@ namespace mim
 
 		constexpr T distance_squared(const vec<3, T>& v) const;
 
-
-		/// Function Declarations
-
 		constexpr T dot(const vec<3, T>& v) const;
-		constexpr T cross(const vec<3, T>& v) const;
-		constexpr void rotate(T angle);
+
+		constexpr vec<3, T> cross(const vec<3, T>& v) const;
+
+		constexpr vec<3, T> hadamard(const vec<3, T>& v) const;
+
+		constexpr void rotate(const vec<3, T>& axis, T angle);
+
 		constexpr vec<3, T> rotated(T angle) const;
+
 		constexpr vec<3, T> clamp(const vec<3, T>& min, const vec<3, T>& max) const;
+
 		constexpr vec<3, T> reflect(const vec<3, T>& normal) const;
+
 		constexpr vec<3, T> refract(const vec<3, T>& normal, T eta) const;
+
 		constexpr vec<3, T> project(const vec<3, T>& normal) const;
 
 	};
 
-	/// Unary Operators
+	/// Free operators
+
+	// Unary Operators
 
 	template <typename T>
 	constexpr vec<3, T> operator+(vec<3, T> const& v);
@@ -235,7 +243,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<3, T> operator-(vec<3, T> const& v);
 
-	/// Binary Operators
+	// Binary Operators
 
 	template <typename T>
 	constexpr vec<3, T> operator+(vec<3, T> const& v, T scalar);
@@ -312,7 +320,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<3, T> operator%(vec<3, T> const& v1, vec<3, T> const& v2);
 
-	/// Bitwise Binary Operators
+	// Bitwise Binary Operators
 
 	template <typename T>
 	constexpr vec<3, T> operator&(vec<3, T> const& v, T scalar);
@@ -392,7 +400,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<3, T> operator~(vec<3, T> const& v);
 
-	/// Conditional Operators
+	// Conditional Operators
 
 	template <typename T>
 	constexpr bool operator==(vec<3, T> const& v1, vec<3, T> const& v2);
@@ -407,7 +415,28 @@ namespace mim
 	constexpr vec<3, bool> operator||(vec<3, T> const& v1, vec<3, T> const& v2);
 
 
-	// Free functions
+	/// Free functions
+
+	template <typename T>
+	constexpr vec<3, T> inverse(vec<3, T> const& v);
+
+	template <typename T>
+	constexpr T length(vec<3, T> const& v);
+
+	template <typename T>
+	constexpr T length_squared(vec<3, T> const& v);
+
+	template <typename T>
+	constexpr vec<3, T> normalized(vec<3, T> const& v);
+
+	template <typename T>
+	MIM_NODISCARD constexpr bool is_normalized(vec<3, T> const& v);
+
+	template <typename T>
+	constexpr T distance(vec<3, T> const& v1, vec<3, T> const& v2);
+
+	template <typename T>
+	constexpr T distance_squared(vec<3, T> const& v1, vec<3, T> const& v2);
 
 	template <typename T>
 	constexpr vec<3, T> dot(vec<3, T> const& v1, vec<3, T> const& v2);
@@ -416,8 +445,22 @@ namespace mim
 	constexpr vec<3, T> cross(vec<3, T> const& v1, vec<3, T> const& v2);
 
 	template <typename T>
-	constexpr vec<3, T> inverse(vec<3, T> const& v, T epsilon = 0.001f);
+	constexpr vec<3, T> hadamard(vec<3, T> const& v1, vec<3, T> const& v2);
 
+	template <typename T>
+	constexpr vec<3, T> rotated(vec<3, T> const& v, T angle);
+
+	template <typename T>
+	constexpr vec<3, T> clamp(vec<3, T> const& v, vec<3, T> const& min, vec<3, T> const& max);
+
+	template <typename T>
+	constexpr vec<3, T> reflect(vec<3, T> const& v, vec<3, T> const& normal);
+
+	template <typename T>
+	constexpr vec<3, T> refract(vec<3, T> const& v, vec<3, T> const& normal, T eta);
+
+	template <typename T>
+	constexpr vec<3, T> project(vec<3, T> const& v, vec<3, T> const& normal);
 
 } // namespace mim
 

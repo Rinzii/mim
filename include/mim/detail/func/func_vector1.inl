@@ -2,12 +2,12 @@
 
 #include "mim/cmath.hpp"
 #include "mim/detail/compute/compute_functors.hpp"
-#include "mim/detail/compute/compute_vector.hpp"
 #include "mim/detail/defines.hpp"
 #include "mim/mimConstants.hpp"
 
 namespace mim
 {
+	/// Member Functions
 
 	template <typename T>
 	constexpr T vec<1, T>::length() const
@@ -69,9 +69,62 @@ namespace mim
         return (x - v.x) * (x - v.x);
     }
 
+	template <typename T>
+	constexpr vec<1, T> vec<1, T>::hadamard(const vec<1, T> & v) const
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use hadamard() on a non-arithmetic vector.");
+		return this->x * v.x;
+	}
 
+	/// Free functions
 
+	template <typename T>
+	constexpr T length(vec<1, T> const& v)
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use length() on a non-arithmetic vector.");
+		return v.length();
+	}
 
+	template <typename T>
+	constexpr T length_squared(vec<1, T> const& v)
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use length_squared() on a non-arithmetic vector.");
+		return v.length_squared();
+	}
 
+	template <typename T>
+	constexpr vec<1, T> normalized(vec<1, T> const& v)
+	{
+		static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
+		return v.normalized();
+	}
+
+	template <typename T>
+	constexpr bool is_normalized(vec<1, T> const& v)
+	{
+		static_assert(std::is_floating_point<T>::value, "Cannot normalize a non-floating-point vector.");
+		return v.is_normalized();
+	}
+
+	template <typename T>
+	constexpr T distance(vec<1, T> const& v1, vec<1, T> const& v2)
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use distance() on a non-arithmetic vector.");
+		return v1.distance(v2);
+	}
+
+	template <typename T>
+	constexpr T distance_squared(vec<1, T> const& v1, vec<1, T> const& v2)
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use distance_squared() on a non-arithmetic vector.");
+		return v1.distance_squared(v2);
+	}
+
+	template <typename T>
+	constexpr vec<1, T> hadamard(vec<1, T> const& v1, vec<1, T> const& v2)
+	{
+		static_assert(std::is_arithmetic<T>::value, "Cannot use hadamard() on a non-arithmetic vector.");
+		return v1.hadamard(v2);
+	}
 
 }

@@ -2,9 +2,6 @@
 
 set(mim_detail_compute_headers
         include/mim/detail/compute/compute_functors.hpp
-        include/mim/detail/compute/compute_matrix.hpp
-        include/mim/detail/compute/compute_quaternion.hpp
-        include/mim/detail/compute/compute_vector.hpp
         )
 
 set(mim_detail_func_headers
