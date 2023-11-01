@@ -1,6 +1,5 @@
 // Copyright (c) 2023-Present Mim contributors (see LICENSE)
 
-#include "mim/detail/compute/compute_vector.hpp"
 #include "mim/cmath.hpp"
 #include "mim/mimConstants.hpp"
 
