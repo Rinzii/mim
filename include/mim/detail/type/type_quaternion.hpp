@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "mim/detail/compute/compute_quaternion.hpp"
 #include "mim/detail/defines.hpp"
 
 namespace mim

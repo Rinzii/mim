@@ -195,7 +195,7 @@ namespace mim
 		template <typename U>
 		constexpr vec<4, T>& operator%=(vec<4, U> const& v);
 
-		/// Increment and Decrement Operators
+		// Increment and Decrement Operators
 
 		constexpr vec<4, T>& operator++();
 
@@ -205,7 +205,7 @@ namespace mim
 
 		constexpr const vec<4, T> operator--(int);
 
-		/// Bitwise Assignment Operators
+		// Bitwise Assignment Operators
 
 		template <typename U>
 		constexpr vec<4, T>& operator&=(U scalar);
@@ -253,7 +253,7 @@ namespace mim
 		constexpr vec<4, T>& operator>>=(vec<4, U> const& v);
 
 
-		/// Generic Function Declarations
+		// Functions
 
 		constexpr T length() const;
 
@@ -269,18 +269,19 @@ namespace mim
 
 		constexpr T distance_squared(const vec<4, T>& v) const;
 
-
-		/// Function Declarations
+		// TODO: Maybe add the wedge product as an option?
 
 		constexpr T dot(const vec<4, T>& v) const;
-		constexpr vec<4, T> rotated(T angle) const;
+
+		constexpr vec<4, T> hadamard(const vec<4, T>& v) const;
+
 		constexpr vec<4, T> clamp(const vec<4, T>& min, const vec<4, T>& max) const;
-		constexpr vec<4, T> reflect(const vec<4, T>& normal) const;
-		constexpr vec<4, T> refract(const vec<4, T>& normal, T eta) const;
-		constexpr vec<4, T> project(const vec<4, T>& normal) const;
+
 	};
 
-	/// Unary Operators
+	/// Free functions
+
+	// Unary Operators
 
 	template <typename T>
 	constexpr vec<4, T> operator+(vec<4, T> const& v);
@@ -288,7 +289,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<4, T> operator-(vec<4, T> const& v);
 
-	/// Binary Operators
+	// Binary Operators
 
 	template <typename T>
 	constexpr vec<4, T> operator+(vec<4, T> const& v, T const& scalar);
@@ -365,7 +366,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<4, T> operator%(vec<4, T> const& v1, vec<4, T> const& v2);
 
-	/// Bitwise Binary Operators
+	// Bitwise Binary Operators
 
 	template <typename T>
 	constexpr vec<4, T> operator&(vec<4, T> const& v, T scalar);
@@ -445,7 +446,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<4, T> operator~(vec<4, T> const& v);
 
-	/// Conditional Binary Operators
+	// Conditional Binary Operators
 
 	template <typename T>
 	constexpr bool operator==(vec<4, T> const& v1, vec<4, T> const& v2);
@@ -456,6 +457,33 @@ namespace mim
 	constexpr vec<4, bool> operator&&(vec<4, bool> const& v1, vec<4, bool> const& v2);
 
 	constexpr vec<4, bool> operator||(vec<4, bool> const& v1, vec<4, bool> const& v2);
+
+
+	/// These functions are defined in func_vector4.inl
+
+	template <typename T>
+	constexpr T length(vec<4, T> const& v);
+
+	template <typename T>
+	constexpr T length_squared(vec<4, T> const& v);
+
+	template <typename T>
+	constexpr vec<4, T> normalized(vec<4, T> const& v);
+
+	template <typename T>
+	MIM_NODISCARD constexpr bool is_normalized(vec<4, T> const& v);
+
+	template <typename T>
+	constexpr T distance(vec<4, T> const& v1, vec<4, T> const& v2);
+
+	template <typename T>
+	constexpr T distance_squared(vec<4, T> const& v1, vec<4, T> const& v2);
+
+	template <typename T>
+	constexpr T dot(vec<4, T> const& v1, vec<4, T> const& v2);
+
+	template <typename T>
+	constexpr vec<4, T> hadamard(vec<4, T> const& v1, vec<4, T> const& v2);
 
 
 } // namespace mim
