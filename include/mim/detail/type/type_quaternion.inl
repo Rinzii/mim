@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "mim/detail/compute/compute_quaternion.hpp"
 #include "mim/detail/type/type_vector3.hpp"
 
 #include "mim/cmath.hpp"
