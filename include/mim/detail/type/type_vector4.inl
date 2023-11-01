@@ -315,7 +315,11 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator+=(U scalar)
 	{
-		return (*this = detail::Add<T, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x += static_cast<T>(scalar);
+		this->y += static_cast<T>(scalar);
+		this->z += static_cast<T>(scalar);
+		this->w += static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -325,21 +329,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator+=(vec<1, U> const& v)
 	{
-		return (*this = detail::Add<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v.x)));
+		this->x += static_cast<T>(v.x);
+		this->y += static_cast<T>(v.x);
+		this->z += static_cast<T>(v.x);
+		this->w += static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator+=(vec<4, U> const& v)
 	{
-		return (*this = detail::Add<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x += static_cast<T>(v.x);
+		this->y += static_cast<T>(v.y);
+		this->z += static_cast<T>(v.z);
+		this->w += static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator-=(U scalar)
 	{
-		return (*this = detail::Sub<T, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x -= static_cast<T>(scalar);
+		this->y -= static_cast<T>(scalar);
+		this->z -= static_cast<T>(scalar);
+		this->w -= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -349,21 +365,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator-=(vec<1, U> const& v)
 	{
-		return (*this = detail::Sub<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v.x)));
+		this->x -= static_cast<T>(v.x);
+		this->y -= static_cast<T>(v.x);
+		this->z -= static_cast<T>(v.x);
+		this->w -= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator-=(vec<4, U> const& v)
 	{
-		return (*this = detail::Sub<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x -= static_cast<T>(v.x);
+		this->y -= static_cast<T>(v.y);
+		this->z -= static_cast<T>(v.z);
+		this->w -= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator*=(U scalar)
 	{
-		return (*this = detail::Mul<T, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x *= static_cast<T>(scalar);
+		this->y *= static_cast<T>(scalar);
+		this->z *= static_cast<T>(scalar);
+		this->w *= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -373,21 +401,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator*=(vec<1, U> const& v)
 	{
-		return (*this = detail::Mul<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v.x)));
+		this->x *= static_cast<T>(v.x);
+		this->y *= static_cast<T>(v.x);
+		this->z *= static_cast<T>(v.x);
+		this->w *= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator*=(vec<4, U> const& v)
 	{
-		return (*this = detail::Mul<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x *= static_cast<T>(v.x);
+		this->y *= static_cast<T>(v.y);
+		this->z *= static_cast<T>(v.z);
+		this->w *= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator/=(U scalar)
 	{
-		return (*this = detail::Div<T, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x /= static_cast<T>(scalar);
+		this->y /= static_cast<T>(scalar);
+		this->z /= static_cast<T>(scalar);
+		this->w /= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -397,21 +437,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator/=(vec<1, U> const& v)
 	{
-		return (*this = detail::Div<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v.x)));
+		this->x /= static_cast<T>(v.x);
+		this->y /= static_cast<T>(v.x);
+		this->z /= static_cast<T>(v.x);
+		this->w /= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator/=(vec<4, U> const& v)
 	{
-		return (*this = detail::Div<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x /= static_cast<T>(v.x);
+		this->y /= static_cast<T>(v.y);
+		this->z /= static_cast<T>(v.z);
+		this->w /= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator%=(U scalar)
 	{
-		return (*this = detail::Mod<T, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x %= static_cast<T>(scalar);
+		this->y %= static_cast<T>(scalar);
+		this->z %= static_cast<T>(scalar);
+		this->w %= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -421,14 +473,22 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator%=(vec<1, U> const& v)
 	{
-		return (*this = detail::Mod<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x %= static_cast<T>(v.x);
+		this->y %= static_cast<T>(v.x);
+		this->z %= static_cast<T>(v.x);
+		this->w %= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator%=(vec<4, U> const& v)
 	{
-		return (*this = detail::Mod<T, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x %= static_cast<T>(v.x);
+		this->y %= static_cast<T>(v.y);
+		this->z %= static_cast<T>(v.z);
+		this->w %= static_cast<T>(v.w);
+		return *this;
 	}
 
 	/// Increment and Decrement Operators
@@ -475,8 +535,11 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator&=(U scalar)
 	{
-		return (*this = detail::BitwiseAnd<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(
-					*this, vec<4, T>(scalar)));
+		this->x &= static_cast<T>(scalar);
+		this->y &= static_cast<T>(scalar);
+		this->z &= static_cast<T>(scalar);
+		this->w &= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -486,24 +549,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator&=(vec<1, U> const& v)
 	{
-		return (*this = detail::BitwiseAnd<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		 vec<4, T>(v)));
+		this->x &= static_cast<T>(v.x);
+		this->y &= static_cast<T>(v.x);
+		this->z &= static_cast<T>(v.x);
+		this->w &= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator&=(vec<4, U> const& v)
 	{
-		return (*this = detail::BitwiseAnd<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		 vec<4, T>(v)));
+		this->x &= static_cast<T>(v.x);
+		this->y &= static_cast<T>(v.y);
+		this->z &= static_cast<T>(v.z);
+		this->w &= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator|=(U scalar)
 	{
-		return (*this = detail::BitwiseOr<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(
-					*this, vec<4, T>(scalar)));
+		this->x |= static_cast<T>(scalar);
+		this->y |= static_cast<T>(scalar);
+		this->z |= static_cast<T>(scalar);
+		this->w |= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -513,24 +585,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator|=(vec<1, U> const& v)
 	{
-		return (*this = detail::BitwiseOr<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		vec<4, T>(v)));
+		this->x |= static_cast<T>(v.x);
+		this->y |= static_cast<T>(v.x);
+		this->z |= static_cast<T>(v.x);
+		this->w |= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator|=(vec<4, U> const& v)
 	{
-		return (*this = detail::BitwiseOr<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		vec<4, T>(v)));
+		this->x |= static_cast<T>(v.x);
+		this->y |= static_cast<T>(v.y);
+		this->z |= static_cast<T>(v.z);
+		this->w |= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator^=(U scalar)
 	{
-		return (*this =
-					detail::Xor<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this, vec<4, T>(scalar)));
+		this->x ^= static_cast<T>(scalar);
+		this->y ^= static_cast<T>(scalar);
+		this->z ^= static_cast<T>(scalar);
+		this->w ^= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -540,22 +621,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator^=(vec<1, U> const& v)
 	{
-		return (*this = detail::Xor<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x ^= static_cast<T>(v.x);
+		this->y ^= static_cast<T>(v.x);
+		this->z ^= static_cast<T>(v.x);
+		this->w ^= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator^=(vec<4, U> const& v)
 	{
-		return (*this = detail::Xor<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this, vec<4, T>(v)));
+		this->x ^= static_cast<T>(v.x);
+		this->y ^= static_cast<T>(v.y);
+		this->z ^= static_cast<T>(v.z);
+		this->w ^= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator<<=(U scalar)
 	{
-		return (*this = detail::ShiftLeft<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(
-					*this, vec<4, T>(scalar)));
+		this->x <<= static_cast<T>(scalar);
+		this->y <<= static_cast<T>(scalar);
+		this->z <<= static_cast<T>(scalar);
+		this->w <<= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -565,24 +657,33 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator<<=(vec<1, U> const& v)
 	{
-		return (*this = detail::ShiftLeft<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		vec<4, T>(v)));
+		this->x <<= static_cast<T>(v.x);
+		this->y <<= static_cast<T>(v.x);
+		this->z <<= static_cast<T>(v.x);
+		this->w <<= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator<<=(vec<4, U> const& v)
 	{
-		return (*this = detail::ShiftLeft<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		vec<4, T>(v)));
+		this->x <<= static_cast<T>(v.x);
+		this->y <<= static_cast<T>(v.y);
+		this->z <<= static_cast<T>(v.z);
+		this->w <<= static_cast<T>(v.w);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator>>=(U scalar)
 	{
-		return (*this = detail::ShiftRight<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(
-					*this, vec<4, T>(scalar)));
+		this->x >>= static_cast<T>(scalar);
+		this->y >>= static_cast<T>(scalar);
+		this->z >>= static_cast<T>(scalar);
+		this->w >>= static_cast<T>(scalar);
+		return *this;
 	}
 
 	/*
@@ -592,16 +693,22 @@ namespace mim
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator>>=(vec<1, U> const& v)
 	{
-		return (*this = detail::ShiftRight<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		 vec<4, T>(v)));
+		this->x >>= static_cast<T>(v.x);
+		this->y >>= static_cast<T>(v.x);
+		this->z >>= static_cast<T>(v.x);
+		this->w >>= static_cast<T>(v.x);
+		return *this;
 	}
 
 	template <typename T>
 	template <typename U>
 	constexpr vec<4, T>& vec<4, T>::operator>>=(vec<4, U> const& v)
 	{
-		return (*this = detail::ShiftRight<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(*this,
-																																		 vec<4, T>(v)));
+		this->x >>= static_cast<T>(v.x);
+		this->y >>= static_cast<T>(v.y);
+		this->z >>= static_cast<T>(v.z);
+		this->w >>= static_cast<T>(v.w);
+		return *this;
 	}
 
 	/// Unary Operators
@@ -985,7 +1092,7 @@ namespace mim
 	template <typename T>
 	constexpr vec<4, T> operator~(vec<4, T> const& v)
 	{
-		return detail::BitwiseNot<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(v);
+		return vec<4, T>(~v.x, ~v.y, ~v.z, ~v.w);
 	}
 
 	/// Conditional Operators
@@ -993,13 +1100,13 @@ namespace mim
 	template <typename T>
 	constexpr bool operator==(vec<4, T> const& v1, vec<4, T> const& v2)
 	{
-		return detail::Equal<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(v1, v2);
+		return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z && v1.w == v2.w;
 	}
 
 	template <typename T>
 	constexpr bool operator!=(vec<4, T> const& v1, vec<4, T> const& v2)
 	{
-		return detail::NotEqual<T, std::numeric_limits<T>::is_iec559, sizeof(T) * 8, detail::IsAligned::value>::compute(v1, v2);
+		return v1.x != v2.x || v1.y != v2.y || v1.z != v2.z || v1.w != v2.w;
 	}
 
 	
