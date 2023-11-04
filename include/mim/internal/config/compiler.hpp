@@ -36,7 +36,7 @@
 #endif
 
 #if !defined(MIM_COMPILER_CPP23_ENABLED) && defined(__cplusplus)
-	#if (__cplusplus >= 202300L) # TODO: This is a place holder till C++23 has an offical version number.
+	#if (__cplusplus >= 202300L) // TODO: This is a place holder till C++23 has an offical version number.
 		#define MIM_COMPILER_CPP23_ENABLED 1
 	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202300L) // C++23+
 		#define MIM_COMPILER_CPP23_ENABLED 1
