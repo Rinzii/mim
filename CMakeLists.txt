@@ -5,7 +5,7 @@ enable_language(CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_DEBUG_POSTFIX "-d")
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -27,10 +27,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set(is_root_project ON)
 endif()
 
-# TO THE IMPLEMENTOR: If MIM_BUILD_TEST is set to OFF then googletest can be deleted from the ext folder.
+
 option(MIM_BUILD_TEST "Build mim tests" ${is_root_project})
 option(MIM_INSTALL "Setup install and package steps" ${is_root_project})
-option(MIM_USE_SIMD "Use SIMD instructions" OFF)
+option(MIM_USE_SIMD "Use SIMD instructions" OFF) # Currently not implemented.
 
 
 # include the global configuration file
@@ -55,9 +55,9 @@ target_sources(${PROJECT_NAME} PRIVATE
 # Only supported compilers currently are MSVC, GCC and Clang
 if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE
-          /W4 /WX /std:c++20
+          /W4 /WX /Wall /permissive- /Zc:__cplusplus
           )
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang OR CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
   target_compile_options(${PROJECT_NAME} PRIVATE
           -Wall -Wno-pedantic -Wno-unused-function
           )
