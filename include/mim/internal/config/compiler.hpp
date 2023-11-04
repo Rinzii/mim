@@ -24,34 +24,7 @@
 	#define INTERNAL_PRIMITIVE_STRINGIFY(x) #x
 #endif
 
-/// MIM_COMPILER_CPP11_ENABLED
-#if !defined(MIM_COMPILER_CPP11_ENABLED) && defined(__cplusplus)
-	#if (__cplusplus >= 201103L) // Clang and GCC defines this like so in C++11 mode.
-		#define MIM_COMPILER_CPP11_ENABLED 1
-	#elif defined(__GNUC__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-		#define MIM_COMPILER_CPP11_ENABLED 1
-	#elif defined(_MSC_VER) && _MSC_VER >= 1600 // Microsoft unilaterally enables its C++11 support; there is no way to disable it.
-		#define MIM_COMPILER_CPP11_ENABLED 1
-	#endif
-#endif
-
-/// MIM_COMPILER_CPP14_ENABLED
-#if !defined(MIM_COMPILER_CPP14_ENABLED) && defined(__cplusplus)
-	#if (__cplusplus >= 201402L) // Clang and GCC defines this like so in C++14 mode.
-		#define MIM_COMPILER_CPP14_ENABLED 1
-	#elif defined(_MSC_VER) && (_MSC_VER >= 1900) // VS2015+
-		#define MIM_COMPILER_CPP14_ENABLED 1
-	#endif
-#endif
-
-/// MIM_COMPILER_CPP17_ENABLED
-#if !defined(MIM_COMPILER_CPP17_ENABLED) && defined(__cplusplus)
-	#if (__cplusplus >= 201703L)
-		#define MIM_COMPILER_CPP17_ENABLED 1
-	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 201703L) // C++17+
-		#define MIM_COMPILER_CPP17_ENABLED 1
-	#endif
-#endif
+// We assume implicit C++17 support with mim.
 
 /// MIM_COMPILER_CPP20_ENABLED
 #if !defined(MIM_COMPILER_CPP20_ENABLED) && defined(__cplusplus)
@@ -59,6 +32,14 @@
 		#define MIM_COMPILER_CPP20_ENABLED 1
 	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202002L) // C++20+
 		#define MIM_COMPILER_CPP20_ENABLED 1
+	#endif
+#endif
+
+#if !defined(MIM_COMPILER_CPP23_ENABLED) && defined(__cplusplus)
+	#if (__cplusplus >= 202300L) # TODO: This is a place holder till C++23 has an offical version number.
+		#define MIM_COMPILER_CPP23_ENABLED 1
+	#elif defined(_MSVC_LANG) && (_MSVC_LANG >= 202300L) // C++23+
+		#define MIM_COMPILER_CPP23_ENABLED 1
 	#endif
 #endif
 
