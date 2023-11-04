@@ -51,6 +51,14 @@
     #endif
 #endif
 
+#ifndef MIM_NO_NODISCARD_MSG
+	#if defined(MIM_COMPILER_CPP20_ENABLED)
+		#define MIM_NODISCARD_MSG(msg) [[nodiscard(msg)]]
+	#else
+		#define MIM_NODISCARD_MSG(msg) [[nodiscard]]
+	#endif
+#endif
+
 #ifndef MIM_ALIGNED_TYPEDEF
 	#if MIM_COMPILER_MSVC
 		#define MIM_ALIGNED_TYPEDEF(type, name, alignment) typedef __declspec(align(alignment)) type name
@@ -61,30 +69,7 @@
 	#endif
 #endif
 
-#ifndef MIM_IF_CONSTEXPR
-	#ifndef MIM_COMPILER_NO_IF_CONSTEXPR
-		#define MIM_IF_CONSTEXPR if constexpr
-	#else
-		#define MIM_IF_CONSTEXPR if
-	#endif
-#endif
 
-#ifndef MIM_NODISCARD
-	#if defined(MIM_COMPILER_CPP17_ENABLED)
-		#define MIM_NODISCARD [[nodiscard]]
-	#else
-		#if defined(MIM_COMPILER_MSVC)
-			#include <sal.h>
-			#define MIM_NODISCARD __checkReturn
-		#elif defined(MIM_COMPILER_GCC) && (((__GNUC__ * 100) + __GNUC_MINOR__) >= 701) || defined(MIM_COMPILER_CLANG)
-			// Check that GNUC is at least 7.1
-			// This is required as GNUC 7.0 has a bug where it will not warn if the return value is not used
-			#define MIM_NODISCARD __attribute__((warn_unused_result))
-		#else
-			#define MIM_NODISCARD
-		#endif
-	#endif
-#endif
 
 #ifndef MIM_INLINE
 	#define MIM_INLINE inline
@@ -126,41 +111,6 @@
 	#endif
 #endif
 
-#ifndef MIM_DEPRECATED
-	#if !defined(MIM_COMPILER_CPP14_ENABLED)
-		#define MIM_DEPRECATED
-	#elif defined(MIM_COMPILER_MSVC)
-		#define MIM_DEPRECATED __declspec(deprecated)
-	#elif defined(MIM_COMPILER_GCC) || defined(MIM_COMPILER_CLANG)
-		#define MIM_DEPRECATED __attribute__((deprecated))
-	#else
-		#define MIM_DEPRECATED [[deprecated]]
-	#endif
-#endif
-
-#ifndef MIM_DEPRECATED_MESSAGE
-	#if !defined(MIM_COMPILER_CPP14_ENABLED)
-		#define MIM_DEPRECATED_MESSAGE(message)
-	#elif defined(MIM_COMPILER_MSVC)
-		#define MIM_DEPRECATED_MESSAGE(message) __declspec(deprecated(message))
-	#elif defined(MIM_COMPILER_GCC) || defined(MIM_COMPILER_CLANG)
-		#define MIM_DEPRECATED_MESSAGE(message) __attribute__((deprecated(message)))
-	#else
-		#define MIM_DEPRECATED_MESSAGE(message) [[deprecated(message)]]
-	#endif
-#endif
-
-#ifndef MIM_FALLTHROUGH
-	#if defined(MIM_COMPILER_CPP17_ENABLED)
-		#define MIM_FALLTHROUGH [[fallthrough]]
-	#elif defined(MIM_COMPILER_GCC) || defined(MIM_COMPILER_CLANG)
-		#define MIM_FALLTHROUGH __attribute__((fallthrough))
-	#elif defined(MIM_COMPILER_MSVC)
-		#define MIM_FALLTHROUGH __fallthrough
-	#else
-		#define MIM_FALLTHROUGH
-	#endif
-#endif
 
 #if defined(MIM_COMPILER_MSVC)
 	#define MIM_PRAGMA(x) __pragma(x)
